@@ -3,5 +3,15 @@ module.exports = {
   "env": {
     "browser": true,
     "node": true
+  },
+  'rules': {
+    // allow paren-less arrow functions
+    'arrow-parens': 0,
+    // allow async-await
+    'generator-star-spacing': 0,
+    // error on ; when they are not present
+    'semi' : ['error', 'always'],
+    // allow export and import
+    'import/prefer-default-export': 0,
   }
 };
