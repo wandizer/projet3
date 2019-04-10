@@ -6,60 +6,32 @@
 </head>
 <body>
 	<form id="login">
-		<input type="text" id="login" name="login" placeholder="Your login"/>
+		<input type="text" id="username" name="username" placeholder="Your username"/>
 		<input type="password" id="password" name="password" placeholder="Your password"/>
 		<input type="submit" id="signin" name="connect" value="Sign in"/>
 	</form>
 </body>
 
+
 <script>
-	const mysql = require('mysql');
-	let loginInput = document.getElementById("login");
+	const moduleUser = require('../../js/modules/User.js');
 
-	const con = mysql.createConnection({
-		host: "localhost",
-		user: "root",
-		password: "",
-		database: "test"
-	});
+	function checkConnection(result, password) {
+		if(Array.isArray(result) && result.length === 1) {
+			if (password === result[0]["password"]) window.location.assign('index2.html');
+		}
+	}
 
-	var sql = 'SELECT * FROM user WHERE fname=\'';
+	document.getElementById('login').addEventListener('submit', (e) => {
+		e.preventDefault();
+		const formData = new FormData(e.target);
 
-	document.getElementById("login").addEventListener('submit', (form) => {
-		form.preventDefault();
-		const formData = new FormData(form.target);
+		const username = formData.get("username");
+		const password = formData.get("password");
 
-		console.log();
-
-		sql = sql + formData.get("login") + '\'';
-
-		con.connect(function(err) {
-			if (err) throw err;
-			console.log("Connected!");
-			con.query(sql, function (err, rows, fields) {
-				console.log(sql);
-
-				if (err) throw err;
-
-				if(rows[0] !== null && rows[0] !== undefined && rows[0]["lname"] === document.getElementById("password").value) { 
-					window.location.assign('index2.html');
-
-
-					con.end(function(err) {
-						if (err) {
-							return console.log('error:' + err.message);
-						}
-						console.log('Close the database connection.');
-					});
-
-				}
-				else {
-					window.location.assign('');
-				}
-
-			});
-		});
-	})
-
+		if(username !== "" && password !== "") { 
+			let user = moduleUser.getByUsername(username, checkConnection, password);
+		}
+	}, false);
 </script>
 </html>
