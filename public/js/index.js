@@ -1,10 +1,11 @@
 const Database = require('./modules/Database.js');
 
-const database = new Database('localhost', 'root', '', 'hotel');
+const database = Database.getDatabase();
 
 const interactionWithDOM = (result) => {
   console.log(result);
 };
-database.executeQuery('SELECT * FROM client WHERE id=1', interactionWithDOM);
+
+database.executeQuery('SELECT * FROM user WHERE id_user = ?', [1], interactionWithDOM);
 
 console.log('end');

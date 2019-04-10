@@ -24,12 +24,11 @@ class Database {
     });
   }
 
-  executeQuery($query, callback) {
+  executeQuery($query, $params, callback) {
     // We open a connection
     this.startConnection();
     // We execute the query
-    let result;
-    this.connection.query($query, (err, rows) => {
+    this.connection.query($query, $params, (err, rows) => {
       if (err) {
         console.log("An error ocurred performing the query.", err);
         return;
@@ -38,6 +37,10 @@ class Database {
     });
     // We close the connection
     this.stopConnection();
+  }
+
+  static getDatabase() {
+    return new Database('localhost', 'root', '', 'hotel');
   }
 }
 
