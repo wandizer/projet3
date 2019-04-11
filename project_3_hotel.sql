@@ -1,22 +1,11 @@
-#------------------------------------------------------------
-#        Script MySQL.
-#------------------------------------------------------------
 
-
-#------------------------------------------------------------
-# Table: Service
-#------------------------------------------------------------
 
 CREATE TABLE Service(
         id_service Int  Auto_increment  NOT NULL ,
         name       Varchar (50) NOT NULL
 	,CONSTRAINT Service_PK PRIMARY KEY (id_service)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Role
-#------------------------------------------------------------
 
 CREATE TABLE Role(
         id_role    Int  Auto_increment  NOT NULL ,
@@ -25,12 +14,8 @@ CREATE TABLE Role(
 	,CONSTRAINT Role_PK PRIMARY KEY (id_role)
 
 	,CONSTRAINT Role_Service_FK FOREIGN KEY (id_service) REFERENCES Service(id_service)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Employe
-#------------------------------------------------------------
 
 CREATE TABLE Employe(
         id_employe Int  Auto_increment  NOT NULL ,
@@ -42,12 +27,8 @@ CREATE TABLE Employe(
 	,CONSTRAINT Employe_PK PRIMARY KEY (id_employe)
 
 	,CONSTRAINT Employe_Role_FK FOREIGN KEY (id_role) REFERENCES Role(id_role)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: User
-#------------------------------------------------------------
 
 CREATE TABLE User(
         id_user    Int  Auto_increment  NOT NULL ,
@@ -59,12 +40,8 @@ CREATE TABLE User(
 
 	,CONSTRAINT User_Employe_FK FOREIGN KEY (id_employe) REFERENCES Employe(id_employe)
 	,CONSTRAINT User_Employe_AK UNIQUE (id_employe)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Room
-#------------------------------------------------------------
 
 CREATE TABLE Room(
         id_room Int  Auto_increment  NOT NULL ,
@@ -73,12 +50,8 @@ CREATE TABLE Room(
         price   Int NOT NULL ,
         type    Varchar (50) NOT NULL
 	,CONSTRAINT Room_PK PRIMARY KEY (id_room)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Client
-#------------------------------------------------------------
 
 CREATE TABLE Client(
         id_client Int  Auto_increment  NOT NULL ,
@@ -87,12 +60,8 @@ CREATE TABLE Client(
         email     Varchar (50) NOT NULL ,
         number    Varchar (50) NOT NULL
 	,CONSTRAINT Client_PK PRIMARY KEY (id_client)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Room_Reservation
-#------------------------------------------------------------
 
 CREATE TABLE Room_Reservation(
         id_room_reservation Int  Auto_increment  NOT NULL ,
@@ -106,23 +75,15 @@ CREATE TABLE Room_Reservation(
 
 	,CONSTRAINT Room_Reservation_Room_FK FOREIGN KEY (id_room) REFERENCES Room(id_room)
 	,CONSTRAINT Room_Reservation_Client0_FK FOREIGN KEY (id_client) REFERENCES Client(id_client)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Type_Food
-#------------------------------------------------------------
 
 CREATE TABLE Type_Food(
         id_type_food Int  Auto_increment  NOT NULL ,
         name         Varchar (5) NOT NULL
 	,CONSTRAINT Type_Food_PK PRIMARY KEY (id_type_food)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Food_Item
-#------------------------------------------------------------
 
 CREATE TABLE Food_Item(
         id_food_item Int  Auto_increment  NOT NULL ,
@@ -131,12 +92,8 @@ CREATE TABLE Food_Item(
 	,CONSTRAINT Food_Item_PK PRIMARY KEY (id_food_item)
 
 	,CONSTRAINT Food_Item_Type_Food_FK FOREIGN KEY (id_type_food) REFERENCES Type_Food(id_type_food)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Stock
-#------------------------------------------------------------
 
 CREATE TABLE Stock(
         id_stock        Int  Auto_increment  NOT NULL ,
@@ -147,18 +104,14 @@ CREATE TABLE Stock(
 	,CONSTRAINT Stock_PK PRIMARY KEY (id_stock)
 
 	,CONSTRAINT Stock_Food_Item_FK FOREIGN KEY (id_food_item) REFERENCES Food_Item(id_food_item)
-)ENGINE=InnoDB;
+);
 
-
-#------------------------------------------------------------
-# Table: Appetizers
-#------------------------------------------------------------
 
 CREATE TABLE Appetizers(
         id_appetizer Int  Auto_increment  NOT NULL ,
         name         Varchar (50) NOT NULL
 	,CONSTRAINT Appetizers_PK PRIMARY KEY (id_appetizer)
-)ENGINE=InnoDB;
+);
 
 
 
