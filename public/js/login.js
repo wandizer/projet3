@@ -2,7 +2,7 @@ const moduleUser = require('./modules/User.js');
 
 function checkConnection(result, password) {
   if (Array.isArray(result) && result.length === 1) {
-    if (password === result[0].password) window.location.assign('index2.html');
+    if (password === result[0].password) window.location.assign('../views/pages/index2.html');
   }
 }
 
@@ -14,6 +14,6 @@ document.getElementById('login').addEventListener('submit', (e) => {
   const password = formData.get('password');
 
   if (username !== '' && password !== '') {
-    const user = moduleUser.getByUsername(username, checkConnection, password);
+    moduleUser.getByUsername(username, checkConnection, password);
   }
 }, false);
