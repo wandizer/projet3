@@ -15,6 +15,10 @@ class User {
     Database.getDatabase().write(table, ['email', 'username', 'password', 'id_employe'], [this.email, this.username, this.password, this.id_employe]);
   }
 
+	static rewrite() {
+    Database.getDatabase().rewrite(table, ['email', 'username', 'password'], [this.email, this.username, this.password],'id_user', this.id);
+  }
+	
   static getByUsername(username, callback, password) {
     Database.getDatabase().getByUsername(table, username, callback, password);
   }
