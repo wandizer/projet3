@@ -6,6 +6,7 @@ const mysql = require('mysql');
 class Database {
   /**
    * Class database constructor
+   * @constructor
    * @param {string} host
    * @param {string} user
    * @param {string} password
