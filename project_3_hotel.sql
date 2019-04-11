@@ -4,27 +4,27 @@
 
 
 #------------------------------------------------------------
-# Table: Role
-#------------------------------------------------------------
-
-CREATE TABLE Role(
-        id_role Int  Auto_increment  NOT NULL ,
-        name    Varchar (50) NOT NULL
-	,CONSTRAINT Role_PK PRIMARY KEY (id_role)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
 # Table: Service
 #------------------------------------------------------------
 
 CREATE TABLE Service(
         id_service Int  Auto_increment  NOT NULL ,
-        name       Varchar (50) NOT NULL ,
-        id_role    Int NOT NULL
+        name       Varchar (50) NOT NULL
 	,CONSTRAINT Service_PK PRIMARY KEY (id_service)
+)ENGINE=InnoDB;
 
-	,CONSTRAINT Service_Role_FK FOREIGN KEY (id_role) REFERENCES Role(id_role)
+
+#------------------------------------------------------------
+# Table: Role
+#------------------------------------------------------------
+
+CREATE TABLE Role(
+        id_role    Int  Auto_increment  NOT NULL ,
+        name       Varchar (50) NOT NULL ,
+        id_service Int NOT NULL
+	,CONSTRAINT Role_PK PRIMARY KEY (id_role)
+
+	,CONSTRAINT Role_Service_FK FOREIGN KEY (id_service) REFERENCES Service(id_service)
 )ENGINE=InnoDB;
 
 
@@ -38,10 +38,10 @@ CREATE TABLE Employe(
         surname    Varchar (50) NOT NULL ,
         birthday   Date ,
         salary     Int NOT NULL ,
-        id_service Int NOT NULL
+        id_role    Int NOT NULL
 	,CONSTRAINT Employe_PK PRIMARY KEY (id_employe)
 
-	,CONSTRAINT Employe_Service_FK FOREIGN KEY (id_service) REFERENCES Service(id_service)
+	,CONSTRAINT Employe_Role_FK FOREIGN KEY (id_role) REFERENCES Role(id_role)
 )ENGINE=InnoDB;
 
 
@@ -163,6 +163,3 @@ CREATE TABLE Appetizers(
 
 
 
-	=======================================================================
-	   D�sol�, il faut activer cette version pour voir la suite du script ! 
-	=======================================================================

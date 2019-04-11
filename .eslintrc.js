@@ -13,5 +13,7 @@ module.exports = {
     'semi' : ['error', 'always'],
     // allow export and import
     'import/prefer-default-export': 0,
+    // allow nested-ternary
+    'no-nested-ternary': 0,
   }
 };
