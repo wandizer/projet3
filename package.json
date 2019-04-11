@@ -4,7 +4,9 @@
   "description": "Progiciel de gestion pour un hotel de 4 étoiles",
   "main": "public/main.js",
   "dependencies": {
-    "mysql": "^2.16.0"
+    "electron": "^4.1.4",
+    "mysql": "^2.16.0",
+    "sqlite3": "^4.0.6"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
@@ -13,7 +15,6 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0",
-    "electron": "^4.1.4",
     "electron-packager": "^13.1.1"
   },
   "scripts": {

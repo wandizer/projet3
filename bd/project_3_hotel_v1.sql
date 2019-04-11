@@ -164,5 +164,5 @@ CREATE TABLE Appetizers(
 
 
 	=======================================================================
-	   Désolé, il faut activer cette version pour voir la suite du script ! 
+	   Dï¿½solï¿½, il faut activer cette version pour voir la suite du script ! 
 	=======================================================================
