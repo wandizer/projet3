@@ -103,7 +103,36 @@
     	this.executeQuery(sql, params);
     }
 
-     	const sql = 'INSERT INTO role(name,id_service) VALUES (\'Spa Manager\',8)';
+     	const sql = 'INSERT INTO role(name,id_service) VALUES (\'Spa Manager\',9)';
+    	this.executeQuery(sql, params);
+    }
+  }
+  
+  employeInserts() {
+    for (let i = 0; i < 9; i += 1) {
+     	const sql = `INSERT INTO employe(name,surname,birthday,salary,id_role) VALUES ('testNam${i}','testSur${i}','2019-04-01','1000','${i}')`;
+    	this.executeQuery(sql, params);
+    }
+  }
+
+  userInserts() {
+    for (let i = 0; i < 9; i += 1) {
+     	const sql = `INSERT INTO user(email,username,password,id_employe) VALUES ('testEmail${i}@yopmail.com','test${i}','123','${i}')`;
+    	this.executeQuery(sql, params);
+    }
+  }
+
+  roomInserts() {
+    for (let i = 0; i < 20; i += 1) {
+     	const sql = `INSERT INTO room(number,floor,price,type) VALUES ('A${i}','1','100','Single')`;
+    	this.executeQuery(sql, params);
+    }
+    for (let i = 0; i < 20; i += 1) {
+     	const sql = `INSERT INTO room(number,floor,price,type) VALUES ('B${i}','2','200','Double')`;
+    	this.executeQuery(sql, params);
+    }
+    for (let i = 0; i < 20; i += 1) {
+     	const sql = `INSERT INTO room(number,floor,price,type) VALUES ('C${i}','3','300','Suite')`;
     	this.executeQuery(sql, params);
     }
   }
