@@ -1,10 +1,10 @@
 const createTable = {
   Sercive: 'CREATE TABLE Service ('
-    + 'id_service Int  Auto_increment  NOT NULL ,'
+    + 'id_service Int  Auto_increment,'
     + 'name       Varchar (50) NOT NULL,'
     + 'CONSTRAINT Service_PK PRIMARY KEY (id_service));',
   Role: 'CREATE TABLE Role ('
-    + 'id_role    Int  Auto_increment  NOT NULL ,'
+    + 'id_role    Int  Auto_increment,'
     + 'name       Varchar (50) NOT NULL ,'
     + 'id_service Int NOT NULL ,'
     + 'CONSTRAINT Role_PK PRIMARY KEY (id_role),'
