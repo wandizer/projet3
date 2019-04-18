@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const schema = require('../../database/schema.js');
+const data = require('../../database/data.js');
 
 /**
  * @class DatabaseV2
@@ -14,6 +15,7 @@ class DatabaseV2 {
     if (databaseFilename) this.startConnection(databaseFilename);
     else this.startConnection();
     this.createSchema();
+    this.insertData();
   }
 
   /**
@@ -106,6 +108,31 @@ class DatabaseV2 {
       Object.keys(schema).forEach((key) => {
         console.log(schema[key]);
         this.executeQuery(schema[key]);
+      });
+    });
+  }
+
+  insertData() {
+    const servicesInserts = data.servicesInserts();
+    const rolesInserts = data.rolesInserts();
+    const employeInserts = data.employeInserts();
+    const userInserts = data.userInserts();
+    const roomInserts = data.roomInserts();
+    this.db.serialize(() => {
+      servicesInserts.forEach((sql) => {
+        this.executeQuery(sql);
+      });
+      rolesInserts.forEach((sql) => {
+        this.executeQuery(sql);
+      });
+      employeInserts.forEach((sql) => {
+        this.executeQuery(sql);
+      });
+      userInserts.forEach((sql) => {
+        this.executeQuery(sql);
+      });
+      roomInserts.forEach((sql) => {
+        this.executeQuery(sql);
       });
     });
   }
