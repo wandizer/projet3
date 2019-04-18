@@ -11,5 +11,13 @@
   <input type="submit" id="signin" name="connect" value="Sign in"/>
 </form>
 <script type="module"> require('../connexion_controller.js'); </script>
+<script type="text/javascript">
+  const Database = require('../../../database/DatabaseV2');
+  const db = new Database();
+  const insertionDansDom = (result) => {
+    document.body.innerHTML = result;
+  };
+  db.executeQuery('SELECT * FROM user', insertionDansDom);
+</script>
 </body>
 </html>
