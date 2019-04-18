@@ -1,8 +1,11 @@
-const moduleUser = require('./modules/User.js');
+const moduleUser = require('./models/User.js');
 
 function checkConnection(result, password) {
   if (Array.isArray(result) && result.length === 1) {
-    if (password === result[0].password) window.location.assign('../views/pages/index2.html');
+    if (password === result[0].password){ 
+			//redirection vers dashboard
+			window.location.assign('./views/generic_view.html');
+		}
   }
 }
 

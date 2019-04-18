@@ -1,4 +1,4 @@
-const Database = require('./Database.js');
+const Database = require('../../../database/database.js');
 
 const table = 'User';
 
