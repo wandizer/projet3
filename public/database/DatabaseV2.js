@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
-const schema = require('../../database/schema.js');
-const data = require('../../database/data.js');
+const schema = require('./schema.js');
+const data = require('./data.js');
 
 /**
  * @class DatabaseV2

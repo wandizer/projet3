@@ -9,16 +9,20 @@
     "sqlite3": "^4.0.6"
   },
   "devDependencies": {
+    "electron-builder": "^20.39.0",
+    "electron-packager": "^13.1.1",
+    "electron-rebuild": "^1.8.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.0",
-    "electron-packager": "^13.1.1"
+    "eslint-plugin-react": "^7.11.0"
   },
   "scripts": {
     "start": "electron .",
+    "rebuild": "./node_modules/.bin/electron-rebuild -f -w sqlite3",
+    "postinstall": "./node_modules/.bin/electron-builder install-app-deps",
     "build": "npm run build-win && npm run build-mac && npm run build-linux",
     "build-win": "./node_modules/.bin/electron-packager . --overwrite --prune=true --out=build --platform=win32 --arch=ia32",
     "build-mac": "./node_modules/.bin/electron-packager . --overwrite --prune=true --out=build --platform=darwin --arch=x64",
