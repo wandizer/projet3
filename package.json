@@ -2,13 +2,32 @@
   "name": "projet3",
   "version": "1.0.0",
   "description": "Progiciel de gestion pour un hotel de 4 étoiles",
-  "main": "main.js",
-  "dependencies": {},
+  "main": "public/main.js",
+  "dependencies": {
+    "electron": "^4.1.4",
+    "mysql": "^2.16.0",
+    "sqlite3": "^4.0.6"
+  },
   "devDependencies": {
-    "electron": "^4.1.4"
+    "electron-builder": "^20.39.0",
+    "electron-packager": "^13.1.1",
+    "electron-rebuild": "^1.8.4",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "rebuild": "electron-rebuild -f -w sqlite3",
+    "build": "npm run build-win && npm run build-mac && npm run build-linux",
+    "build-win": "electron-packager . --overwrite --prune=true --out=build --platform=win32 --arch=ia32",
+    "build-mac": "electron-packager . --overwrite --prune=true --out=build --platform=darwin --arch=x64",
+    "build-linux": "electron-packager . --overwrite --prune=true --out=build --platform=linux --arch=x64",
+    "lint": "./node_modules/.bin/eslint ./public/"
   },
   "repository": {
     "type": "git",
