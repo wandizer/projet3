@@ -15,5 +15,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     // allow nested-ternary
     'no-nested-ternary': 0,
+    // allow console
+    'no-console': 0
   }
 };

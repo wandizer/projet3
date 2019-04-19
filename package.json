@@ -27,7 +27,7 @@
     "build-win": "electron-packager . --overwrite --prune=true --out=build --platform=win32 --arch=ia32",
     "build-mac": "electron-packager . --overwrite --prune=true --out=build --platform=darwin --arch=x64",
     "build-linux": "electron-packager . --overwrite --prune=true --out=build --platform=linux --arch=x64",
-    "lint": "./node_modules/.bin/eslint ."
+    "lint": "./node_modules/.bin/eslint ./public/"
   },
   "repository": {
     "type": "git",
