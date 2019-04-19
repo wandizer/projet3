@@ -11,7 +11,7 @@ export const servicesInserts = () => {
     'Direction',
     'Loisirs'];
   for (let i = 0; i < arg.length; i += 1) {
-    querys.push(`INSERT INTO service(name) VALUES ('${arg[i]}')`);
+    querys.push(`INSERT INTO service VALUES ('${arg[i]}')`);
   }
   return querys;
 };

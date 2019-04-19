@@ -15,8 +15,8 @@ class DatabaseV2 {
     this.db = null;
     if (databaseFilename) this.startConnection(databaseFilename);
     else this.startConnection();
-    this.createSchema();
-    this.insertData();
+    // this.createSchema();
+    // this.insertData();
   }
 
   /**
@@ -247,21 +247,18 @@ class DatabaseV2 {
       servicesInserts.forEach((sql) => {
         this.executeQuery(sql);
       });
-      this.executeQuery('SELECT * FROM Service', [], (result) => {
-        console.log(result[0].name);
+      rolesInserts.forEach((sql) => {
+        this.executeQuery(sql);
       });
-      // rolesInserts.forEach((sql) => {
-      //   this.executeQuery(sql);
-      // });
-      // employeInserts.forEach((sql) => {
-      //   this.executeQuery(sql);
-      // });
-      // userInserts.forEach((sql) => {
-      //   this.executeQuery(sql);
-      // });
-      // roomInserts.forEach((sql) => {
-      //   this.executeQuery(sql);
-      // });
+      employeInserts.forEach((sql) => {
+        this.executeQuery(sql);
+      });
+      userInserts.forEach((sql) => {
+        this.executeQuery(sql);
+      });
+      roomInserts.forEach((sql) => {
+        this.executeQuery(sql);
+      });
     });
   }
 }
