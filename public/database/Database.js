@@ -105,31 +105,30 @@ class Database {
     this.executeQuery(sql, params);
   }
 
-	/** Equivalent to an UPDATE 
+  /** Equivalent to an UPDATE
    * @param {string} table - corresponds to the table name
    * @param {Array} args
    * @param {} params
    */
   rewrite(table, args, argsParams, condition, conditionParams) {
-		if(
-			(condition !== null && condition !== undefined)
-			&& (conditionParams !== null && conditionParams !== undefined) 
-			&& (argsParams !== null && argsParams !== undefined) 
-			&& (args !== null && args !== undefined) 
-			&& (table !== null && table !== undefined) 
-			&& (args.length===argsParams.length)
-		){
-			let stringArgs = '';
-			for (let i = 0, l = args.length; i < l; i += 1) {
-				stringArgs += `${args[i]} = ?,`;
-			}
-			//console.log(stringArgs);
-			const sql = `UPDATE ${table} SET ${stringArgs} where ${condition}=${conditionParams};`;
-			this.executeQuery(sql, argsParams);
-  	}else{
-        console.log('An error ocurred performing the update query.', err);
-		}
-	}
+    if ((condition !== null && condition !== undefined)
+      && (conditionParams !== null && conditionParams !== undefined)
+      && (argsParams !== null && argsParams !== undefined)
+      && (args !== null && args !== undefined)
+      && (table !== null && table !== undefined)
+      && (args.length === argsParams.length)
+    ) {
+      let stringArgs = '';
+      for (let i = 0, l = args.length; i < l; i += 1) {
+        stringArgs += `${args[i]} = ?,`;
+      }
+      // console.log(stringArgs);
+      const sql = `UPDATE ${table} SET ${stringArgs} where ${condition}=${conditionParams};`;
+      this.executeQuery(sql, argsParams);
+    } else {
+      console.log('An error ocurred performing the update query.');
+    }
+  }
 
   getByUsername(table, username, callback, callbackArgs) {
     const sql = `SELECT * FROM ${table} WHERE username = ?;`;
