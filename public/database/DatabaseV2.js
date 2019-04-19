@@ -52,16 +52,13 @@ class DatabaseV2 {
    * @param callbackArgs
    */
   executeQuery($query, $params, callback, callbackArgs) {
-    console.log('Inside executeQuery', $query, $params, callbackArgs);
     this.db.serialize(() => {
       // We execute the query
-      this.db.run($query, $params, (err, rows) => {
+      this.db.all($query, $params, (err, rows) => {
         if (err) {
           console.log('An error ocurred performing the query.', err, $query);
           return;
         }
-        console.log(rows);
-
         if (callback) callback(rows, callbackArgs);
       });
     });
