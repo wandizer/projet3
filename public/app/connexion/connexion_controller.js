@@ -4,6 +4,10 @@ const User = require('./models/User.js');
 // ####################################    FUNCTIONS    ######################################## //
 // ############################################################################################# //
 
+function showInvalidMessage(element) {
+  // eslint-disable-next-line no-param-reassign
+  element.className = 'validate invalid';
+}
 
 // ############################################################################################# //
 // ####################################    CALLBACKS    ######################################## //
@@ -20,17 +24,24 @@ function checkCredentials(result, password) {
     if (password === result[0].password) {
       // redirection to dashboard
       window.location.assign('./views/generic_view.html');
+    } else {
+      // shows invalid password
+      showInvalidMessage(document.body.querySelector('#password'));
     }
+  } else {
+    // shows invalid username
+    showInvalidMessage(document.body.querySelector('#username'));
   }
 }
 
-// ############################################################################################# //
-// #######################################    MAIN    ########################################## //
-// ############################################################################################# //
-
-// When form is submitted
-document.getElementById('login').addEventListener('submit', (e) => {
+/**
+ * Retrieves the username and password entered in form and check if they are correct
+ * @callback
+ * @param e - Event
+ */
+function authenticate(e) {
   e.preventDefault();
+  console.log('authenticating...');
   const formData = new FormData(e.target);
   const username = formData.get('username');
   const password = formData.get('password');
@@ -39,4 +50,18 @@ document.getElementById('login').addEventListener('submit', (e) => {
   if (username !== '' && password !== '') {
     User.getByUsername(username, checkCredentials, password);
   }
-}, false);
+}
+
+// ############################################################################################# //
+// #################################    EVENT LISTENERS    ##################################### //
+// ############################################################################################# //
+
+/**
+ * When form is submitted
+ * @event submit
+ */
+document.body.querySelector('#login').addEventListener('submit', authenticate, false);
+
+// ############################################################################################# //
+// #######################################    MAIN    ########################################## //
+// ############################################################################################# //

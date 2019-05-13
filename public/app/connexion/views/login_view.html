@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Log-In</title>
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
   <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
   <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
 </head>
@@ -16,12 +17,14 @@
           <div class="input-field col s12">
             <input id="username" name="username" type="text" class="validate">
             <label for="username">Username</label>
+            <span class="helper-text" data-error="Username not found!"></span>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
             <input id="password" name="password" type="password" class="validate">
             <label for="password">Password</label>
+            <span class="helper-text" data-error="Invalid password!"></span>
           </div>
         </div>
         <div class="row">
@@ -33,11 +36,10 @@
     </div>
   </form>
 </div>
-<!--<form id="login" method="post">-->
-<!--  <input type="text" id="username" name="username" placeholder="Your username"/>-->
-<!--  <input type="password" id="password" name="password" placeholder="Your password"/>-->
-<!--  <input type="submit" id="signin" name="connect" value="Sign in"/>-->
-<!--</form>-->
+<!-- CRUD MANAGER BUTTON -->
+<a href="../../crud/views/general_view.html" class="waves-effect waves-light btn" style="position: fixed; bottom: 10px; right: 10px;">
+  <i class="small material-icons left">build</i>C.R.U.D. Manager
+</a>
 <script type="module"> require('../connexion_controller.js'); </script>
 </body>
 </html>
