@@ -5,6 +5,10 @@ const Employe = require('./models/Employe.js');
 // ####################################    FUNCTIONS    ######################################## //
 // ############################################################################################# //
 
+/**
+ * Toggles red input when content not correct or not found
+ * @param element
+ */
 function showInvalidMessage(element) {
   // eslint-disable-next-line no-param-reassign
   element.className = 'validate invalid';
@@ -15,22 +19,14 @@ function showInvalidMessage(element) {
 // ############################################################################################# //
 
 /**
- * Stores employe session data
+ * Stores employe session data in sessionStorage
  * @callback
  * @param result
  */
 function storeEmploye(result) {
-	console.log(result);
-  if (Array.isArray(result) && result.length === 1) {
-			// Store 
-			/*var movies = ["Reservoir Dogs", "Pulp Fiction", "Jackie Brown", "Kill Bill", "Death Proof", "Inglourious Basterds"];
-			localStorage.setItem("quentinTarantino", JSON.stringify(movies));
-			var retrievedData = localStorage.getItem("quentinTarantino");
-			var movies2 = JSON.parse(retrievedData);*/
-			sessionStorage.setItem("employe", JSON.stringify(result[0]));
-  } else {
-    //showInvalidMessage(document.body.querySelector('#username'));
-  }
+  console.log(result);
+  // Storage
+  sessionStorage.setItem('employe', JSON.stringify(result[0]));
 }
 
 /**
@@ -42,10 +38,11 @@ function storeEmploye(result) {
 function checkCredentials(result, password) {
   if (Array.isArray(result) && result.length === 1) {
     if (password === result[0].password) {
-			// Store 
-			Employe.getById(result[0].id_employe,storeEmploye);
-			sessionStorage.setItem("user", JSON.stringify(result[0]));
-			// redirection to dashboard
+      // SessionStorage - Employe Data
+      Employe.getById(result[0].id_employe, storeEmploye);
+      // SessionStorage - User Data
+      sessionStorage.setItem('user', JSON.stringify(result[0]));
+      // redirection to dashboard
       window.location.assign('../../dashboards/views/generic_view.html');
     } else {
       // shows invalid password
@@ -55,7 +52,6 @@ function checkCredentials(result, password) {
     // shows invalid username
     showInvalidMessage(document.body.querySelector('#username'));
   }
-	
 }
 
 /**
@@ -65,7 +61,6 @@ function checkCredentials(result, password) {
  */
 function authenticate(e) {
   e.preventDefault();
-  console.log('authenticating...');
   const formData = new FormData(e.target);
   const username = formData.get('username');
   const password = formData.get('password');

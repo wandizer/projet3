@@ -10,6 +10,7 @@ let tableName = '';
 
 /**
  * Inserts all the table cards in the table list
+ * @callback
  * @param result - List of table names
  */
 function createTableList(result) {
@@ -38,32 +39,48 @@ function createTableList(result) {
   }
 }
 
-function rerenderDataTable() {
+/**
+ * Reload the current page
+ * @callback
+ */
+function reloadCurrentPage() {
   window.location.assign(`./edit_view.html?table=${tableName}`);
 }
 
-function registerModifications(e) {
+/**
+ * Updates the current line and reloads the current page
+ * @callback
+ * @param e - Calling element
+ */
+function updateLine(e) {
   const cellPKColumnName = e.target.dataset.cle;
   const cellPKId = e.target.dataset.id;
   const modalContent = document.body.querySelector('#modal-content-edit');
   const allColumns = [];
   const allNewValues = [];
-
   modalContent.querySelectorAll('input').forEach(input => {
     allColumns.push(input.dataset.column);
     allNewValues.push(input.value);
   });
-
-  db.rewrite(tableName, allColumns, allNewValues, cellPKColumnName, cellPKId, rerenderDataTable);
+  db.rewrite(tableName, allColumns, allNewValues, cellPKColumnName, cellPKId, reloadCurrentPage);
 }
 
+/**
+ * Deletes the current line and reloads the current page
+ * @callback
+ * @param e - Calling element
+ */
 function deleteLine(e) {
   const cellPKColumnName = e.target.dataset.cle;
   const cellPKId = e.target.dataset.id;
-  db.deleteRow(tableName, cellPKColumnName, cellPKId, rerenderDataTable);
+  db.deleteRow(tableName, cellPKColumnName, cellPKId, reloadCurrentPage);
 }
 
-function addNewLine() {
+/**
+ * Creates a new line in database and reloads the current page
+ * @callback
+ */
+function createLine() {
   const rowWithNewValues = document.body.querySelector('.dataTables_scrollFoot tfoot tr');
   const columnNames = [];
   const newValues = [];
@@ -71,10 +88,14 @@ function addNewLine() {
     columnNames.push(input.dataset.column);
     newValues.push(input.dataset.value);
   });
-  db.write(tableName, columnNames, newValues, rerenderDataTable);
+  db.write(tableName, columnNames, newValues, reloadCurrentPage);
 }
 
-
+/**
+ * Toggles the Edit Modal
+ * @callback
+ * @param e
+ */
 function openEditModal(e) {
   const cellPKColumnName = e.target.dataset.cle;
   const cellPKId = e.target.dataset.id;
@@ -127,7 +148,7 @@ function openEditModal(e) {
   buttonAgree.innerHTML = 'Modify';
   buttonAgree.dataset.cle = cellPKColumnName;
   buttonAgree.dataset.id = cellPKId;
-  buttonAgree.addEventListener('click', registerModifications);
+  buttonAgree.addEventListener('click', updateLine);
   modalFooter.appendChild(buttonAgree);
 
   // we open the modal
@@ -137,6 +158,11 @@ function openEditModal(e) {
   });
 }
 
+/**
+ * Toggles the Delete Modal
+ * @callback
+ * @param e
+ */
 function openDeleteModal(e) {
   const cellPKColumnName = e.target.dataset.cle;
   const cellPKId = e.target.dataset.id;
@@ -163,6 +189,11 @@ function openDeleteModal(e) {
   });
 }
 
+/**
+ * Draws the dataTable with the data fetched form the database
+ * @callback
+ * @param result
+ */
 function drawDataTable(result) {
   const table = document.body.querySelector('#edit-table');
 
@@ -190,7 +221,7 @@ function drawDataTable(result) {
       <div class="btn green">
         <i class="material-icons">add</i>
       </div>`;
-      thNew.addEventListener('click', addNewLine);
+      thNew.addEventListener('click', createLine);
       tfootRow.appendChild(thNew);
 
       // add all the columns headers
@@ -286,7 +317,6 @@ function drawDataTable(result) {
 function fetchData() {
   const params = Utils.getParams(window.location.href);
   tableName = params.table;
-
   db.executeQuery(
     `SELECT * FROM ${tableName};`,
     {},
