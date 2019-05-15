@@ -1,4 +1,5 @@
 const Database = require('../../database/DatabaseV2.js');
+const Utils = require('../../utils/Utils.js');
 
 const db = new Database();
 let tableName = '';
@@ -42,7 +43,6 @@ function rerenderDataTable() {
 }
 
 function registerModifications(e) {
-  console.log(e);
   const cellPKColumnName = e.target.dataset.cle;
   const cellPKId = e.target.dataset.id;
   const modalContent = document.body.querySelector('#modal-content-edit');
@@ -57,8 +57,25 @@ function registerModifications(e) {
   db.rewrite(tableName, allColumns, allNewValues, cellPKColumnName, cellPKId, rerenderDataTable);
 }
 
+function deleteLine(e) {
+  const cellPKColumnName = e.target.dataset.cle;
+  const cellPKId = e.target.dataset.id;
+  db.deleteRow(tableName, cellPKColumnName, cellPKId, rerenderDataTable);
+}
+
+function addNewLine() {
+  const rowWithNewValues = document.body.querySelector('.dataTables_scrollFoot tfoot tr');
+  const columnNames = [];
+  const newValues = [];
+  rowWithNewValues.querySelectorAll('input').forEach((input) => {
+    columnNames.push(input.dataset.column);
+    newValues.push(input.dataset.value);
+  });
+  db.write(tableName, columnNames, newValues, rerenderDataTable);
+}
+
+
 function openEditModal(e) {
-  console.log('Open edit modal', e.target);
   const cellPKColumnName = e.target.dataset.cle;
   const cellPKId = e.target.dataset.id;
 
@@ -72,10 +89,8 @@ function openEditModal(e) {
   const values = [];
 
   // we retrieve the column names
-  console.log(thead.childNodes);
   thead.childNodes.forEach((th) => {
     if (th.className !== 'sorting_disabled') {
-      console.log(th.innerHTML);
       const label = document.createElement('label');
       label.innerHTML = th.innerHTML;
       keys.push(th.innerHTML);
@@ -85,7 +100,6 @@ function openEditModal(e) {
   // we retrieve the current data
   selectedRow.childNodes.forEach((td) => {
     if (td.className !== 'edit-cell' && td.className !== 'del-cell') {
-      console.log(td.innerHTML);
       const input = document.createElement('input');
       input.type = 'text';
       input.value = td.innerHTML;
@@ -124,9 +138,29 @@ function openEditModal(e) {
 }
 
 function openDeleteModal(e) {
-  console.log('Open delete modal', e.target);
   const cellPKColumnName = e.target.dataset.cle;
   const cellPKId = e.target.dataset.id;
+
+  const modalContent = document.body.querySelector('#modal-content-edit');
+  modalContent.innerHTML = 'You sure you want to delete this line ?'; // we empty the modal-content
+
+  const modalFooter = document.body.querySelector('#modal-footer-edit');
+  modalFooter.innerHTML = ''; // we empty the modal-footer
+
+  const buttonAgree = document.createElement('a');
+  buttonAgree.href = '#!';
+  buttonAgree.className = 'modal-close waves-effect waves-green btn red';
+  buttonAgree.innerHTML = 'Delete';
+  buttonAgree.dataset.cle = cellPKColumnName;
+  buttonAgree.dataset.id = cellPKId;
+  buttonAgree.addEventListener('click', deleteLine);
+  modalFooter.appendChild(buttonAgree);
+
+  // we open the modal
+  $(document).ready(() => {
+    $('.modal').modal();
+    $('.modal').modal('open');
+  });
 }
 
 function drawDataTable(result) {
@@ -141,6 +175,7 @@ function drawDataTable(result) {
     // THEAD
     if (!theadDefined) {
       const theadRow = document.createElement('tr');
+      const tfootRow = document.createElement('tr');
 
       // add delete and modify buttons
       const thVideEdit = document.createElement('th');
@@ -148,14 +183,33 @@ function drawDataTable(result) {
       const thVideDel = document.createElement('th');
       theadRow.appendChild(thVideDel);
 
+      const thVide = document.createElement('th');
+      tfootRow.appendChild(thVide);
+      const thNew = document.createElement('th');
+      thNew.innerHTML = `
+      <div class="btn green">
+        <i class="material-icons">add</i>
+      </div>`;
+      thNew.addEventListener('click', addNewLine);
+      tfootRow.appendChild(thNew);
+
       // add all the columns headers
       Object.keys(row).forEach((columnName) => {
         const th = document.createElement('th');
         th.innerHTML = columnName;
         theadRow.appendChild(th);
+
+        const td2 = document.createElement('td');
+        td2.innerHTML = `<input type="text" 
+          placeholder="${columnName}"
+          data-column="${columnName}"
+          onkeyup="this.dataset.value = this.value"
+          class="validate">`;
+        tfootRow.appendChild(td2);
       });
 
       thead.appendChild(theadRow);
+      tfoot.appendChild(tfootRow);
       theadDefined = true;
     }
 
@@ -208,14 +262,15 @@ function drawDataTable(result) {
   // we draw the datatable
   $(document).ready(() => {
     $('#edit-table').DataTable({
-      pageLength: 10,
-      bLengthChange: false,
+      stateSave: true,
+      scrollX: true,
       order: [[2, 'asc']],
       columnDefs: [{
         targets: [0, 1],
         orderable: false,
       }],
       dom: '<"toolbar">frtip',
+      initComplete: () => {},
     });
     $('div.toolbar').html(`<b>Table: ${tableName}</b>`);
   });
@@ -226,42 +281,10 @@ function drawDataTable(result) {
 // ############################################################################################# //
 
 /**
- * Returns the view name
- * @returns {string}
- */
-function getViewName() {
-  const url = window.location.href;
-  const indexStart = url.search('/views/');
-  const indexExt = url.search('.html');
-  const length = indexExt - indexStart - 7;
-  const viewName = url.substr(indexStart + 7, length);
-  return viewName;
-}
-
-/**
- * Get the URL parameters
- * source: https://css-tricks.com/snippets/javascript/get-url-variables/
- * @param  {String} url The URL
- * @return {Object}     The URL parameters
- */
-function getParams(url) {
-  const params = {};
-  const parser = document.createElement('a');
-  parser.href = url;
-  const query = parser.search.substring(1);
-  const vars = query.split('&');
-  for (let i = 0; i < vars.length; i += 1) {
-    const pair = vars[i].split('=');
-    params[pair[0]] = decodeURIComponent(pair[1]);
-  }
-  return params;
-}
-
-/**
  * Connects to the database and retrieves all the table's data
  */
 function fetchData() {
-  const params = getParams(window.location.href);
+  const params = Utils.getParams(window.location.href);
   tableName = params.table;
 
   db.executeQuery(
@@ -281,15 +304,24 @@ function fetchData() {
 // ############################################################################################# //
 
 // ACTION MANAGER
-switch (getViewName()) {
+switch (Utils.getViewName(window.location.href)) {
+  /**
+   * @Route /crud/views/general_view
+   */
   case 'general_view': {
     db.showAllTables(createTableList);
     break;
   }
+  /**
+   * @Route /crud/views/edit_view
+   */
   case 'edit_view': {
     fetchData();
     break;
   }
+  /**
+   * @Route /
+   */
   default: {
     console.log('View not found! No action executed!');
   }
