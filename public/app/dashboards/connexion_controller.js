@@ -15,25 +15,6 @@ function showInvalidMessage(element) {
 // ############################################################################################# //
 
 /**
- * Stores employe session data
- * @callback
- * @param result
- */
-function storeEmploye(result) {
-	console.log(result);
-  if (Array.isArray(result) && result.length === 1) {
-			// Store 
-			/*var movies = ["Reservoir Dogs", "Pulp Fiction", "Jackie Brown", "Kill Bill", "Death Proof", "Inglourious Basterds"];
-			localStorage.setItem("quentinTarantino", JSON.stringify(movies));
-			var retrievedData = localStorage.getItem("quentinTarantino");
-			var movies2 = JSON.parse(retrievedData);*/
-			sessionStorage.setItem("employe", JSON.stringify(result[0]));
-  } else {
-    //showInvalidMessage(document.body.querySelector('#username'));
-  }
-}
-
-/**
  * Compares the password with one from the Database. If equal, redirects to dashboard
  * @callback
  * @param result
@@ -43,8 +24,8 @@ function checkCredentials(result, password) {
   if (Array.isArray(result) && result.length === 1) {
     if (password === result[0].password) {
 			// Store 
-			Employe.getById(result[0].id_employe,storeEmploye);
-			sessionStorage.setItem("user", JSON.stringify(result[0]));
+			Employe.getById(result[0].id,storeEmploye);
+			sessionStorage.setItem("user", JSON.stringify(result[0]);
 			// redirection to dashboard
       window.location.assign('../../dashboards/views/generic_view.html');
     } else {
@@ -56,6 +37,25 @@ function checkCredentials(result, password) {
     showInvalidMessage(document.body.querySelector('#username'));
   }
 	
+}
+
+/**
+ * Stores employe session data
+ * @callback
+ * @param result
+ */
+function storeEmploye(result) {
+  if (Array.isArray(result) && result.length === 1) {
+			// Store 
+			/*var movies = ["Reservoir Dogs", "Pulp Fiction", "Jackie Brown", "Kill Bill", "Death Proof", "Inglourious Basterds"];
+			localStorage.setItem("quentinTarantino", JSON.stringify(movies));
+			var retrievedData = localStorage.getItem("quentinTarantino");
+			var movies2 = JSON.parse(retrievedData);*/
+			sessionStorage.setItem("employe", JSON.stringify(result[0]);
+  } else {
+    // shows invalid username
+    showInvalidMessage(document.body.querySelector('#username'));
+  }
 }
 
 /**
