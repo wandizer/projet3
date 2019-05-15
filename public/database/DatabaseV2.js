@@ -99,6 +99,37 @@ class DatabaseV2 {
     this.executeQuery(sql, params);
   }
 
+  /** Equivalent to an UPDATE
+   * @param {string} table - corresponds to the table name
+   * @param {Array} args - corresponds to the column names
+   * @param argsParams - corresponds to the new values
+   * @param condition - corresponds to the condition column
+   * @param conditionParams - corresponds to the condition value
+   * @param {Function} callback
+   */
+  rewrite(table, args, argsParams, condition, conditionParams, callback) {
+    if ((condition !== null && condition !== undefined)
+      && (conditionParams !== null && conditionParams !== undefined)
+      && (argsParams !== null && argsParams !== undefined)
+      && (args !== null && args !== undefined)
+      && (table !== null && table !== undefined)
+      && (args.length === argsParams.length)
+    ) {
+      let stringArgs = '';
+      for (let i = 0, l = args.length; i < l; i += 1) {
+        stringArgs += `${args[i]} = ?`;
+        if (i < (l - 1)) {
+          stringArgs += ' , ';
+        }
+      }
+      // console.log(stringArgs);
+      const sql = `UPDATE ${table} SET ${stringArgs} where ${condition}=${conditionParams};`;
+      this.executeQuery(sql, argsParams, callback);
+    } else {
+      console.log('An error ocurred performing the update query.');
+    }
+  }
+
   createSchema() {
     this.db.serialize(() => {
       Object.keys(schema).forEach((key) => {
