@@ -1,45 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Log-In</title>
-		<link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
-		<link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
-		<script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
-	</head>
-	<body>
-		<div class="row">
-			<form class="col s12 m5 l5 offset-2" id="login" method="post">
-				<div class="card">
-					<div class="card-content">
-						<span class="card-title">Log In</span>
-						<div class="row">
-							<div class="input-field col s12">
-								<input id="username" name="username" type="text" class="validate">
-								<label for="username">Username</label>
-								<span class="helper-text" data-error="Username not found!"></span>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s12">
-								<input id="password" name="password" type="password" class="validate">
-								<label for="password">Password</label>
-								<span class="helper-text" data-error="Invalid password!"></span>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s12 right-align">
-								<input class="btn green" id="signin" name="connect" type="submit" class="validate" value="Sign in">
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-		<!-- CRUD MANAGER BUTTON -->
-		<a href="../../crud/views/general_view.html" class="waves-effect waves-light btn" style="position: fixed; bottom: 10px; right: 10px;">
-			<i class="small material-icons left">build</i>C.R.U.D. Manager
-		</a>
-		<script type="module"> require('../connexion_controller.js'); </script>
-	</body>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>ERPion</title>
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../../styles/css/login.css">
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+</head>
+<body class="valign-wrapper row">
+<form id="login" class="col l4 offset-l4 m8 offset-m2 s10 offset-s1" method="post">
+  <div class="card">
+    <div class="card-content">
+
+      <img class="square-img responsive-img" src="../../../assets/img/sample_hotel_logo.png">
+
+      <div class="input-field">
+        <input id="username" name="username" type="text" class="validate">
+        <label for="username">Login</label>
+        <span class="helper-text" data-error="Aucun utilisateur trouvé"></span>
+      </div>
+
+      <div class="input-field">
+        <input id="password" name="password" type="password" class="validate">
+        <label for="password">Mot de passe</label>
+        <span class="helper-text" data-error="Mot de passe invalide"></span>
+      </div>
+
+      <button id="submit" class="btn-large waves-effect waves-light" type="submit" name="connect">Se connecter</button>
+
+    </div>
+  </div>
+</form>
+<!-- CRUD MANAGER BUTTON -->
+<a href="../../crud/views/general_view.html" class="waves-effect waves-light btn"
+   style="position: fixed; bottom: 10px; right: 10px;">
+  <i class="small material-icons left">build</i>C.R.U.D. Manager
+</a>
+<script type="module"> require('../connexion_controller.js'); </script>
+</body>
 </html>
