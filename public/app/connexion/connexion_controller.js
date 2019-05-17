@@ -1,5 +1,7 @@
 const User = require('./models/User.js');
 const Employe = require('./models/Employe.js');
+const Role = require('./models/Role.js');
+const Service = require('./models/Service.js');
 
 // ############################################################################################# //
 // ####################################    FUNCTIONS    ######################################## //
@@ -27,6 +29,74 @@ function storeEmploye(result) {
   console.log(result);
   // Storage
   sessionStorage.setItem('employe', JSON.stringify(result[0]));
+	// SessionStorage - Role Data
+	Role.getById(result[0].id_role, storeRole);
+}
+
+/**
+ * Stores role session data in sessionStorage
+ * @callback
+ * @param result
+ */
+function storeRole(result) {
+  console.log(result);
+  // Storage
+  sessionStorage.setItem('role', JSON.stringify(result[0]));
+  // Permissions the < number the > permission
+	if(result[0].name == 'Directeur de l’hôtel'){
+		sessionStorage.setItem('permissions', 1);
+	}else if(result[0].name == 'Directeur du restaurant'){
+		sessionStorage.setItem('permissions', 2);
+	}else if(result[0].name == 'Directeur d’hébergement'){
+		sessionStorage.setItem('permissions', 2);
+	}else if(result[0].name == 'Chef de réception'){
+		sessionStorage.setItem('permissions', 2);
+	}else if(result[0].name == 'Gouvernante générale'){
+		sessionStorage.setItem('permissions', 2);
+	}else if(result[0].name == 'Chef de maintenance'){
+		sessionStorage.setItem('permissions', 2);
+	}else if(result[0].name == 'Spa manager'){
+		sessionStorage.setItem('permissions', 2);
+	}else if(result[0].name == 'chef de cuisine'){
+		sessionStorage.setItem('permissions', 2);
+	}else if(result[0].name == 'seconde de cuisine'){
+		sessionStorage.setItem('permissions', 2);
+	}else if(result[0].name == 'chef de partie'){
+		sessionStorage.setItem('permissions', 2);
+	}else{
+		sessionStorage.setItem('permissions', 3);
+	}
+	// SessionStorage - Role Data
+	Service.getById(result[0].id_role, storeService);
+}
+
+/**
+ * Stores service session data in sessionStorage
+ * @callback
+ * @param result
+ */
+function storeService(result) {
+  console.log(result);
+  // Storage
+  sessionStorage.setItem('service', JSON.stringify(result[0]));
+	// redirection to dashboard
+	if(result[0].name == 'Direction'){
+		window.location.assign('../../dashboards/views/direction_view.html');
+	}else if(result[0].name == 'Gestion'){
+		window.location.assign('../../dashboards/views/gestion_view.html');
+	}else if(result[0].name == 'Cuisine'){
+		window.location.assign('../../dashboards/views/cuisine_view.html');
+	}else if(result[0].name == 'Salle'){
+		window.location.assign('../../dashboards/views/salle_view.html');
+	}else if(result[0].name == 'Réception'){
+		window.location.assign('../../dashboards/views/reception_view.html');
+	}else if(result[0].name == 'Maintenance'){
+		window.location.assign('../../dashboards/views/maintenance_view.html'); 
+	}else if(result[0].name == 'Spa'){
+		window.location.assign('../../dashboards/views/spa_view.html');
+	}else if(result[0].name == 'Nettoyage'){
+		window.location.assign('../../dashboards/views/nettoyage_view.html');
+	}
 }
 
 /**
@@ -42,8 +112,6 @@ function checkCredentials(result, password) {
       Employe.getById(result[0].id_employe, storeEmploye);
       // SessionStorage - User Data
       sessionStorage.setItem('user', JSON.stringify(result[0]));
-      // redirection to dashboard
-      window.location.assign('../../dashboards/views/generic_view.html');
     } else {
       // shows invalid password
       showInvalidMessage(document.body.querySelector('#password'));
