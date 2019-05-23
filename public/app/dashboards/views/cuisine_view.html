@@ -1,10 +1,154 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<title>ERPion</title>
+		<link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+		<link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+		<link rel="stylesheet" href="../../../styles/css/login.css">
+		<script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+	</head>
   <body>
-    <h1 id="hello">T'es connecté my nigga</h1>
+		<header>
+			<nav>
+				<div id="profile">
+					<!-- Get Nom -->
+					<p id="name">Nom</p>
+					<!-- Get Prenom -->
+					<p id="surname">Prenom</p>
+					<!-- Get Role -->
+					<p id="role">Role</p>
+					<a href="#">Déconnesxion</a>
+				</div>
+				<div>
+					<a href="#">Gérer les Stocks</a>
+					<a href="#">Gérer les Menus Tarifs</a>
+					<a href="#">Création Tables et Couverts</a>
+				</div>	
+				<div>
+					<image href="#">ERPion</image>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<!-- -------------- Plats du jour -------------- -->
+			<div>
+				<h1>Plats du Jour</h1>
+				<a href="#">Gérer</a>
+				<div>
+					<!-- Get Image -->
+					<image href="#">Image du plat</image>
+					<!-- Get Nom de Plat -->
+					<p>Nom de Plat</p>
+					<p>Description</p>
+					<!-- Get Description -->
+					<p>.............................</p>
+					<p>.............................</p>
+					<!-- Get Prix -->
+					<p>12.05€</p>
+					<p>TVA</p>
+					<!-- Get TVA -->
+					<p>.............................</p>
+					<!-- Get Heures -->
+					<p>12h00-18h00</p>
+					<button>></button>
+				</div>
+			</div>	
+			<!-- ------------- Ca de la semaine ------------ -->
+			<div id="stats">
+				<h1>CA de la semaine</h1>
+				<div>
+					<!-- Get Image -->
+					<image href="#">Image de la courbe</image>
+					<!-- Get Chiffres d'affaires -->
+					<p>+5003€</p>
+					<!-- Get Flux -->
+					<p>0.5€</p>
+					<!-- Get Numero de personnes entrées -->
+					<p>103</p>
+					<!-- Get Moyenne prix par personne -->
+					<p>30€ Pa</p>
+				</div>
+			</div>
+			<!-- ------------ Tables et Couverts ----------- -->
+			<div>
+				<!-- Heures du Repas -->
+				<h1>Midi</h1>
+				<a href="#">Gérer</a>
+				<div>
+					<!-- Get Disponibles -->
+					<p>Couverts Disponibles</p>
+					<p>20</p>
+					<!-- Get Réservés -->
+					<p>Couverts Réservés</p>
+					<p>20</p>
+				</div>
+			</div>
+			<div>
+				<!-- Heures du Repas -->
+				<h1>Soir</h1>
+				<a href="#">Gérer</a>
+				<div>
+					<!-- Get Disponibles -->
+					<p>Couverts Disponibles</p>
+					<p>20</p>
+					<!-- Get Réservés -->
+					<p>Couverts Réservés</p>
+					<p>20</p>
+				</div>
+			</div>			
+			<!-- ------------------ Stock ------------------ -->
+			<div>
+				<!-- Heures du Repas -->
+				<h1>Stock</h1>
+				<a href="#">Gérer</a>
+				<div>
+					<!-- Get Nom -->
+					<p>Patates</p>
+					<!-- Get Quantité -->
+					<p>Qtee : 350/2000</p>
+					<!-- Get Quantité Percent -->
+					<p>30%</p>
+					<!-- Get Prix -->
+					<p>Prix u/ : 0.12€</p>
+				</div>
+				<div>
+					<!-- Get Nom -->
+					<p>Riz</p>
+					<!-- Get Quantité -->
+					<p>Qtee : 203/2000</p>
+					<!-- Get Quantité Percent -->
+					<p>15%</p>
+					<!-- Get Prix -->
+					<p>Prix u/ : 0.12€</p>
+				</div>
+				<div>
+					<!-- Get Nom -->
+					<p>Boeuf</p>
+					<!-- Get Quantité -->
+					<p>Qtee : 750/2000</p>
+					<!-- Get Quantité Percent -->
+					<p>40%</p>
+					<!-- Get Prix -->
+					<p>Prix u/ : 0.12€</p>
+				</div>
+			</div>
+		</main>
+		<script>
+			const kitchen = require('./models/Kitchen.js');
+
+			if(sessionStorage.getItem("user")!= null){
+				var user = sessionStorage.getItem("user");
+				document.getElementById("name").innerHTML = user[0].name;
+				document.getElementById("surname").innerHTML = user[0].surname;
+				document.getElementById("role").innerHTML = user[0].name;
+			}
+			if(sessionStorage.getItem("permissions")!= null){
+				var permissions = sessionStorage.getItem("permissions");
+				if(permissions < 3){
+					document.getElementById("stats").hide();
+				}
+			}
+		</script>
   </body>
 </html>
