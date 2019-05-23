@@ -1,5 +1,10 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron');
+// const Database = require('./database/DatabaseV2');
+
+// We create the schema
+// const db = new Database();
+// db.createSchema();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
