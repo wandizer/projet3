@@ -5,6 +5,7 @@ const { app, BrowserWindow } = require('electron');
 // We create the schema
 // const db = new Database();
 // db.createSchema();
+// db.insertData();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
