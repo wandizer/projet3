@@ -1,0 +1,28 @@
+@import url("../fonts/fonts.css");
+:root {
+  /*----- COLORS -----*/
+  --color-blanc: #ffffff;
+  --color-beje: #8a8373;
+  --color-bleu: #26354c;
+  --color-bleu-turquoise: #3283b0;
+  --color-doree: #8a6433;
+  --color-vert: #547405;
+  /*----- FONTS -----*/
+  --font-family: 'Raleway', sans-serif;
+  --font-weight: 400;
+  --font-line-weight: 24px; }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden; }
+
+body {
+  min-height: 80%;
+  background: url("../../assets/img/background.jpg") no-repeat;
+  background-size: cover;
+  font-family: 'Raleway', sans-serif; }

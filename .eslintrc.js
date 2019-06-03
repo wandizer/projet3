@@ -16,6 +16,8 @@ module.exports = {
     // allow nested-ternary
     'no-nested-ternary': 0,
     // allow console
-    'no-console': 0
+    'no-console': 0,
+    // no camelcase rule
+    'camelcase': 0,
   }
 };
