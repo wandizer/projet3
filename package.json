@@ -18,7 +18,9 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.0"
+    "eslint-plugin-react": "^7.11.0",
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.1"
   },
   "scripts": {
     "start": "electron .",
@@ -28,7 +30,9 @@
     "build-win": "electron-packager . --overwrite --prune=true --out=build --platform=win32 --arch=ia32",
     "build-mac": "electron-packager . --overwrite --prune=true --out=build --platform=darwin --arch=x64",
     "build-linux": "electron-packager . --overwrite --prune=true --out=build --platform=linux --arch=x64",
-    "lint": "./node_modules/.bin/eslint ./public/"
+    "lint": "./node_modules/.bin/eslint ./public/",
+    "build-css": "./node_modules/.bin/node-sass -r public/styles/sass/ -o public/styles/css/",
+    "watch-css": "./node_modules/.bin/nodemon -e public/styles/scss -x \"npm run build-css\""
   },
   "repository": {
     "type": "git",

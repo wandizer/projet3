@@ -23,10 +23,9 @@ const Utils = {
    * @returns {string}
    */
   getViewName: (url) => {
-    const indexStart = url.search('/views/');
-    const indexExt = url.search('.html');
-    const length = indexExt - indexStart - 7;
-    const viewName = url.substr(indexStart + 7, length);
+    const cuttedUrl = url.split('/');
+    const viewName = cuttedUrl[cuttedUrl.length - 1].split('.')[0];
+    console.log(viewName);
     return viewName;
   },
 };

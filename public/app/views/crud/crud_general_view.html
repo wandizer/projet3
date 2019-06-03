@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../plugins/datatables/datatables.min.css"/>
+  <script type="text/javascript" src="../../../plugins/jquery/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="../../../plugins/datatables/datatables.min.js"></script>
+</head>
+<body>
+  <!-- MENU -->
+  <nav>
+    <div class="nav-wrapper">
+      <a href="crud_general_view.html" class="brand-logo">C.R.U.D.</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="crud_general_view.html">Show all tables</a></li>
+      </ul>
+    </div>
+  </nav>
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="crud_general_view.html">Show all tables</a></li>
+  </ul>
+
+  <!-- TABLE LIST -->
+  <p class="center">List of all tables inside the database :</p>
+
+  <div class="row" id="list-of-tables"></div>
+
+  <!-- CRUD MANAGER BUTTON -->
+  <a href="../connexion/login_view.html" class="waves-effect waves-light btn" style="position: fixed; bottom: 10px; right: 10px;">
+    <i class="small material-icons left">reply</i>Back to login
+  </a>
+
+  <script type="module"> require('../../controllers/crud_controller.js');</script>
+</body>
+</html>
