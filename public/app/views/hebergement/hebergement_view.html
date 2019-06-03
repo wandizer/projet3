@@ -6,47 +6,145 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
   <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../../plugins/chart.js/Chart.min.css">
   <link rel="stylesheet" href="../../../styles/css/style.css">
-    <link rel="stylesheet" href="../../../styles/css/sidenav.css">
+<!--  <link rel="stylesheet" href="../../../styles/css/sidenav.css">-->
   <style>
 
   </style>
   <link rel="stylesheet" href="../../../styles/css/hebergement/hebergement.css">
   <!-- Compiled and minified JavaScript -->
   <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+  <script type="text/javascript" src="../../../plugins/chart.js/Chart.bundle.min.js"></script>
 </head>
 <body>
-<!-- BEGIN SIDENAV -->
-<div class="erpion-sidenav">
-  <div class="erpion-sidenav__profile">
-    <div class="erpion-sidenav__profile-fond">
-      <img src="../../../assets/img/user_background.jpg">
+
+<div class="viewport">
+  <!-- BEGIN SIDENAV -->
+  <div class="erpion-sidenav">
+    <div class="erpion-sidenav__profile">
+      <div class="erpion-sidenav__profile-fond">
+        <img src="../../../assets/img/user_background.jpg">
+      </div>
+      <div class="erpion-sidenav__profile-avatar">
+        <img src="../../../assets/img/user_logo1.png">
+      </div>
+      <div class="erpion-sidenav__profile-info">
+        <div class="erpion-sidenav__profile-info-nom">NOM</div>
+        <div class="erpion-sidenav__profile-info-prenom">Prénom</div>
+        <div class="erpion-sidenav__profile-info-role">Directeur d'hébergement</div>
+        <a class="btn" href="../../views/connexion/login_view.html">Déconnexion</a>
+      </div>
     </div>
-    <div class="erpion-sidenav__profile-avatar">
-      <img src="../../../assets/img/user_logo1.png">
+    <div class="erpion-sidenav__divider"></div>
+    <div class="erpion-sidenav__onglets">
+      <a class="erpion-sidenav__onglets-onglet--active" href="#">
+        <i class="material-icons">play_arrow</i>Mon dashboard
+      </a>
+      <a class="erpion-sidenav__onglets-onglet" href="">Gérer Reservation</a>
+      <a class="erpion-sidenav__onglets-onglet">Gérer Voyages</a>
+      <a class="erpion-sidenav__onglets-onglet">Gérer Notoriété</a>
     </div>
-    <div class="erpion-sidenav__profile-info">
-      <div class="erpion-sidenav__profile-info-nom">NOM</div>
-      <div class="erpion-sidenav__profile-info-prenom">Prénom</div>
-      <div class="erpion-sidenav__profile-info-role">Directeur d'hébergement</div>
-      <a class="btn" href="../../views/connexion/login_view.html">Déconnexion</a>
+    <div class="erpion-sidenav__logo">
+      <img src="../../../assets/img/erpion_logo.png">
     </div>
   </div>
-  <div class="erpion-sidenav__divider"></div>
-  <div class="erpion-sidenav__onglets">
-    <a class="erpion-sidenav__onglets-onglet--active" href="#">
-      <i class="material-icons">play_arrow</i>Mon dashboard
-    </a>
-    <a class="erpion-sidenav__onglets-onglet" href="">Gérer Reservation</a>
-    <a class="erpion-sidenav__onglets-onglet">Gérer Voyages</a>
-    <a class="erpion-sidenav__onglets-onglet">Gérer Notoriété</a>
-  </div>
-  <div class="erpion-sidenav__logo">
-    <img src="../../../assets/img/erpion_logo.png">
-  </div>
+  <!-- END SIDENAV-->
+
+  <!-- BEGIN MAIN -->
+  <main>
+    <div class="content">
+      <div class="erpion-card erpion-card__xxl" style="display:inline-flex;">
+        <div style="height: 100%;width: 440px">
+          <canvas id="myChart"></canvas>
+        </div>
+        <div style="height: 100%;width: 440px">
+          <canvas id="myChart2"></canvas>
+        </div>
+      </div>
+      <div class="erpion-card erpion-card__lg"></div>
+      <div class="erpion-card erpion-card__sm"></div>
+      <div class="erpion-card erpion-card__md"></div>
+      <div class="erpion-card erpion-card__sm"></div>
+      <div class="erpion-card erpion-card__sm"></div>
+    </div>
+  </main>
+  <!-- END MAIN -->
 </div>
-<!-- END SIDENAV-->
-<main></main>
+
+<script>
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Occupés', 'Libres'],
+      datasets: [{
+        label: 'Chambres',
+        data: [47, 13],
+        backgroundColor: [
+          'rgb(75,176,167)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Chambres :'
+      },
+      scales: {
+        yAxes: [{
+          gridLines: {
+            drawBorder: false,
+            display: false,
+          },
+          ticks: {
+            display: false,
+            beginAtZero: true,
+          },
+        }]
+      }
+    }
+  });
+  var ctx2 = document.getElementById('myChart2').getContext('2d');
+  var myChart2 = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+</script>
 <!-- CRUD MANAGER BUTTON -->
 <a href="../connexion/login_view.html" class="waves-effect waves-light btn" style="position: fixed; bottom: 10px; right: 10px;">
   <i class="small material-icons left">reply</i>Back to login
