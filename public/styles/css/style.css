@@ -1,9 +1,130 @@
 @import url("../fonts/fonts.css");
+.erpion-sidenav {
+  background: rgba(255, 255, 255, 0.8);
+  width: 300px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+  .erpion-sidenav__profile {
+    position: inherit;
+    height: 300px; }
+    .erpion-sidenav__profile-fond {
+      height: 150px;
+      width: 100%;
+      border-bottom: 1px solid gray; }
+      .erpion-sidenav__profile-fond img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; }
+    .erpion-sidenav__profile-avatar {
+      width: 150px;
+      height: 150px;
+      margin: -100px auto; }
+      .erpion-sidenav__profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        background: #f0f0f0;
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-sidenav__profile-info {
+      display: flex;
+      flex-flow: row wrap;
+      width: 100%;
+      margin-top: 110px;
+      text-align: center; }
+      .erpion-sidenav__profile-info-nom {
+        height: 30px;
+        flex-basis: 50%;
+        font-weight: bold; }
+      .erpion-sidenav__profile-info-prenom {
+        height: 30px;
+        flex-basis: 50%;
+        font-weight: bold; }
+      .erpion-sidenav__profile-info-role {
+        height: 30px;
+        flex-basis: 100%; }
+      .erpion-sidenav__profile-info a {
+        flex-basis: 80%;
+        margin: auto; }
+  .erpion-sidenav__divider {
+    margin-top: 20px;
+    width: 100%;
+    height: 5px;
+    border-bottom: 1px solid gray; }
+  .erpion-sidenav__onglets {
+    margin-top: 20px;
+    margin-bottom: 100px;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap; }
+    .erpion-sidenav__onglets-onglet {
+      width: 80%;
+      height: auto;
+      font-size: 20px;
+      color: white;
+      background: #0f9d58;
+      margin: 10px 0;
+      padding: 5px;
+      border-radius: 0 5px 5px 0; }
+      .erpion-sidenav__onglets-onglet:hover {
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-sidenav__onglets-onglet--active {
+      width: 100%;
+      height: auto;
+      font-size: 20px;
+      color: #0f9d58;
+      background: white;
+      margin: 10px 0;
+      padding: 5px;
+      border-radius: 0;
+      border: 1px solid; }
+      .erpion-sidenav__onglets-onglet--active:hover {
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+      .erpion-sidenav__onglets-onglet--active i {
+        font-size: 20px;
+        padding-top: 5px;
+        margin-right: 10px;
+        vertical-align: baseline; }
+  .erpion-sidenav__logo {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    text-align: center; }
+    .erpion-sidenav__logo img {
+      width: 50%;
+      height: 100%;
+      object-fit: contain; }
+
+.erpion-card {
+  height: 300px;
+  padding: 5px;
+  background: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+  .erpion-card__xxl {
+    flex-basis: 100%; }
+  .erpion-card__lg {
+    flex-basis: 75%; }
+  .erpion-card__md {
+    flex-basis: 49%; }
+  .erpion-card__sm {
+    flex-basis: 24%; }
+
+.erpion-container {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  background: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+
 :root {
   /*----- COLORS -----*/
   --color-blanc: #ffffff;
   --color-beje: #8a8373;
-  --color-bleu: #26354c;
+  --color-bleu: rgb(38, 53, 76);
   --color-bleu-turquoise: #3283b0;
   --color-doree: #8a6433;
   --color-vert: #547405;
@@ -26,3 +147,25 @@ body {
   background: url("../../assets/img/background.jpg") no-repeat;
   background-size: cover;
   font-family: 'Raleway', sans-serif; }
+
+.viewport {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap; }
+
+main {
+  width: calc(100% - 300px);
+  height: 100%;
+  overflow-y: auto; }
+
+.content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 1000px;
+  height: 100%;
+  margin: 5px auto;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7); }
