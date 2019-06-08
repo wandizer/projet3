@@ -1,0 +1,45 @@
+$breakpoints: (
+  'small': (min-width: 576px),
+  'medium': (min-width: 768px),
+  'large': (min-width: 992px),
+  'extra-large': (min-width: 1300px),
+);
+
+/// Responsive breakpoint manager
+/// @access public
+/// @param {String} $breakpoint - Breakpoint
+/// @requires $breakpoints
+@mixin respond-to($breakpoint) {
+  $raw-query: map-get($breakpoints, $breakpoint);
+  @if $raw-query {
+    $query: if(
+      type-of($raw-query) == 'string',
+      unquote($raw-query),
+      inspect($raw-query)
+    );
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+         + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+
+/// Adds a box-shadow to the element
+/// @author André Dos Santos
+/// @param {Length} $width
+/// @param {Length} $height
+@mixin box-shadow($xshadow: 1px, $yshadow: 1px, $blur: 5px, $spread: 1px, $color: rgb(40,40,40)) {
+  -moz-box-shadow: $xshadow $yshadow $blur $spread $color;
+  -webkit-box-shadow: $xshadow $yshadow $blur $spread $color;
+  -o-box-shadow: $xshadow $yshadow $blur $spread $color;
+  box-shadow: $xshadow $yshadow $blur $spread $color;
+}
+
+@mixin light-box-shadow() {
+  -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}

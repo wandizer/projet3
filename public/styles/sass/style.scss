@@ -1,22 +1,11 @@
 @import url('../fonts/fonts.css');
-@import "./ui/sidenav";
-@import "./ui/cards";
-@import "./ui/container";
 
-:root {
-    /*----- COLORS -----*/
-    --color-blanc: #ffffff;
-    --color-beje: #8a8373;
-    --color-bleu: rgb(38, 53, 76);
-    --color-bleu-turquoise: #3283b0;
-    --color-doree: #8a6433;
-    --color-vert: #547405;
+@import "abstracts/variables";
+@import "abstracts/mixins";
 
-    /*----- FONTS -----*/
-    --font-family: 'Raleway', sans-serif;
-    --font-weight: 400;
-    --font-line-weight: 24px;
-}
+@import "components/sidenav";
+@import "components/cards";
+@import "components/container";
 
 * {
   box-sizing: border-box;
@@ -45,7 +34,7 @@ body {
 }
 
 main {
-  width: calc(100% - 300px);
+  width: 100%;
   height: 100%;
   overflow-y: auto;
 }

@@ -1,12 +1,47 @@
 @import url("../fonts/fonts.css");
 .erpion-sidenav {
   background: rgba(255, 255, 255, 0.8);
-  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
   height: 100%;
   position: relative;
   display: flex;
   flex-flow: column nowrap;
+  margin-left: -250px;
+  padding-right: 50px;
+  transition: all 0.5s ease-out;
+  -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+  .erpion-sidenav:hover {
+    margin-left: 0;
+    padding-right: 0;
+    transition: all 0.5s ease-out; }
+  @media (min-width: 1300px) {
+    .erpion-sidenav {
+      margin-left: 0;
+      padding-right: 0; } }
+  .erpion-sidenav__menu {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    display: block;
+    top: 10px;
+    left: 0;
+    z-index: 3; }
+    .erpion-sidenav__menu i {
+      margin-top: 5px;
+      margin-left: 5px;
+      font-size: 40px; }
+    @media (min-width: 1300px) {
+      .erpion-sidenav__menu {
+        width: 15px;
+        left: 300px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 0 10px 10px 0; }
+        .erpion-sidenav__menu i {
+          margin-left: -25px; } }
   .erpion-sidenav__profile {
     position: inherit;
     height: 300px; }
@@ -28,6 +63,9 @@
         object-fit: cover;
         border-radius: 50%;
         background: #f0f0f0;
+        -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
         box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
     .erpion-sidenav__profile-info {
       display: flex;
@@ -70,6 +108,9 @@
       padding: 5px;
       border-radius: 0 5px 5px 0; }
       .erpion-sidenav__onglets-onglet:hover {
+        -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
         box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
     .erpion-sidenav__onglets-onglet--active {
       width: 100%;
@@ -82,6 +123,9 @@
       border-radius: 0;
       border: 1px solid; }
       .erpion-sidenav__onglets-onglet--active:hover {
+        -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
         box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
       .erpion-sidenav__onglets-onglet--active i {
         font-size: 20px;
@@ -103,7 +147,8 @@
   height: 300px;
   padding: 5px;
   background: white;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  margin: 10px 2px; }
   .erpion-card__xxl {
     flex-basis: 100%; }
   .erpion-card__lg {
@@ -119,19 +164,6 @@
   padding: 5px;
   background: white;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
-
-:root {
-  /*----- COLORS -----*/
-  --color-blanc: #ffffff;
-  --color-beje: #8a8373;
-  --color-bleu: rgb(38, 53, 76);
-  --color-bleu-turquoise: #3283b0;
-  --color-doree: #8a6433;
-  --color-vert: #547405;
-  /*----- FONTS -----*/
-  --font-family: 'Raleway', sans-serif;
-  --font-weight: 400;
-  --font-line-weight: 24px; }
 
 * {
   box-sizing: border-box;
@@ -156,7 +188,7 @@ body {
   flex-flow: row nowrap; }
 
 main {
-  width: calc(100% - 300px);
+  width: 100%;
   height: 100%;
   overflow-y: auto; }
 
