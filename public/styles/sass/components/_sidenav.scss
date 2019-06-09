@@ -1,12 +1,55 @@
 
 .erpion-sidenav {
   background: rgba(255, 255, 255, 0.8);
-  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
   height: 100%;
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  margin-left: -250px;
+  padding-right: 50px;
+  transition: all 0.5s ease-out;
+  @include light-box-shadow;
+
+  &:hover {
+    margin-left: 0;
+    padding-right: 0;
+    transition: all 0.5s ease-out;
+  }
+
+  @include respond-to('extra-large') {
+    margin-left: 0;
+    padding-right: 0;
+  }
+
+  &__menu {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    display: block;
+    top: 10px;
+    left: 0;
+    z-index: 3;
+
+    i {
+      margin-top: 5px;
+      margin-left: 5px;
+      font-size: 40px;
+    }
+
+    @include respond-to('extra-large') {
+      width: 15px;
+      top: 150px;
+      left: 300px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 0 10px 10px 0;
+
+      i {
+        margin-left: -25px;
+      }
+    }
+  }
 
   &__profile {
     position: inherit;
@@ -35,7 +78,7 @@
         object-fit: cover;
         border-radius: 50%;
         background: rgb(240, 240, 240);
-        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        @include light-box-shadow;
       }
     }
 
@@ -88,14 +131,14 @@
       width: 80%;
       height: auto;
       font-size: 20px;
-      color: white;
-      background: #0f9d58;
+      color: $color-blanc;
+      background: $color-vert;
       margin: 10px 0;
       padding: 5px;
       border-radius: 0 5px 5px 0;
 
       &:hover {
-        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        @include light-box-shadow;
       }
     }
 
@@ -103,15 +146,15 @@
       width: 100%;
       height: auto;
       font-size: 20px;
-      color: #0f9d58;
-      background: white;
+      color: $color-vert;
+      background: $color-blanc;
       margin: 10px 0;
       padding: 5px;
       border-radius: 0;
       border: 1px solid;
 
       &:hover {
-        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        @include light-box-shadow;
       }
 
       i {
