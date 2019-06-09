@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
   <link rel="stylesheet" href="../../../plugins/chart.js/Chart.min.css">
   <link rel="stylesheet" href="../../../styles/css/style.css">
-<!--  <link rel="stylesheet" href="../../../styles/css/sidenav.css">-->
+  <!--  <link rel="stylesheet" href="../../../styles/css/sidenav.css">-->
   <style>
 
   </style>
@@ -57,16 +57,83 @@
   <!-- BEGIN MAIN -->
   <main>
     <div class="content">
-      <div class="erpion-card erpion-card__xxl" style="display:inline-flex;">
-        <div style="height: 100%;width: 440px">
+
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Statistiques :</div>
+      </div>
+      <div class="erpion-card erpion-card__lg">
+        <div style="height: 100%;width: 300px">
           <canvas id="myChart"></canvas>
         </div>
-        <div style="height: 100%;width: 440px">
+        <div style="height: 100%;width: 300px">
           <canvas id="myChart2"></canvas>
         </div>
       </div>
-      <div class="erpion-card erpion-card__lg"></div>
       <div class="erpion-card erpion-card__sm"></div>
+
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Reservations :</div>
+        <button type="button" class="btn">Gérer</button>
+      </div>
+      <div class="erpion-card erpion-card__xxl">
+        <div class="erpion-rows">
+          <div class="erpion-rows__row">
+            <i class="material-icons">hotel</i>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-type">Simple</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-status">10/20</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-details">
+                <i class="material-icons">more_vert</i>
+              </span>
+            </div>
+          </div>
+          <div class="erpion-rows__row">
+            <i class="material-icons">hotel</i>
+            <div class="erpion-rows__row-element">
+              <span>Double</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-status">05/20</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-details">
+                <i class="material-icons">more_vert</i>
+              </span>
+            </div>
+          </div>
+          <div class="erpion-rows__row">
+            <i class="material-icons">hotel</i>
+            <div class="erpion-rows__row-element">
+              <span>Suite</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-status">02/10</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-details">
+                <i class="material-icons">more_vert</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Voyages :</div>
+        <button type="button" class="btn">Gérer</button>
+      </div>
+      <div class="erpion-card erpion-card__xxl"></div>
+
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Notoriété :</div>
+        <button type="button" class="btn">Gérer</button>
+      </div>
+      <div class="erpion-card erpion-card__xxl"></div>
+
       <div class="erpion-card erpion-card__md"></div>
       <div class="erpion-card erpion-card__sm"></div>
       <div class="erpion-card erpion-card__sm"></div>
@@ -149,7 +216,8 @@
   });
 </script>
 <!-- CRUD MANAGER BUTTON -->
-<a href="../connexion/login_view.html" class="waves-effect waves-light btn" style="position: fixed; bottom: 10px; right: 10px;">
+<a href="../connexion/login_view.html" class="waves-effect waves-light btn"
+   style="position: fixed; bottom: 10px; right: 10px;">
   <i class="small material-icons left">reply</i>Back to login
 </a>
 </body>

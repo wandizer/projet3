@@ -1,0 +1,17 @@
+
+.erpion-section {
+  width: 100%;
+}
+
+.erpion-subsection {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  &__title {
+    line-height: 40px;
+    vertical-align: bottom;
+  }
+}

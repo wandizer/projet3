@@ -37,6 +37,7 @@
     @media (min-width: 1300px) {
       .erpion-sidenav__menu {
         width: 15px;
+        top: 150px;
         left: 300px;
         background: rgba(255, 255, 255, 0.8);
         border-radius: 0 10px 10px 0; }
@@ -144,11 +145,14 @@
       object-fit: contain; }
 
 .erpion-card {
-  height: 300px;
+  height: 200px;
   padding: 5px;
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-  margin: 10px 2px; }
+  margin: 10px 2px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly; }
   .erpion-card__xxl {
     flex-basis: 100%; }
   .erpion-card__lg {
@@ -164,6 +168,46 @@
   padding: 5px;
   background: white;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+
+.erpion-rows {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; }
+  .erpion-rows__row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    background: white;
+    width: 100%;
+    height: 50px;
+    padding: 5px 10px;
+    margin: 5px;
+    -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-rows__row-element {
+      height: 100%;
+      line-height: 40px; }
+    .erpion-rows__row i {
+      font-size: 40px; }
+
+.erpion-section {
+  width: 100%; }
+
+.erpion-subsection {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-top: 10px; }
+  .erpion-subsection__title {
+    line-height: 40px;
+    vertical-align: bottom; }
 
 * {
   box-sizing: border-box;
@@ -197,7 +241,6 @@ main {
   flex-flow: row wrap;
   justify-content: space-between;
   width: 1000px;
-  height: 100%;
   margin: 5px auto;
   padding: 10px;
   background: rgba(255, 255, 255, 0.7); }
