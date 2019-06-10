@@ -28,6 +28,14 @@ const Utils = {
     console.log(viewName);
     return viewName;
   },
+
+  getStoredUser: () => window.sessionStorage.getItem('user'),
+
+  getStoredEmploye: () => window.sessionStorage.getItem('employe'),
+
+  getStoredService: () => window.sessionStorage.getItem('service'),
+
+  getStoredRole: () => window.sessionStorage.getItem('role'),
 };
 
 module.exports = Utils;

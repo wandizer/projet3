@@ -37,7 +37,7 @@ function storeService(result) {
   } else if (result[0].name === 'Cuisine') {
     window.location.assign('../restauration/restauration_view.html');
   } else if (result[0].name === 'Hebergement') {
-    window.location.assign('../hebergement/hebergement_view.html');
+    window.location.assign('../hebergement/dashboard_hebergement.html');
   } else if (result[0].name === 'Réception') {
     window.location.assign('../reception/reception_view.html');
   } else if (result[0].name === 'Maintenance') {

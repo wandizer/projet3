@@ -1,4 +1,4 @@
-
+const Utils = require('../../utils/Utils.js');
 
 // ############################################################################################# //
 // ####################################    FUNCTIONS    ######################################## //
@@ -18,3 +18,34 @@
 // ############################################################################################# //
 // #######################################    MAIN    ########################################## //
 // ############################################################################################# //
+
+// ACTION MANAGER
+switch (Utils.getViewName(window.location.href)) {
+  /**
+   * @Route /hebergement/dashboard_hebergement
+   */
+  case 'dashboard_hebergement': {
+    console.log('DASHBOARD');
+    break;
+  }
+  /**
+   * @Route /hebergement/gerer_reservations
+   */
+  case 'gerer_reservations': {
+    console.log('GERER RESERVATIONS');
+    break;
+  }
+  /**
+   * @Route /hebergement/reserver_chambre
+   */
+  case 'reserver_chambre': {
+    console.log('RESERVATION CAHMBRE');
+    break;
+  }
+  /**
+   * @Route /
+   */
+  default: {
+    console.log('View not found! No action executed!');
+  }
+}
