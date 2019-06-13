@@ -8,11 +8,7 @@
   <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
   <link rel="stylesheet" href="../../../plugins/chart.js/Chart.min.css">
   <link rel="stylesheet" href="../../../styles/css/style.css">
-  <!--  <link rel="stylesheet" href="../../../styles/css/sidenav.css">-->
-  <style>
-
-  </style>
-  <link rel="stylesheet" href="../../../styles/css/hebergement/hebergement.css">
+  <link rel="stylesheet" href="../../../styles/css/hebergement/gerer_reservations.css">
   <!-- Compiled and minified JavaScript -->
   <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
   <script type="text/javascript" src="../../../plugins/chart.js/Chart.bundle.min.js"></script>
@@ -44,9 +40,9 @@
       <a class="erpion-sidenav__onglets-onglet--active" href="#">
         <i class="material-icons">play_arrow</i>Mon dashboard
       </a>
-      <a class="erpion-sidenav__onglets-onglet" href="">Gérer Reservation</a>
-      <a class="erpion-sidenav__onglets-onglet">Gérer Voyages</a>
-      <a class="erpion-sidenav__onglets-onglet">Gérer Notoriété</a>
+      <a class="erpion-sidenav__onglets-onglet" href="./gerer_reservations.html">Gérer Reservation</a>
+      <a class="erpion-sidenav__onglets-onglet" href="./gerer_voyages.html">Gérer Voyages</a>
+      <a class="erpion-sidenav__onglets-onglet" href="./gerer_notoriete.html">Gérer Notoriété</a>
     </div>
     <div class="erpion-sidenav__logo">
       <img src="../../../assets/img/erpion_logo.png">
@@ -133,10 +129,6 @@
         <button type="button" class="btn">Gérer</button>
       </div>
       <div class="erpion-card erpion-card__xxl"></div>
-
-      <div class="erpion-card erpion-card__md"></div>
-      <div class="erpion-card erpion-card__sm"></div>
-      <div class="erpion-card erpion-card__sm"></div>
     </div>
   </main>
   <!-- END MAIN -->
@@ -220,6 +212,7 @@
    style="position: fixed; bottom: 10px; right: 10px;">
   <i class="small material-icons left">reply</i>Back to login
 </a>
+<script type="module"> require('../../controllers/hebergement_controller.js');</script>
 </body>
 </html>
 
