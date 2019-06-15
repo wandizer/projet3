@@ -1,4 +1,9 @@
+// const $  = require('../../plugins/jquery/jquery-3.3.1.min.js');
+// const Datepicker = require('../../plugins/air-datepicker/js/datepicker.min.js');
+
 const Utils = require('../../utils/Utils.js');
+const Hebergement = require('../models/Hebergement');
+const Chambre = require('../models/Chambre');
 
 // ############################################################################################# //
 // ####################################    FUNCTIONS    ######################################## //
@@ -36,10 +41,24 @@ switch (Utils.getViewName(window.location.href)) {
     break;
   }
   /**
-   * @Route /hebergement/reserver_chambre
+   * @Route /hebergement/gerer_chambre
    */
-  case 'reserver_chambre': {
-    console.log('RESERVATION CAHMBRE');
+  case 'gerer_chambre': {
+    console.log('GERER CHAMBRE');
+    break;
+  }
+  /**
+   * @Route /hebergement/gerer_voyages
+   */
+  case 'gerer_voyages': {
+    console.log('GERER VOYAGES');
+    break;
+  }
+  /**
+   * @Route /hebergement/gerer_notoriete
+   */
+  case 'gerer_notoriete': {
+    console.log('GERER NOTORIETE');
     break;
   }
   /**

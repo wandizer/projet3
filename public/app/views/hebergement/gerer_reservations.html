@@ -6,10 +6,20 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
   <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../../plugins/air-datepicker/css/datepicker.min.css">
   <link rel="stylesheet" href="../../../styles/css/style.css">
   <link rel="stylesheet" href="../../../styles/css/hebergement/gerer_reservations.css">
   <!-- Compiled and minified JavaScript -->
   <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+  <!-- Insert this line above script imports  -->
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <!-- normal script imports etc  -->
+  <script type="text/javascript" src="../../../plugins/jquery/jquery-3.3.1.min.js"></script>
+  <!-- Insert this line after script imports -->
+  <script>if (window.module) module = window.module;</script>
+  <script type="text/javascript" src="../../../plugins/air-datepicker/js/datepicker.min.js"></script>
+  <!-- Include French language -->
+  <script type="text/javascript" src="../../../plugins/air-datepicker/js/i18n/datepicker.fr.js"></script>
 </head>
 <body>
 <div class="viewport">
@@ -48,7 +58,70 @@
   <!-- BEGIN MAIN -->
   <main>
     <div class="content">
+      <div class="page-title">
+        <h4><strong>Date : </strong><div id="#currentDate"></div></h4>
+      </div>
+      <div class="left-container">
+        <div class="erpion-subsection">
+          <div class="erpion-subsection__title">Chambres libres</div>
+        </div>
+        <div class="erpion-card erpion-card__lg">
+          <div class="erpion-rows">
 
+
+            <div class="erpion-rows__row">
+              <i class="material-icons">hotel</i>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Type:</label>
+                <span class="chambre-type">Simple</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <div class="green-dot"></div>
+              </div>
+              <div class="erpion-rows__row-element" style="display: inline-flex">
+                <label style="margin-right: 5px">Etat:</label>
+                <span class="chambre-status">Libre</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Prix:</label>
+                <span class="chambre-details">_____ €</span>
+              </div>
+              <button type="button" class="btn-small green">Reserver</button>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="erpion-subsection">
+          <div class="erpion-subsection__title">Chambres occupées</div>
+        </div>
+        <div class="erpion-card erpion-card__lg">
+          <div class="erpion-rows">
+            <div class="nothing-found">
+              <i class="material-icons">warning</i><p>Rien trouvé</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+        <div class="subcontainer">
+          <div class="datepicker-here"></div>
+          <form action="#">
+            <p>
+              <label>
+                <input name="group1" type="radio" checked />
+                <span>Un seul jour</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Une période</span>
+              </label>
+            </p>
+          </form>
+        </div>
+      </div>
     </div>
   </main>
   <!-- END MAIN -->
@@ -58,6 +131,21 @@
    style="position: fixed; bottom: 10px; right: 10px;">
   <i class="small material-icons left">reply</i>Back to login
 </a>
+<script type="text/javascript">
+  window.addEventListener('load', () => {
+    $('.datepicker-here').datepicker({
+      language: 'fr',
+      minDate: new Date(), // Now can select only dates, which goes after today
+      range: true,
+      todayButton: true,
+    });
+
+
+
+
+
+  });
+</script>
 <script type="module"> require('../../controllers/hebergement_controller.js');</script>
 </body>
 </html>

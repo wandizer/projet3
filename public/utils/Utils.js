@@ -25,7 +25,6 @@ const Utils = {
   getViewName: (url) => {
     const cuttedUrl = url.split('/');
     const viewName = cuttedUrl[cuttedUrl.length - 1].split('.')[0];
-    console.log(viewName);
     return viewName;
   },
 
