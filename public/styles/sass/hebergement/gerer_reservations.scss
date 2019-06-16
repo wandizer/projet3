@@ -1,0 +1,91 @@
+@import "../abstracts/mixins";
+
+.page-title {
+  text-align: center;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.4);
+
+  strong {
+    font-weight: bolder;
+    font-size: 30px;
+  }
+  #currentDate {
+    font-size: 20px;
+
+    label {
+      font-size: 15px;
+    }
+  }
+}
+
+.left-container {
+  width: 70%;
+}
+
+.right-container {
+  width: 30%;
+  height: 100%;
+  padding-top: 150px;
+
+
+  .subcontainer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+
+    form {
+      padding: 5px;
+      width: 250px;
+      background: rgba(255, 255, 255, 0.6);
+      @include light-box-shadow;
+    }
+  }
+}
+
+.erpion-card {
+  min-height: 300px;
+  max-height: 30vh;
+}
+
+// We delete the materializeCSS style for nav
+nav {
+  border: none;
+  line-height: normal;
+  height: 32px;
+  width: 250px;
+  background: none;
+  box-shadow: none;
+  color: #4a4a4a;
+}
+
+.datepicker-here {
+  border: none;
+  @include light-box-shadow;
+}
+
+.datepicker {
+  border: none;
+  border-radius: 0;
+}
+
+.datepicker--cell.-range-from- {
+  border-radius: 40px 0 0 40px;
+}
+
+.datepicker--cell.-range-to- {
+  border-radius: 0 40px 40px 0;
+}
+
+.nothing-found {
+  background: #cecbce;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    margin-left: 10px;
+  }
+}

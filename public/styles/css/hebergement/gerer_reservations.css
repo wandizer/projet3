@@ -1,0 +1,72 @@
+.page-title {
+  text-align: center;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.4); }
+  .page-title strong {
+    font-weight: bolder;
+    font-size: 30px; }
+  .page-title #currentDate {
+    font-size: 20px; }
+    .page-title #currentDate label {
+      font-size: 15px; }
+
+.left-container {
+  width: 70%; }
+
+.right-container {
+  width: 30%;
+  height: 100%;
+  padding-top: 150px; }
+  .right-container .subcontainer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center; }
+    .right-container .subcontainer form {
+      padding: 5px;
+      width: 250px;
+      background: rgba(255, 255, 255, 0.6);
+      -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+
+.erpion-card {
+  min-height: 300px;
+  max-height: 30vh; }
+
+nav {
+  border: none;
+  line-height: normal;
+  height: 32px;
+  width: 250px;
+  background: none;
+  box-shadow: none;
+  color: #4a4a4a; }
+
+.datepicker-here {
+  border: none;
+  -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+
+.datepicker {
+  border: none;
+  border-radius: 0; }
+
+.datepicker--cell.-range-from- {
+  border-radius: 40px 0 0 40px; }
+
+.datepicker--cell.-range-to- {
+  border-radius: 0 40px 40px 0; }
+
+.nothing-found {
+  background: #cecbce;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .nothing-found p {
+    margin-left: 10px; }

@@ -52,5 +52,17 @@ main {
   background: rgba(255, 255, 255, 0.7);
 }
 
+.green-dot {
+  width: 10px;
+  height: 10px;
+  background: green;
+  @include border-radius(50%);
+}
 
+.yellow-dot {
 
+}
+
+.red-dot {
+
+}

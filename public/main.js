@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron');
+const $  = require('jquery');
 // const Database = require('./database/DatabaseV2');
 
 // We create the schema
@@ -14,7 +15,7 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1024,
+    width: 1368,
     height: 768,
     webPreferences: {
       nodeIntegration: true,
