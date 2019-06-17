@@ -34,7 +34,7 @@ function storeService(result) {
     window.location.assign('../direction/direction_view.html');
   } else if (result[0].name === 'Gestionnaires') {
     window.location.assign('../gestion/gestion_view.html');
-  } else if (result[0].name === 'Cuisine') {
+  } else if (result[0].name === 'Restauration') {
     window.location.assign('../restauration/restauration_view.html');
   } else if (result[0].name === 'Hebergement') {
     window.location.assign('../hebergement/dashboard_hebergement.html');
