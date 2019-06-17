@@ -20,6 +20,8 @@ window.addEventListener('load', () => {
   let datepicker;
   let calendar;
 
+  const hebergement = new Hebergement();
+
 // ############################################################################################# //
 // ####################################    FUNCTIONS    ######################################## //
 // ############################################################################################# //
@@ -125,7 +127,10 @@ window.addEventListener('load', () => {
         $('#occupiedRooms').html(defaultEmptyContent);
       };
 
-      fetchReservations = (statingDate, endingDate) => {
+      fetchReservations = (dateDebut, dateFin, isPeriod) => {
+        hebergement.getAllOccupiedRoomsByPeriod(dateDebut, dateFin, isPeriod, (result) => {
+          console.log(result);
+        });
       };
 
       drawDatepicker = () => {
@@ -151,10 +156,16 @@ window.addEventListener('load', () => {
                 // console.log(minRangeDate, maxRangeDate);
                 // We show the Day/period selected on the title
                 $('#currentDate').html(minRangeDate + '<label> jusqu\'à </label>' + maxRangeDate);
+                hebergement.getAllOccupiedRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
+                  console.log(result);
+                });
               }
             } else {
               // We show the Day/period selected on the title
               $('#currentDate').html(formattedDate);
+              hebergement.getAllOccupiedRoomsByDate(formattedDate, (result) => {
+                console.log(result);
+              });
             }
           }
         }).data('datepicker');
