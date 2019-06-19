@@ -137,7 +137,7 @@ window.addEventListener('load', () => {
         datepicker = $('.datepicker-here').datepicker({
           language: 'fr',
           minDate: new Date(), // Now can select only dates, which goes after today
-          range: true,
+          range: false,
           todayButton: true,
           clearButton: true,
           onSelect: function (formattedDate, date, picker) {
@@ -157,14 +157,20 @@ window.addEventListener('load', () => {
                 // We show the Day/period selected on the title
                 $('#currentDate').html(minRangeDate + '<label> jusqu\'à </label>' + maxRangeDate);
                 hebergement.getAllOccupiedRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
-                  console.log(result);
+                  console.log('Occupied Rooms : ', result);
+                });
+                hebergement.getAllFreeRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
+                  console.log('Free Rooms : ', result);
                 });
               }
             } else {
               // We show the Day/period selected on the title
               $('#currentDate').html(formattedDate);
               hebergement.getAllOccupiedRoomsByDate(formattedDate, (result) => {
-                console.log(result);
+                console.log('Occupied Rooms : ', result);
+              });
+              hebergement.getAllFreeRoomsByDate(formattedDate, (result) => {
+                console.log('Free Rooms : ', result);
               });
             }
           }
