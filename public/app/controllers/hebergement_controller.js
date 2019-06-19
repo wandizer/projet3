@@ -20,6 +20,8 @@ window.addEventListener('load', () => {
   let datepicker;
   let calendar;
 
+  const hebergement = new Hebergement();
+
 // ############################################################################################# //
 // ####################################    FUNCTIONS    ######################################## //
 // ############################################################################################# //
@@ -125,14 +127,17 @@ window.addEventListener('load', () => {
         $('#occupiedRooms').html(defaultEmptyContent);
       };
 
-      fetchReservations = (statingDate, endingDate) => {
+      fetchReservations = (dateDebut, dateFin, isPeriod) => {
+        hebergement.getAllOccupiedRoomsByPeriod(dateDebut, dateFin, isPeriod, (result) => {
+          console.log(result);
+        });
       };
 
       drawDatepicker = () => {
         datepicker = $('.datepicker-here').datepicker({
           language: 'fr',
           minDate: new Date(), // Now can select only dates, which goes after today
-          range: true,
+          range: false,
           todayButton: true,
           clearButton: true,
           onSelect: function (formattedDate, date, picker) {
@@ -151,10 +156,22 @@ window.addEventListener('load', () => {
                 // console.log(minRangeDate, maxRangeDate);
                 // We show the Day/period selected on the title
                 $('#currentDate').html(minRangeDate + '<label> jusqu\'à </label>' + maxRangeDate);
+                hebergement.getAllOccupiedRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
+                  console.log('Occupied Rooms : ', result);
+                });
+                hebergement.getAllFreeRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
+                  console.log('Free Rooms : ', result);
+                });
               }
             } else {
               // We show the Day/period selected on the title
               $('#currentDate').html(formattedDate);
+              hebergement.getAllOccupiedRoomsByDate(formattedDate, (result) => {
+                console.log('Occupied Rooms : ', result);
+              });
+              hebergement.getAllFreeRoomsByDate(formattedDate, (result) => {
+                console.log('Free Rooms : ', result);
+              });
             }
           }
         }).data('datepicker');
