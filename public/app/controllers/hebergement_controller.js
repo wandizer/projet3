@@ -22,17 +22,53 @@ window.addEventListener('load', () => {
 
   const hebergement = new Hebergement();
 
+  const defaultEmptyContent = `
+    <div class="nothing-found">
+      <i class="material-icons">warning</i><p>Rien trouvé</p>
+    </div>`;
+
+  const defaultFreeRoomLine = `
+    <div class="erpion-rows__row">
+      <i class="material-icons">hotel</i>
+      <div class="erpion-rows__row-element">
+        <div class="green-dot"></div>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Nº</label>
+        <span>{{ number }}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Etage:</label>
+        <span>{{ floor }}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Type:</label>
+        <span class="chambre-type">{{ type }}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Prix:</label>
+        <span class="chambre-details">{{ price }} €</span>
+      </div>
+      <a class="btn-small green" href="./gerer_chambre.html?id={{ id }}">Reserver</a>
+    </div>`;
+
+  const defaultOccupiedRoomLine = ``;
+
 // ############################################################################################# //
-// ####################################    FUNCTIONS    ######################################## //
+// #############################    FUNCTIONS / CALLBACKS    ################################### //
 // ############################################################################################# //
 
+  let fetchReservations = () => {
+  };
+  let drawFreeRooms = () => {
+  };
+  let drawOccupiedRooms = () => {
+  };
   let drawStatisticsCharts = () => {
   };
   let drawDatepicker = () => {
   };
   let clearReservationPage = () => {
-  };
-  let fetchReservations = () => {
   };
   let drawRoomCalendar = () => {
   };
@@ -118,19 +154,73 @@ window.addEventListener('load', () => {
     }
     case 'gerer_reservations': {
       clearReservationPage = () => {
-        const defaultEmptyContent = `
-        <div class="nothing-found">
-          <i class="material-icons">warning</i><p>Rien trouvé</p>
-        </div>`;
         $('#currentDate').html('');
         $('#freeRooms').html(defaultEmptyContent);
         $('#occupiedRooms').html(defaultEmptyContent);
       };
 
-      fetchReservations = (dateDebut, dateFin, isPeriod) => {
-        hebergement.getAllOccupiedRoomsByPeriod(dateDebut, dateFin, isPeriod, (result) => {
-          console.log(result);
+      drawFreeRooms = (rooms) => {
+        console.log('Free Rooms : ', rooms);
+        $('#freeRooms').html('');
+        rooms.forEach((room) => {
+          $('#freeRooms').append(
+            `<div class="erpion-rows__row">
+              <i class="material-icons">hotel</i>
+              <div class="erpion-rows__row-element">
+                <div class="green-dot"></div>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Nº</label>
+                <span>${room.number}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Etage:</label>
+                <span>${room.floor}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Type:</label>
+                <span class="chambre-type">${room.type}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Prix:</label>
+                <span class="chambre-details">${room.price} €</span>
+              </div>
+              <a class="btn-small green" href="./gerer_chambre.html?id=${room.id_room}">Reserver</a>
+            </div>`
+          );
         });
+      };
+
+      drawOccupiedRooms = (rooms) => {
+        console.log('Occupied Rooms : ', rooms);
+      };
+
+      fetchReservations = (formattedDate, date, picker) => {
+        // Do nothing if selection was cleared
+        if (!date) return;
+
+        // We clear the reservations from the page (to avoid duplications)
+        clearReservationPage();
+
+        // If period or else if day
+        if (picker.opts.range) {
+          // While period, only act if both were selected
+          if (picker.minRange && picker.maxRange && formattedDate.indexOf(',') > 0) {
+            const minRangeDate = formattedDate.split(',')[0];
+            const maxRangeDate = formattedDate.split(',')[1];
+            // We show the Day/period selected on the title
+            $('#currentDate').html(minRangeDate + '<label> jusqu\'à </label>' + maxRangeDate);
+            // We retrieve and fill the free and occupied rooms in the page
+            hebergement.getAllOccupiedRoomsByPeriod(minRangeDate, maxRangeDate, drawOccupiedRooms);
+            hebergement.getAllFreeRoomsByPeriod(minRangeDate, maxRangeDate, drawFreeRooms);
+          }
+        } else {
+          // We show the Day/period selected on the title
+          $('#currentDate').html(formattedDate);
+          // We retrieve and fill the free and occupied rooms in the page
+          hebergement.getAllOccupiedRoomsByDate(formattedDate, drawOccupiedRooms);
+          hebergement.getAllFreeRoomsByDate(formattedDate, drawFreeRooms);
+        }
       };
 
       drawDatepicker = () => {
@@ -140,40 +230,7 @@ window.addEventListener('load', () => {
           range: false,
           todayButton: true,
           clearButton: true,
-          onSelect: function (formattedDate, date, picker) {
-            // Do nothing if selection was cleared
-            if (!date) return;
-            clearReservationPage();
-
-            // console.log('Formatted date : ', formattedDate);
-            // console.log('Range ? ', picker.opts.range);
-
-            // If period or else if day
-            if (picker.opts.range) {
-              if (picker.minRange && picker.maxRange && formattedDate.indexOf(',') > 0) {
-                const minRangeDate = formattedDate.split(',')[0];
-                const maxRangeDate = formattedDate.split(',')[1];
-                // console.log(minRangeDate, maxRangeDate);
-                // We show the Day/period selected on the title
-                $('#currentDate').html(minRangeDate + '<label> jusqu\'à </label>' + maxRangeDate);
-                hebergement.getAllOccupiedRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
-                  console.log('Occupied Rooms : ', result);
-                });
-                hebergement.getAllFreeRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
-                  console.log('Free Rooms : ', result);
-                });
-              }
-            } else {
-              // We show the Day/period selected on the title
-              $('#currentDate').html(formattedDate);
-              hebergement.getAllOccupiedRoomsByDate(formattedDate, (result) => {
-                console.log('Occupied Rooms : ', result);
-              });
-              hebergement.getAllFreeRoomsByDate(formattedDate, (result) => {
-                console.log('Free Rooms : ', result);
-              });
-            }
-          }
+          onSelect: fetchReservations,
         }).data('datepicker');
       };
       break;
@@ -186,39 +243,6 @@ window.addEventListener('load', () => {
         });
         calendar.render();
       };
-
-      break;
-    }
-    case 'gerer_voyages': {
-
-      break;
-    }
-    case 'gerer_notoriete': {
-
-      break;
-    }
-    default: {
-
-    }
-  }
-
-// ############################################################################################# //
-// ####################################    CALLBACKS    ######################################## //
-// ############################################################################################# //
-
-  // -----------------------------------------------------------------------------------------
-
-  switch (currentPage) {
-    case 'dashboard_hebergement': {
-
-      break;
-    }
-    case 'gerer_reservations': {
-
-      break;
-    }
-    case 'gerer_chambre': {
-
       break;
     }
     case 'gerer_voyages': {
