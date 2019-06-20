@@ -8,13 +8,13 @@
     "@fullcalendar/daygrid": "^4.2.0",
     "air-datepicker": "^2.2.3",
     "chart.js": "^2.8.0",
-    "electron": "^4.1.4",
     "jquery": "^3.4.1",
     "material-design-icons": "^3.0.1",
     "mysql": "^2.16.0",
     "sqlite3": "^4.0.6"
   },
   "devDependencies": {
+    "electron": "^4.1.4",
     "electron-builder": "^20.39.0",
     "electron-packager": "^13.1.1",
     "electron-rebuild": "^1.8.4",
@@ -31,6 +31,7 @@
     "start": "electron .",
     "postinstall": "electron-builder install-app-deps",
     "rebuild": "electron-rebuild -f -w sqlite3",
+    "package-rebuild": "node build-win.js && node build-mac.js && node build-linux.js",
     "build": "npm run build-win && npm run build-mac && npm run build-linux",
     "build-win": "electron-packager . --overwrite --prune=true --out=build --platform=win32 --arch=ia32",
     "build-mac": "electron-packager . --overwrite --prune=true --out=build --platform=darwin --arch=x64",
