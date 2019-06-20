@@ -8,12 +8,13 @@ const Hebergement = require('../models/Hebergement');
 const Chambre = require('../models/Chambre');
 
 const currentPage = Utils.getViewName(window.location.href);
+const today = new Date();
+const todayFormatted = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 
 window.addEventListener('load', () => {
-
-// ############################################################################################# //
-// ####################################    VARIABLES    ######################################## //
-// ############################################################################################# //
+  // ############################################################################################# //
+  // ####################################    VARIABLES    ######################################## //
+  // ############################################################################################# //
 
   let doughnutChart;
   let lineChart;
@@ -22,17 +23,76 @@ window.addEventListener('load', () => {
 
   const hebergement = new Hebergement();
 
-// ############################################################################################# //
-// ####################################    FUNCTIONS    ######################################## //
-// ############################################################################################# //
+  const defaultEmptyContent = `
+    <div class="nothing-found">
+      <i class="material-icons">warning</i><p>Rien trouvé</p>
+    </div>`;
 
+  const defaultFreeRoomLine = `
+    <div class="erpion-rows__row">
+      <i class="material-icons">hotel</i>
+      <div class="erpion-rows__row-element">
+        <div class="green-dot"></div>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Nº</label>
+        <span>{{ number }}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Etage:</label>
+        <span>{{ floor }}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Type:</label>
+        <span class="chambre-type">{{ type }}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Prix:</label>
+        <span class="chambre-details">{{ price }} €</span>
+      </div>
+      <a class="btn-small green" href="./gerer_chambre.html?id={{ id }}">Reserver</a>
+    </div>`;
+
+  const defaultOccupiedRoomLine = `
+    <div class="erpion-rows__row">
+      <i class="material-icons">hotel</i>
+      <div class="erpion-rows__row-element">
+        <div class="red-dot"></div>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Nº</label>
+        <span>{{number}}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Etage:</label>
+        <span>{{floor}}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Type:</label>
+        <span class="chambre-type">{{type}}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Periode:</label>
+        <span class="chambre-details">{{date_arrival}} - {{date_depart}}</span>
+      </div>
+      <div class="btn-small red">Réservé</div>
+    </div>`;
+
+  // ############################################################################################# //
+  // #############################    FUNCTIONS / CALLBACKS    ################################### //
+  // ############################################################################################# //
+
+  let fetchReservations = () => {
+  };
+  let drawFreeRooms = () => {
+  };
+  let drawOccupiedRooms = () => {
+  };
   let drawStatisticsCharts = () => {
   };
   let drawDatepicker = () => {
   };
   let clearReservationPage = () => {
-  };
-  let fetchReservations = () => {
   };
   let drawRoomCalendar = () => {
   };
@@ -54,13 +114,13 @@ window.addEventListener('load', () => {
                 'rgb(75,176,167)',
                 'rgba(255, 206, 86, 1)',
               ],
-              borderWidth: 2
-            }]
+              borderWidth: 2,
+            }],
           },
           options: {
             title: {
               display: true,
-              text: 'Chambres :'
+              text: 'Chambres :',
             },
             scales: {
               yAxes: [{
@@ -72,9 +132,9 @@ window.addEventListener('load', () => {
                   display: false,
                   beginAtZero: true,
                 },
-              }]
-            }
-          }
+              }],
+            },
+          },
         });
         const elLineChart = document.getElementById('lineChart').getContext('2d');
         lineChart = new Chart(elLineChart, {
@@ -90,7 +150,7 @@ window.addEventListener('load', () => {
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 159, 64, 0.2)',
               ],
               borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -98,39 +158,133 @@ window.addEventListener('load', () => {
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(255, 159, 64, 1)',
               ],
-              borderWidth: 1
-            }]
+              borderWidth: 1,
+            }],
           },
           options: {
             scales: {
               yAxes: [{
                 ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
+                  beginAtZero: true,
+                },
+              }],
+            },
+          },
         });
       };
       break;
     }
     case 'gerer_reservations': {
       clearReservationPage = () => {
-        const defaultEmptyContent = `
-        <div class="nothing-found">
-          <i class="material-icons">warning</i><p>Rien trouvé</p>
-        </div>`;
         $('#currentDate').html('');
         $('#freeRooms').html(defaultEmptyContent);
         $('#occupiedRooms').html(defaultEmptyContent);
       };
 
-      fetchReservations = (dateDebut, dateFin, isPeriod) => {
-        hebergement.getAllOccupiedRoomsByPeriod(dateDebut, dateFin, isPeriod, (result) => {
-          console.log(result);
-        });
+      drawFreeRooms = (rooms) => {
+        // console.log('Free Rooms : ', rooms);
+        $('#freeRooms').html('');
+        $('#amountFreeRooms').html(`(${rooms.length})`);
+        if (rooms.length) {
+          rooms.forEach((room) => {
+            $('#freeRooms').append(
+              `<div class="erpion-rows__row">
+              <i class="material-icons">hotel</i>
+              <div class="erpion-rows__row-element">
+                <div class="green-dot"></div>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Nº</label>
+                <span>${room.number}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Etage:</label>
+                <span>${room.floor}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Type:</label>
+                <span class="chambre-type">${room.type}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Prix:</label>
+                <span class="chambre-details">${room.price} €</span>
+              </div>
+              <a class="btn-small green" href="./gerer_chambre.html?id=${room.id_room}">Reserver</a>
+            </div>`,
+            );
+          });
+        } else {
+          $('#freeRooms').html(defaultEmptyContent);
+        }
+      };
+
+      drawOccupiedRooms = (rooms) => {
+        // console.log('Occupied Rooms : ', rooms);
+        $('#occupiedRooms').html('');
+        $('#amountOccupiedRooms').html(`(${rooms.length})`);
+        if (rooms.length) {
+          rooms.forEach((room) => {
+            $('#occupiedRooms').append(
+              `<div class="erpion-rows__row">
+                <i class="material-icons">hotel</i>
+                <div class="erpion-rows__row-element">
+                  <div class="red-dot"></div>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Nº</label>
+                  <span>${room.number}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Etage:</label>
+                  <span>${room.floor}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Type:</label>
+                  <span class="chambre-type">${room.type}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Periode:</label>
+                  <span class="chambre-details">${room.date_arrival} - ${room.date_depart}</span>
+                </div>
+                <div class="btn-small red">Réservé</div>
+              </div>`,
+            );
+          });
+        } else {
+          $('#occupiedRooms').html(defaultEmptyContent);
+        }
+      };
+
+      fetchReservations = (formattedDate, date, picker) => {
+        // Do nothing if selection was cleared
+        if (!date) return;
+
+        // We clear the reservations from the page (to avoid duplications)
+        clearReservationPage();
+
+        // If period or else if day
+        if (picker.opts.range) {
+          // While period, only act if both were selected
+          if (picker.minRange && picker.maxRange && formattedDate.indexOf(',') > 0) {
+            const minRangeDate = formattedDate.split(',')[0];
+            const maxRangeDate = formattedDate.split(',')[1];
+            // We show the Day/period selected on the title
+            $('#currentDate').html(`${minRangeDate}<label> jusqu'à </label>${maxRangeDate}`);
+            // We retrieve and fill the free and occupied rooms in the page
+            hebergement.getAllOccupiedRoomsByPeriod(minRangeDate, maxRangeDate, drawOccupiedRooms);
+            hebergement.getAllFreeRoomsByPeriod(minRangeDate, maxRangeDate, drawFreeRooms);
+          }
+        } else {
+          // We show the Day/period selected on the title
+          $('#currentDate').html(formattedDate);
+          // We retrieve and fill the free and occupied rooms in the page
+          // hebergement.getAllOccupiedRoomsByDate(formattedDate, drawOccupiedRooms);
+          // hebergement.getAllFreeRoomsByDate(formattedDate, drawFreeRooms);
+          hebergement.getAllOccupiedRoomsByDate(formattedDate, drawOccupiedRooms);
+          hebergement.getAllFreeRoomsByDate(formattedDate, drawFreeRooms);
+        }
       };
 
       drawDatepicker = () => {
@@ -140,40 +294,7 @@ window.addEventListener('load', () => {
           range: false,
           todayButton: true,
           clearButton: true,
-          onSelect: function (formattedDate, date, picker) {
-            // Do nothing if selection was cleared
-            if (!date) return;
-            clearReservationPage();
-
-            // console.log('Formatted date : ', formattedDate);
-            // console.log('Range ? ', picker.opts.range);
-
-            // If period or else if day
-            if (picker.opts.range) {
-              if (picker.minRange && picker.maxRange && formattedDate.indexOf(',') > 0) {
-                const minRangeDate = formattedDate.split(',')[0];
-                const maxRangeDate = formattedDate.split(',')[1];
-                // console.log(minRangeDate, maxRangeDate);
-                // We show the Day/period selected on the title
-                $('#currentDate').html(minRangeDate + '<label> jusqu\'à </label>' + maxRangeDate);
-                hebergement.getAllOccupiedRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
-                  console.log('Occupied Rooms : ', result);
-                });
-                hebergement.getAllFreeRoomsByPeriod(minRangeDate, maxRangeDate, (result) => {
-                  console.log('Free Rooms : ', result);
-                });
-              }
-            } else {
-              // We show the Day/period selected on the title
-              $('#currentDate').html(formattedDate);
-              hebergement.getAllOccupiedRoomsByDate(formattedDate, (result) => {
-                console.log('Occupied Rooms : ', result);
-              });
-              hebergement.getAllFreeRoomsByDate(formattedDate, (result) => {
-                console.log('Free Rooms : ', result);
-              });
-            }
-          }
+          onSelect: fetchReservations,
         }).data('datepicker');
       };
       break;
@@ -182,65 +303,29 @@ window.addEventListener('load', () => {
       drawRoomCalendar = () => {
         const calendarEl = document.getElementById('calendar');
         calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'dayGrid' ],
+          plugins: ['dayGrid'],
         });
         calendar.render();
       };
-
       break;
     }
     case 'gerer_voyages': {
-
       break;
     }
     case 'gerer_notoriete': {
-
       break;
     }
     default: {
-
+      break;
     }
   }
 
-// ############################################################################################# //
-// ####################################    CALLBACKS    ######################################## //
-// ############################################################################################# //
-
-  // -----------------------------------------------------------------------------------------
+  // ############################################################################################# //
+  // #################################    EVENT LISTENERS    ##################################### //
+  // ############################################################################################# //
 
   switch (currentPage) {
     case 'dashboard_hebergement': {
-
-      break;
-    }
-    case 'gerer_reservations': {
-
-      break;
-    }
-    case 'gerer_chambre': {
-
-      break;
-    }
-    case 'gerer_voyages': {
-
-      break;
-    }
-    case 'gerer_notoriete': {
-
-      break;
-    }
-    default: {
-
-    }
-  }
-
-// ############################################################################################# //
-// #################################    EVENT LISTENERS    ##################################### //
-// ############################################################################################# //
-
-  switch (currentPage) {
-    case 'dashboard_hebergement': {
-
       break;
     }
     case 'gerer_reservations': {
@@ -256,28 +341,25 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_chambre': {
-
       break;
     }
     case 'gerer_voyages': {
-
       break;
     }
     case 'gerer_notoriete': {
-
       break;
     }
     default: {
-
+      break;
     }
   }
 
 
-// ############################################################################################# //
-// #######################################    MAIN    ########################################## //
-// ############################################################################################# //
+  // ############################################################################################# //
+  // #######################################    MAIN    ########################################## //
+  // ############################################################################################# //
 
-// ACTION MANAGER
+  // ACTION MANAGER
   switch (currentPage) {
     /**
      * @Route /hebergement/dashboard_hebergement
@@ -293,6 +375,8 @@ window.addEventListener('load', () => {
     case 'gerer_reservations': {
       console.log('GERER RESERVATIONS');
       drawDatepicker();
+      hebergement.getAllOccupiedRoomsByDate(todayFormatted, drawOccupiedRooms);
+      hebergement.getAllFreeRoomsByDate(todayFormatted, drawFreeRooms);
       break;
     }
     /**

@@ -20,6 +20,18 @@
 
 .left-container {
   width: 70%;
+
+  #amountOccupiedRooms {
+    margin-left: 10px;
+    font-weight: bold;
+    color: red;
+  }
+
+  #amountFreeRooms {
+    margin-left: 10px;
+    font-weight: bold;
+    color: green;
+  }
 }
 
 .right-container {

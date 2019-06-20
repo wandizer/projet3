@@ -1,4 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const dbPath = path.resolve(__dirname, 'hotel.db');
 const schema = require('./schema.js');
 const data = require('./data.js');
 
@@ -24,10 +26,9 @@ class DatabaseV2 {
    * Connects to the database
    */
   startConnection(databaseFilename) {
+    // `./public/database/${(!databaseFilename) ? 'hotel' : databaseFilename}.db`,
     // connecting to a disk file database
-    this.db = new sqlite3.Database(
-      `./public/database/${(!databaseFilename) ? 'hotel' : databaseFilename}.db`,
-      (err) => {
+    this.db = new sqlite3.Database(dbPath, (err) => {
         if (err) console.error(err.message);
         else console.log('Connected to the in-memory SQlite database.');
       },
