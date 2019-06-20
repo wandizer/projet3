@@ -257,3 +257,19 @@ main {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%; }
+
+.yellow-dot {
+  width: 10px;
+  height: 10px;
+  background: yellow;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%; }
+
+.red-dot {
+  width: 10px;
+  height: 10px;
+  background: red;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%; }

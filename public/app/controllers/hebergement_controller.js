@@ -10,10 +10,9 @@ const Chambre = require('../models/Chambre');
 const currentPage = Utils.getViewName(window.location.href);
 
 window.addEventListener('load', () => {
-
-// ############################################################################################# //
-// ####################################    VARIABLES    ######################################## //
-// ############################################################################################# //
+  // ############################################################################################# //
+  // ####################################    VARIABLES    ######################################## //
+  // ############################################################################################# //
 
   let doughnutChart;
   let lineChart;
@@ -52,11 +51,11 @@ window.addEventListener('load', () => {
       <a class="btn-small green" href="./gerer_chambre.html?id={{ id }}">Reserver</a>
     </div>`;
 
-  const defaultOccupiedRoomLine = ``;
+  const defaultOccupiedRoomLine = '';
 
-// ############################################################################################# //
-// #############################    FUNCTIONS / CALLBACKS    ################################### //
-// ############################################################################################# //
+  // ############################################################################################# //
+  // #############################    FUNCTIONS / CALLBACKS    ################################### //
+  // ############################################################################################# //
 
   let fetchReservations = () => {
   };
@@ -90,13 +89,13 @@ window.addEventListener('load', () => {
                 'rgb(75,176,167)',
                 'rgba(255, 206, 86, 1)',
               ],
-              borderWidth: 2
-            }]
+              borderWidth: 2,
+            }],
           },
           options: {
             title: {
               display: true,
-              text: 'Chambres :'
+              text: 'Chambres :',
             },
             scales: {
               yAxes: [{
@@ -108,9 +107,9 @@ window.addEventListener('load', () => {
                   display: false,
                   beginAtZero: true,
                 },
-              }]
-            }
-          }
+              }],
+            },
+          },
         });
         const elLineChart = document.getElementById('lineChart').getContext('2d');
         lineChart = new Chart(elLineChart, {
@@ -126,7 +125,7 @@ window.addEventListener('load', () => {
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 159, 64, 0.2)',
               ],
               borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -134,20 +133,20 @@ window.addEventListener('load', () => {
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(255, 159, 64, 1)',
               ],
-              borderWidth: 1
-            }]
+              borderWidth: 1,
+            }],
           },
           options: {
             scales: {
               yAxes: [{
                 ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
+                  beginAtZero: true,
+                },
+              }],
+            },
+          },
         });
       };
       break;
@@ -186,13 +185,42 @@ window.addEventListener('load', () => {
                 <span class="chambre-details">${room.price} €</span>
               </div>
               <a class="btn-small green" href="./gerer_chambre.html?id=${room.id_room}">Reserver</a>
-            </div>`
+            </div>`,
           );
         });
       };
 
       drawOccupiedRooms = (rooms) => {
         console.log('Occupied Rooms : ', rooms);
+        $('#occupiedRooms').html('');
+        rooms.forEach((room) => {
+          $('#occupiedRooms').append(
+            `
+            <div class="erpion-rows__row">
+              <i class="material-icons">hotel</i>
+              <div class="erpion-rows__row-element">
+                <div class="red-dot"></div>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Nº</label>
+                <span>${room.number}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Etage:</label>
+                <span>${room.floor}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Type:</label>
+                <span class="chambre-type">${room.type}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Periode:</label>
+                <span class="chambre-details">${room.date_arrival} - ${room.date_depart}</span>
+              </div>
+              <div class="btn-small red">Réservé</div>
+            </div>`,
+          );
+        });
       };
 
       fetchReservations = (formattedDate, date, picker) => {
@@ -209,7 +237,7 @@ window.addEventListener('load', () => {
             const minRangeDate = formattedDate.split(',')[0];
             const maxRangeDate = formattedDate.split(',')[1];
             // We show the Day/period selected on the title
-            $('#currentDate').html(minRangeDate + '<label> jusqu\'à </label>' + maxRangeDate);
+            $('#currentDate').html(`${minRangeDate}<label> jusqu'à </label>${maxRangeDate}`);
             // We retrieve and fill the free and occupied rooms in the page
             hebergement.getAllOccupiedRoomsByPeriod(minRangeDate, maxRangeDate, drawOccupiedRooms);
             hebergement.getAllFreeRoomsByPeriod(minRangeDate, maxRangeDate, drawFreeRooms);
@@ -218,6 +246,8 @@ window.addEventListener('load', () => {
           // We show the Day/period selected on the title
           $('#currentDate').html(formattedDate);
           // We retrieve and fill the free and occupied rooms in the page
+          // hebergement.getAllOccupiedRoomsByDate(formattedDate, drawOccupiedRooms);
+          // hebergement.getAllFreeRoomsByDate(formattedDate, drawFreeRooms);
           hebergement.getAllOccupiedRoomsByDate(formattedDate, drawOccupiedRooms);
           hebergement.getAllFreeRoomsByDate(formattedDate, drawFreeRooms);
         }
@@ -239,32 +269,29 @@ window.addEventListener('load', () => {
       drawRoomCalendar = () => {
         const calendarEl = document.getElementById('calendar');
         calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'dayGrid' ],
+          plugins: ['dayGrid'],
         });
         calendar.render();
       };
       break;
     }
     case 'gerer_voyages': {
-
       break;
     }
     case 'gerer_notoriete': {
-
       break;
     }
     default: {
-
+      break;
     }
   }
 
-// ############################################################################################# //
-// #################################    EVENT LISTENERS    ##################################### //
-// ############################################################################################# //
+  // ############################################################################################# //
+  // #################################    EVENT LISTENERS    ##################################### //
+  // ############################################################################################# //
 
   switch (currentPage) {
     case 'dashboard_hebergement': {
-
       break;
     }
     case 'gerer_reservations': {
@@ -280,28 +307,25 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_chambre': {
-
       break;
     }
     case 'gerer_voyages': {
-
       break;
     }
     case 'gerer_notoriete': {
-
       break;
     }
     default: {
-
+      break;
     }
   }
 
 
-// ############################################################################################# //
-// #######################################    MAIN    ########################################## //
-// ############################################################################################# //
+  // ############################################################################################# //
+  // #######################################    MAIN    ########################################## //
+  // ############################################################################################# //
 
-// ACTION MANAGER
+  // ACTION MANAGER
   switch (currentPage) {
     /**
      * @Route /hebergement/dashboard_hebergement

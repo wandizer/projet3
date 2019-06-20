@@ -60,9 +60,15 @@ main {
 }
 
 .yellow-dot {
-
+  width: 10px;
+  height: 10px;
+  background: yellow;
+  @include border-radius(50%);
 }
 
 .red-dot {
-
+  width: 10px;
+  height: 10px;
+  background: red;
+  @include border-radius(50%);
 }

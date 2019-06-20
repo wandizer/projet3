@@ -2,9 +2,12 @@ module.exports = {
   "extends": "airbnb-base",
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jquery": true,
   },
   'rules': {
+    // max line length redefine
+    'max-len': ['error', { 'code': 120 }],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
@@ -19,5 +22,7 @@ module.exports = {
     'no-console': 0,
     // no camelcase rule
     'camelcase': 0,
+    // no obligatory static methods
+    'class-methods-use-this': 0,
   }
 };
