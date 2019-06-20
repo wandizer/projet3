@@ -8,6 +8,8 @@ const Hebergement = require('../models/Hebergement');
 const Chambre = require('../models/Chambre');
 
 const currentPage = Utils.getViewName(window.location.href);
+const today = new Date();
+const todayFormatted = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 
 window.addEventListener('load', () => {
   // ############################################################################################# //
@@ -51,7 +53,30 @@ window.addEventListener('load', () => {
       <a class="btn-small green" href="./gerer_chambre.html?id={{ id }}">Reserver</a>
     </div>`;
 
-  const defaultOccupiedRoomLine = '';
+  const defaultOccupiedRoomLine = `
+    <div class="erpion-rows__row">
+      <i class="material-icons">hotel</i>
+      <div class="erpion-rows__row-element">
+        <div class="red-dot"></div>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Nº</label>
+        <span>{{number}}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Etage:</label>
+        <span>{{floor}}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Type:</label>
+        <span class="chambre-type">{{type}}</span>
+      </div>
+      <div class="erpion-rows__row-element">
+        <label style="margin-right: 5px">Periode:</label>
+        <span class="chambre-details">{{date_arrival}} - {{date_depart}}</span>
+      </div>
+      <div class="btn-small red">Réservé</div>
+    </div>`;
 
   // ############################################################################################# //
   // #############################    FUNCTIONS / CALLBACKS    ################################### //
@@ -159,11 +184,13 @@ window.addEventListener('load', () => {
       };
 
       drawFreeRooms = (rooms) => {
-        console.log('Free Rooms : ', rooms);
+        // console.log('Free Rooms : ', rooms);
         $('#freeRooms').html('');
-        rooms.forEach((room) => {
-          $('#freeRooms').append(
-            `<div class="erpion-rows__row">
+        $('#amountFreeRooms').html(`(${rooms.length})`);
+        if (rooms.length) {
+          rooms.forEach((room) => {
+            $('#freeRooms').append(
+              `<div class="erpion-rows__row">
               <i class="material-icons">hotel</i>
               <div class="erpion-rows__row-element">
                 <div class="green-dot"></div>
@@ -186,41 +213,48 @@ window.addEventListener('load', () => {
               </div>
               <a class="btn-small green" href="./gerer_chambre.html?id=${room.id_room}">Reserver</a>
             </div>`,
-          );
-        });
+            );
+          });
+        } else {
+          $('#freeRooms').html(defaultEmptyContent);
+        }
       };
 
       drawOccupiedRooms = (rooms) => {
-        console.log('Occupied Rooms : ', rooms);
+        // console.log('Occupied Rooms : ', rooms);
         $('#occupiedRooms').html('');
-        rooms.forEach((room) => {
-          $('#occupiedRooms').append(
-            `
-            <div class="erpion-rows__row">
-              <i class="material-icons">hotel</i>
-              <div class="erpion-rows__row-element">
-                <div class="red-dot"></div>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Nº</label>
-                <span>${room.number}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Etage:</label>
-                <span>${room.floor}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Type:</label>
-                <span class="chambre-type">${room.type}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Periode:</label>
-                <span class="chambre-details">${room.date_arrival} - ${room.date_depart}</span>
-              </div>
-              <div class="btn-small red">Réservé</div>
-            </div>`,
-          );
-        });
+        $('#amountOccupiedRooms').html(`(${rooms.length})`);
+        if (rooms.length) {
+          rooms.forEach((room) => {
+            $('#occupiedRooms').append(
+              `<div class="erpion-rows__row">
+                <i class="material-icons">hotel</i>
+                <div class="erpion-rows__row-element">
+                  <div class="red-dot"></div>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Nº</label>
+                  <span>${room.number}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Etage:</label>
+                  <span>${room.floor}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Type:</label>
+                  <span class="chambre-type">${room.type}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Periode:</label>
+                  <span class="chambre-details">${room.date_arrival} - ${room.date_depart}</span>
+                </div>
+                <div class="btn-small red">Réservé</div>
+              </div>`,
+            );
+          });
+        } else {
+          $('#occupiedRooms').html(defaultEmptyContent);
+        }
       };
 
       fetchReservations = (formattedDate, date, picker) => {
@@ -341,6 +375,8 @@ window.addEventListener('load', () => {
     case 'gerer_reservations': {
       console.log('GERER RESERVATIONS');
       drawDatepicker();
+      hebergement.getAllOccupiedRoomsByDate(todayFormatted, drawOccupiedRooms);
+      hebergement.getAllFreeRoomsByDate(todayFormatted, drawFreeRooms);
       break;
     }
     /**
