@@ -24,5 +24,9 @@ module.exports = {
     'camelcase': 0,
     // no obligatory static methods
     'class-methods-use-this': 0,
+    // no rule for no-multi-assign
+    'no-multi-assign': 0,
+    // no prefer-destructuring
+    'prefer-destructuring': 0,
   }
 };

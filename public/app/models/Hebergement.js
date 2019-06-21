@@ -11,7 +11,6 @@ WHERE strftime('%d/%m/%Y', datetime(1281353727/1000, 'unixepoch')) BETWEEN
  * @class Hebergement
  */
 class Hebergement {
-
   /**
    * @constructor
    */
@@ -20,6 +19,13 @@ class Hebergement {
     this.freeRooms = {};
   }
 
+  /**
+   * Function that checks if the date is inside a given period
+   * @param dateCheck - Exemple: '20/06/2019'
+   * @param dateFrom - Exemple: '20/06/2019'
+   * @param dateTo - Exemple: '20/06/2019'
+   * @returns {boolean} - Returns true if date inside period
+   */
   checkDateBetween(dateCheck, dateFrom, dateTo) {
     const from = new Date(
       dateFrom.split('/')[2], dateFrom.split('/')[1] - 1, dateFrom.split('/')[0],
@@ -34,8 +40,8 @@ class Hebergement {
   }
 
   /**
-   * Returns all the occupied rooms
-   * @param callback
+   * Returns all the occupied rooms at the moment
+   * @param {Function} callback
    */
   getAllOccupiedRooms(callback) {
     const $query = `
@@ -44,6 +50,10 @@ class Hebergement {
     database.executeQuery($query, [], callback);
   }
 
+  /**
+   * Returns all the free rooms at the moment
+   * @param {Function} callback
+   */
   getAllFreeRooms(callback) {
     const $query = `
       SELECT * FROM ROOM R WHERE R.id_room NOT IN (
@@ -51,6 +61,11 @@ class Hebergement {
     database.executeQuery($query, callback);
   }
 
+  /**
+   * Returns all the free rooms to a corresponding date
+   * @param {string} formattedDate
+   * @param {function} callback
+   */
   getAllFreeRoomsByDate(formattedDate, callback) {
     this.getAllOccupiedRoomsByDate(formattedDate, (rooms) => {
       let blackListedIds = '';
@@ -66,6 +81,11 @@ class Hebergement {
     });
   }
 
+  /**
+   * Returns all the occupied rooms to a corresponding date
+   * @param {string} formattedDate
+   * @param {function} callback
+   */
   getAllOccupiedRoomsByDate(formattedDate, callback) {
     const $query = `SELECT * FROM Room_Reservation RE, Room R
       WHERE RE.id_room = R.id_room AND RE.active IS TRUE;`;
@@ -80,13 +100,14 @@ class Hebergement {
     });
   }
 
+  /**
+   * Returns all the free rooms to a corresponding period
+   * @param {string} dateDebut
+   * @param {string} dateFin
+   * @param {function} callback
+   */
   getAllFreeRoomsByPeriod(dateDebut, dateFin, callback) {
-    // const $query = `SELECT * FROM ROOM R WHERE * NOT IN (
-    //   SELECT RE.id_room FROM Room_Reservation RE WHERE RE.active is TRUE
-    //   AND (? BETWEEN RE.date_arrival AND RE.date_depart
-    //   OR ? BETWEEN RE.date_arrival AND RE.date_depart));`;
-    // database.executeQuery($query, [dateDebut, dateFin], callback);
-    this.getAllOccupiedRoomsByPeriod(dateDebut, dateFin,(rooms) => {
+    this.getAllOccupiedRoomsByPeriod(dateDebut, dateFin, (rooms) => {
       let blackListedIds = '';
       rooms.forEach(room => {
         blackListedIds += `${room.id_room},`;
@@ -100,13 +121,13 @@ class Hebergement {
     });
   }
 
+  /**
+   * Returns all the occupied rooms to a corresponding period
+   * @param {string} dateDebut
+   * @param {string} dateFin
+   * @param {function} callback
+   */
   getAllOccupiedRoomsByPeriod(dateDebut, dateFin, callback) {
-   /* const $query = `
-      SELECT * FROM Room_Reservation RE, Room R WHERE RE.id_room = R.id_room
-      AND (? BETWEEN RE.date_arrival AND RE.date_depart
-      OR ? BETWEEN RE.date_arrival AND RE.date_depart) AND RE.active is TRUE;`;
-    database.executeQuery($query, [dateDebut, dateFin], callback);*/
-
     const $query = `SELECT * FROM Room_Reservation RE, Room R
       WHERE RE.id_room = R.id_room AND RE.active IS TRUE;`;
     database.executeQuery($query, [], (results) => {
@@ -119,6 +140,14 @@ class Hebergement {
       });
       callback(rooms);
     });
+  }
+
+  reserveRoomByDate(date, callback) {
+
+  }
+
+  reserveRoomByPeriod(dateDebut, dateFin, callback) {
+
   }
 }
 

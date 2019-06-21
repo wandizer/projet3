@@ -75,6 +75,11 @@ function storeEmploye(result) {
   Role.getById(result[0].id_role, storeRole);
 }
 
+/**
+ * Stores user session data in sessionStorage
+ * @callback
+ * @param result
+ */
 function storeUser(result) {
   console.log('User :', result);
   // Storage (without password and username)

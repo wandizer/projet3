@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+
 const dbPath = path.resolve(__dirname, 'hotel.db');
 const schema = require('./schema.js');
 const data = require('./data.js');
@@ -12,12 +13,10 @@ const data = require('./data.js');
 class DatabaseV2 {
   /**
    * @constructor
-   * @param databaseFilename - optional
    */
-  constructor(databaseFilename) {
+  constructor() {
     this.db = null;
-    if (databaseFilename) this.startConnection(databaseFilename);
-    else this.startConnection();
+    this.startConnection();
     // this.createSchema();
     // this.insertData();
   }
@@ -25,14 +24,13 @@ class DatabaseV2 {
   /**
    * Connects to the database
    */
-  startConnection(databaseFilename) {
+  startConnection() {
     // `./public/database/${(!databaseFilename) ? 'hotel' : databaseFilename}.db`,
     // connecting to a disk file database
     this.db = new sqlite3.Database(dbPath, (err) => {
-        if (err) console.error(err.message);
-        else console.log('Connected to the in-memory SQlite database.');
-      },
-    );
+      if (err) console.error(err.message);
+      else console.log('Connected to the in-memory SQlite database.');
+    });
   }
 
   /**
