@@ -27,14 +27,23 @@ class User {
    * Equivalent to INSERT INTO for table User
    */
   static write() {
-    database.write(tableName, ['email', 'username', 'password', 'id_employe'], [this.email, this.username, this.password, this.id_employe]);
+    database.write(
+      tableName,
+      ['email', 'username', 'password', 'id_employe'],
+      [this.email, this.username, this.password, this.id_employe],
+    );
   }
 
   /**
    * Equivalent to UPDATE for table User
    */
   static rewrite() {
-    database.rewrite(tableName, ['email', 'username', 'password'], [this.email, this.username, this.password], 'id_user', this.id);
+    database.rewrite(
+      tableName,
+      ['email', 'username', 'password'],
+      [this.email, this.username, this.password],
+      'id_user', this.id,
+    );
   }
 
   /**

@@ -1,5 +1,6 @@
 window.$ = window.jQuery = require('../../plugins/jquery/jquery-3.3.1.min.js');
 require('../../plugins/chart.js/Chart.bundle.min.js');
+require('../../plugins/materialize/js/materialize.min.js');
 require('../../plugins/air-datepicker/js/datepicker.min.js');
 require('../../plugins/air-datepicker/js/i18n/datepicker.fr');
 // const FullCalendar = require('../../plugins/fullcalendar.js/core/main.min.js');
@@ -9,7 +10,6 @@ const Chambre = require('../models/Chambre');
 
 const currentPage = Utils.getViewName(window.location.href);
 const today = new Date();
-const todayFormatted = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 
 window.addEventListener('load', () => {
   // ############################################################################################# //
@@ -20,6 +20,8 @@ window.addEventListener('load', () => {
   let lineChart;
   let datepicker;
   let calendar;
+  let isRange = false;
+  let globalFormattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 
   const hebergement = new Hebergement();
 
@@ -82,19 +84,59 @@ window.addEventListener('load', () => {
   // #############################    FUNCTIONS / CALLBACKS    ################################### //
   // ############################################################################################# //
 
+  /**
+   * Retrieves all the reservations after selecting a date or period on air-datepicker
+   * @function
+   */
   let fetchReservations = () => {
   };
+  /**
+   * Draws all the free rooms retrieved inside the free rooms container in the page
+   * @function
+   */
   let drawFreeRooms = () => {
   };
+  /**
+   * Draws all the occupied rooms retrieved inside the occupied rooms container in the page
+   * @function
+   */
   let drawOccupiedRooms = () => {
   };
+  /**
+   * Draws all the charts necessary for the statistics on the dashboard
+   * @function
+   */
   let drawStatisticsCharts = () => {
   };
+  /**
+   * Draws the Air-Datepicker for managing the reservations, in order to access all the free and occupied rooms
+   * @function
+   */
   let drawDatepicker = () => {
   };
+  /**
+   * Voids the two containers inside the 'Gérer Reservations' page
+   * @function
+   */
   let clearReservationPage = () => {
   };
+  /**
+   * Responsible for drawing the FullCalendar for the current room (inside 'Gérer Chambre')
+   * @function
+   */
   let drawRoomCalendar = () => {
+  };
+  /**
+   * Responsible for drawing the reservation modal
+   * @function
+   */
+  let drawModalReservation = () => {
+  };
+  /**
+   * Permet de reserver une chambre
+   * @function
+   */
+  let reserveRoom = () => {
   };
 
   // -----------------------------------------------------------------------------------------
@@ -180,7 +222,102 @@ window.addEventListener('load', () => {
       clearReservationPage = () => {
         $('#currentDate').html('');
         $('#freeRooms').html(defaultEmptyContent);
+        $('#amountFreeRooms').html('(0)');
         $('#occupiedRooms').html(defaultEmptyContent);
+        $('#amountOccupiedRooms').html('(0)');
+      };
+
+      reserveRoom = () => {
+        const formData = $('form#formReservation').serializeArray();
+        const clientReservationData = [];
+        $.each(formData, (i, field) => {
+          clientReservationData[field.name] = field.value;
+          console.log(field);
+        });
+        console.log(clientReservationData);
+      };
+
+      drawModalReservation = (e) => {
+        const id_room = e.target.dataset.id;
+        const price = e.target.dataset.price;
+        const dateDebut = (isRange) ? globalFormattedDate.split(',')[0] : globalFormattedDate;
+        const dateFin = (isRange) ? globalFormattedDate.split(',')[1] : globalFormattedDate;
+        console.log(id_room, price);
+        console.log(dateDebut, dateFin);
+
+        $('.modal-reservation').html(`
+          <div class="modal-content">
+            <h4>Formulaire de réservation</h4>
+            <div class="row">
+              <form class="col s12" id="formReservation">
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="clientName" name="clientName" type="text" class="validate">
+                    <label for="clientName">Prénom</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <input id="clientSurname" name="clientSurname" type="text" class="validate">
+                    <label for="clientSurname">Nom</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="clientEmail" name="clientEmail" type="email" class="validate">
+                    <label for="clientEmail">Email</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="clientPhone" name="clientPhone" type="tel" class="validate">
+                    <label for="clientPhone">Téléphone</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <p>
+                      <label>
+                        <input id="radioCB" name="typePaiement" type="radio" checked />
+                        <span for="radioCB">Carte bancaire</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input id="radioCheque" name="typePaiement" type="radio" />
+                        <span for="radioCheque">Chéques</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input id="radioEspeces" name="typePaiement" type="radio" />
+                        <span for="radioEspeces">Espèces</span>
+                      </label>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input disabled value="${dateDebut}" id="reservationDateDebut" type="text" class="validate">
+                    <label for="reservationDateDebut" class="active">Date début</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <input disabled value="${dateFin}" id="reservationDatefin" type="text" class="validate">
+                    <label for="reservationDatefin" class="active">Date fin</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input disabled value="${price}" id="roomPrice" name="roomPrice" type="number" class="validate">
+                    <label for="roomPrice" class="active">Prix (€)</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="modalButtonReserver"
+            class="modal-close waves-effect waves-green btn-small green">Réserver</button>
+          </div>
+        `);
+        $('#modalButtonReserver').on('click', reserveRoom);
+        $('.modal-reservation').modal('open');
       };
 
       drawFreeRooms = (rooms) => {
@@ -191,29 +328,32 @@ window.addEventListener('load', () => {
           rooms.forEach((room) => {
             $('#freeRooms').append(
               `<div class="erpion-rows__row">
-              <i class="material-icons">hotel</i>
-              <div class="erpion-rows__row-element">
-                <div class="green-dot"></div>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Nº</label>
-                <span>${room.number}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Etage:</label>
-                <span>${room.floor}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Type:</label>
-                <span class="chambre-type">${room.type}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Prix:</label>
-                <span class="chambre-details">${room.price} €</span>
-              </div>
-              <a class="btn-small green" href="./gerer_chambre.html?id=${room.id_room}">Reserver</a>
-            </div>`,
+                <i class="material-icons">hotel</i>
+                <div class="erpion-rows__row-element">
+                  <div class="green-dot"></div>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Nº</label>
+                  <span>${room.number}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Etage:</label>
+                  <span>${room.floor}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Type:</label>
+                  <span class="chambre-type">${room.type}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Prix:</label>
+                  <span class="chambre-details">${room.price} €</span>
+                </div>
+                <button type="button" class="btn-small green" 
+                id="buttonReserver${room.id_room}" data-id="${room.id_room}"
+                data-price="${room.price}">Reserver</button>
+              </div>`,
             );
+            $(`#buttonReserver${room.id_room}`).on('click', drawModalReservation);
           });
         } else {
           $('#freeRooms').html(defaultEmptyContent);
@@ -248,7 +388,7 @@ window.addEventListener('load', () => {
                   <label style="margin-right: 5px">Periode:</label>
                   <span class="chambre-details">${room.date_arrival} - ${room.date_depart}</span>
                 </div>
-                <div class="btn-small red">Réservé</div>
+                <a class="btn-small red" href="./gerer_chambre.html?id=${room.id_room}">Réservé</a>
               </div>`,
             );
           });
@@ -263,6 +403,9 @@ window.addEventListener('load', () => {
 
         // We clear the reservations from the page (to avoid duplications)
         clearReservationPage();
+
+        // we store the formattedDate globally;
+        globalFormattedDate = formattedDate;
 
         // If period or else if day
         if (picker.opts.range) {
@@ -332,11 +475,17 @@ window.addEventListener('load', () => {
       $('#optionOneDay').on('click', () => {
         datepicker.clear();
         datepicker.update('range', false);
+        isRange = false;
       });
 
       $('#optionOnePeriod').on('click', () => {
         datepicker.clear();
         datepicker.update('range', true);
+        isRange = true;
+      });
+
+      $('#buttonReserver').on('click', (e) => {
+        console.log(e.target);
       });
       break;
     }
@@ -375,8 +524,11 @@ window.addEventListener('load', () => {
     case 'gerer_reservations': {
       console.log('GERER RESERVATIONS');
       drawDatepicker();
-      hebergement.getAllOccupiedRoomsByDate(todayFormatted, drawOccupiedRooms);
-      hebergement.getAllFreeRoomsByDate(todayFormatted, drawFreeRooms);
+      hebergement.getAllOccupiedRoomsByDate(globalFormattedDate, drawOccupiedRooms);
+      hebergement.getAllFreeRoomsByDate(globalFormattedDate, drawFreeRooms);
+      $(document).ready(() => {
+        $('.modal-reservation').modal();
+      });
       break;
     }
     /**

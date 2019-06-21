@@ -10,7 +10,7 @@ packager({
   prune: true,
   out: 'build',
   executableName: 'Erpion',
-  icon: 'public/assets/favicon.ico',
+  icon: 'public/assets/icons/favicon.ico',
   afterCopy: [(buildPath, electronVersion, platform, arch, callback) => {
     rebuild.rebuild({ buildPath, electronVersion, arch })
       .then(() => callback())

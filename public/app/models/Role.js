@@ -33,11 +33,11 @@ class Role {
     database.rewrite(tableName, ['name', 'id_service'], [this.name, this.id_service], 'id_role', this.id);
   }
 
-	/**
-	 * Get role by 'id'
-	 * @param id
-	 * @param callback
-	 */
+  /**
+   * Get role by 'id'
+   * @param id
+   * @param callback
+   */
   static getById(id, callback) {
     const sql = `SELECT * FROM ${tableName} WHERE id_role = ?;`;
     database.executeQuery(sql, id, callback);
