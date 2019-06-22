@@ -142,12 +142,31 @@ class Hebergement {
     });
   }
 
-  reserveRoomByDate(date, callback) {
-
+  /**
+   * Reserves a room by date
+   * @param idRoom
+   * @param idClient
+   * @param date - DateArrival = DateDepart
+   * @param {function} callback
+   */
+  reserveRoomByDate(idRoom, idClient, date, callback) {
+    const $query = `INSERT INTO Room_Reservation (date_arrival, date_depart, id_room, id_client, active)
+      VALUES (?, ?, ?, ?, true);`;
+    database.executeQuery($query, [date, date, idRoom, idClient], callback);
   }
 
-  reserveRoomByPeriod(dateDebut, dateFin, callback) {
-
+  /**
+   * Reserves a room by period
+   * @param idRoom
+   * @param idClient
+   * @param dateDebut
+   * @param dateFin
+   * @param {function} callback
+   */
+  reserveRoomByPeriod(idRoom, idClient, dateDebut, dateFin, callback) {
+    const $query = `INSERT INTO Room_Reservation (date_arrival, date_depart, id_room, id_client, active)
+      VALUES (?, ?, ?, ?, true);`;
+    database.executeQuery($query, [dateDebut, dateFin, idRoom, idClient], callback);
   }
 }
 

@@ -153,6 +153,12 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly; }
+  .erpion-card-canvas {
+    padding: 0;
+    background: white; }
+    .erpion-card-canvas canvas {
+      height: 100%;
+      width: 100%; }
   .erpion-card__xxl {
     flex-basis: 100%; }
   .erpion-card__lg {
@@ -160,6 +166,8 @@
   .erpion-card__md {
     flex-basis: 49%; }
   .erpion-card__sm {
+    flex-basis: 36%; }
+  .erpion-card__xs {
     flex-basis: 24%; }
 
 .erpion-container {

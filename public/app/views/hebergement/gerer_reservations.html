@@ -11,8 +11,6 @@
   <link rel="stylesheet" href="../../../styles/css/hebergement/gerer_reservations.css">
   <!-- Compiled and minified JavaScript -->
   <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
-  <script type="text/javascript" src='../../../plugins/fullcalendar.js/core/main.min.js'></script>
-  <script type="text/javascript" src='../../../plugins/fullcalendar.js/daygrid/main.min.js'></script>
 </head>
 <body>
 <div class="viewport">
@@ -103,74 +101,11 @@
   </main>
   <!-- END MAIN -->
 
-
   <!-- BEGIN MODAL -->
-  <div id="modalReservation" class="modal modal-reservation">
-<!--    <div class="modal-content">-->
-<!--      <h4>Formulaire de réservation</h4>-->
-<!--      <div class="row">-->
-<!--        <form class="col s12" id="formReservation">-->
-<!--          <div class="row">-->
-<!--            <div class="input-field col s6">-->
-<!--              <input id="clientName" name="clientName" type="text" class="validate">-->
-<!--              <label for="clientName">Prénom</label>-->
-<!--            </div>-->
-<!--            <div class="input-field col s6">-->
-<!--              <input id="clientSurname" name="clientSurname" type="text" class="validate">-->
-<!--              <label for="clientSurname">Nom</label>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="row">-->
-<!--            <div class="input-field col s12">-->
-<!--              <input id="clientEmail" name="clientEmail" type="email" class="validate">-->
-<!--              <label for="clientEmail">Email</label>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="row">-->
-<!--            <div class="input-field col s6">-->
-<!--              <input id="clientPhone" name="clientPhone" type="tel" class="validate">-->
-<!--              <label for="clientPhone">Téléphone</label>-->
-<!--            </div>-->
-<!--            <div class="input-field col s6">-->
-<!--              <p>-->
-<!--                <label>-->
-<!--                  <input id="radioCB" name="radioCB" type="radio" checked />-->
-<!--                  <span for="radioCB">Carte bancaire</span>-->
-<!--                </label>-->
-<!--              </p>-->
-<!--              <p>-->
-<!--                <label>-->
-<!--                  <input id="radioCheque" name="radioCheque" type="radio" />-->
-<!--                  <span for="radioCheque">Chéques</span>-->
-<!--                </label>-->
-<!--              </p>-->
-<!--              <p>-->
-<!--                <label>-->
-<!--                  <input id="radioEspeces" name="radioEspeces" type="radio" />-->
-<!--                  <span for="radioEspeces">Espèces</span>-->
-<!--                </label>-->
-<!--              </p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="row">-->
-<!--            <div class="input-field col s6">-->
-<!--              <input disabled value="" name="reservationDateDebut" id="reservationDateDebut" type="text" class="validate">-->
-<!--              <label for="reservationDateDebut" class="active">Date début</label>-->
-<!--            </div>-->
-<!--            <div class="input-field col s6">-->
-<!--              <input disabled value="" name="reservationDatefin" id="reservationDatefin" type="text" class="validate">-->
-<!--              <label for="reservationDatefin" class="active">Date fin</label>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="modal-footer">-->
-<!--      <button type="button" id="" class="modal-close waves-effect waves-green btn-flat">Réserver</button>-->
-<!--    </div>-->
-  </div>
+  <div id="modalReservation" class="modal modal-reservation"></div>
   <!-- END MODAL -->
 </div>
+
 <!-- CRUD MANAGER BUTTON -->
 <a href="../connexion/login_view.html" class="waves-effect waves-light btn"
    style="position: fixed; bottom: 10px; right: 10px;">
