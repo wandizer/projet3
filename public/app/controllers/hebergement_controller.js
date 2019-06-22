@@ -3,13 +3,15 @@ require('../../plugins/chart.js/Chart.bundle.min.js');
 require('../../plugins/materialize/js/materialize.min.js');
 require('../../plugins/air-datepicker/js/datepicker.min.js');
 require('../../plugins/air-datepicker/js/i18n/datepicker.fr');
-// const FullCalendar = require('../../plugins/fullcalendar.js/core/main.min.js');
+
 const Utils = require('../../utils/Utils.js');
 const Hebergement = require('../models/Hebergement');
 const Chambre = require('../models/Chambre');
+const Client = require('../models/Client');
 
 const currentPage = Utils.getViewName(window.location.href);
 const today = new Date();
+const todaysMonth = (`${today.getMonth() + 1}`.length === 1) ? `0${today.getMonth() + 1}`  : today.getMonth() + 1;
 
 window.addEventListener('load', () => {
   // ############################################################################################# //
@@ -21,9 +23,11 @@ window.addEventListener('load', () => {
   let datepicker;
   let calendar;
   let isRange = false;
-  let globalFormattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+  let globalFormattedDate = `${today.getDate()}/${todaysMonth}/${today.getFullYear()}`;
 
   const hebergement = new Hebergement();
+  const chambre = new Chambre();
+  const client = new Client();
 
   const defaultEmptyContent = `
     <div class="nothing-found">
@@ -84,58 +88,22 @@ window.addEventListener('load', () => {
   // #############################    FUNCTIONS / CALLBACKS    ################################### //
   // ############################################################################################# //
 
-  /**
-   * Retrieves all the reservations after selecting a date or period on air-datepicker
-   * @function
-   */
   let fetchReservations = () => {
   };
-  /**
-   * Draws all the free rooms retrieved inside the free rooms container in the page
-   * @function
-   */
   let drawFreeRooms = () => {
   };
-  /**
-   * Draws all the occupied rooms retrieved inside the occupied rooms container in the page
-   * @function
-   */
   let drawOccupiedRooms = () => {
   };
-  /**
-   * Draws all the charts necessary for the statistics on the dashboard
-   * @function
-   */
   let drawStatisticsCharts = () => {
   };
-  /**
-   * Draws the Air-Datepicker for managing the reservations, in order to access all the free and occupied rooms
-   * @function
-   */
   let drawDatepicker = () => {
   };
-  /**
-   * Voids the two containers inside the 'Gérer Reservations' page
-   * @function
-   */
   let clearReservationPage = () => {
   };
-  /**
-   * Responsible for drawing the FullCalendar for the current room (inside 'Gérer Chambre')
-   * @function
-   */
   let drawRoomCalendar = () => {
   };
-  /**
-   * Responsible for drawing the reservation modal
-   * @function
-   */
   let drawModalReservation = () => {
   };
-  /**
-   * Permet de reserver une chambre
-   * @function
-   */
   let reserveRoom = () => {
   };
 
@@ -143,6 +111,10 @@ window.addEventListener('load', () => {
 
   switch (currentPage) {
     case 'dashboard_hebergement': {
+      /**
+       * Draws all the charts necessary for the statistics on the dashboard
+       * @function
+       */
       drawStatisticsCharts = () => {
         const elDoughnutChart = document.getElementById('doughnutChart');
         doughnutChart = new Chart(elDoughnutChart, {
@@ -160,65 +132,45 @@ window.addEventListener('load', () => {
             }],
           },
           options: {
-            title: {
-              display: true,
-              text: 'Chambres :',
-            },
-            scales: {
-              yAxes: [{
-                gridLines: {
-                  drawBorder: false,
-                  display: false,
-                },
-                ticks: {
-                  display: false,
-                  beginAtZero: true,
-                },
-              }],
-            },
+            title: { display: true, text: 'Chambres :' },
+            legend: { display: true, position: 'right' },
+            maintainAspectRatio: true,
+            spanGaps: false,
+            plugins:{ filler: { propagate: false }},
+            scales: { yAxes: [{ display: false, ticks: { beginAtZero: true }}], xAxes: [{ display: false }] },
           },
         });
         const elLineChart = document.getElementById('lineChart').getContext('2d');
         lineChart = new Chart(elLineChart, {
           type: 'line',
           data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
             datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-              ],
-              borderWidth: 1,
+              label: 'Nº de clients',
+              data: [12, 15, 10, 9, 10, 7, 10],
+              backgroundColor: '#26a69a',
+              borderColor: '#ffffff',
+              borderWidth: 0,
             }],
           },
           options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true,
-                },
-              }],
-            },
+            title: { display: true, text: 'Activité de la semaine :' },
+            legend: { display: false },
+            maintainAspectRatio: false,
+            spanGaps: false,
+            elements:{ line:{ tension: 0.4 }, point: { radius: 2, hitRadius: 8, hoverRadius: 8 } },
+            plugins:{ filler: { propagate: false }},
+            scales: { yAxes: [{ display: false, ticks: { beginAtZero: true }}], xAxes: [{ display: false }] },
           },
         });
       };
       break;
     }
     case 'gerer_reservations': {
+      /**
+       * Voids the two containers inside the 'Gérer Reservations' page
+       * @function
+       */
       clearReservationPage = () => {
         $('#currentDate').html('');
         $('#freeRooms').html(defaultEmptyContent);
@@ -227,25 +179,81 @@ window.addEventListener('load', () => {
         $('#amountOccupiedRooms').html('(0)');
       };
 
-      reserveRoom = () => {
+      /**
+       * Permet de reserver une chambre avec les données du client
+       * @function
+       */
+      reserveRoom = (e) => {
+        const $button = $(e.target);
+        const id_room = $button.data('id-room');
+        const dateDebut = (isRange) ? globalFormattedDate.split(',')[0] : globalFormattedDate;
+        const dateFin = (isRange) ? globalFormattedDate.split(',')[1] : globalFormattedDate;
         const formData = $('form#formReservation').serializeArray();
-        const clientReservationData = [];
+        const clientData = [];
         $.each(formData, (i, field) => {
-          clientReservationData[field.name] = field.value;
-          console.log(field);
+          clientData[field.name] = field.value;
         });
-        console.log(clientReservationData);
+        console.log(clientData);
+
+        if (clientData.clientName !== ''
+          && clientData.clientSurname !== ''
+          && clientData.clientEmail !== ''
+          && clientData.clientPhone !== '')
+        {
+          client.checkClientExists(clientData.clientEmail, clientData.clientPhone, (result) => {
+            if (result.length === 1) {
+              console.log(result[0].id_client);
+              if (isRange) {
+                hebergement.reserveRoomByPeriod(id_room, result[0].id_client, dateDebut, dateFin, () => {
+                  window.location.replace(`../views/hebergement/gerer_chambre.html?${id_room}`);
+                });
+              } else {
+                hebergement.reserveRoomByDate(id_room, result[0].id_client, dateDebut, () => {
+                  window.location.replace(`../views/hebergement/gerer_chambre.html?${id_room}`);
+                });
+              }
+            } else {
+              client.write(
+                clientData.clientName, clientData.clientSurname, clientData.clientEmail, clientData.clientPhone,
+                () => {
+                  console.log(result);
+                  client.getClientByEmail(clientData.clientEmail, (result) => {
+                    if (isRange) {
+                      hebergement.reserveRoomByPeriod(id_room, result[0].id_client, dateDebut, dateFin, () => {
+                        window.location.replace(`../views/hebergement/gerer_chambre.html?${id_room}`);
+                      });
+                    } else {
+                      hebergement.reserveRoomByDate(id_room, result[0].id_client, dateDebut, () => {
+                        window.location.replace(`../views/hebergement/gerer_chambre.html?${id_room}`);
+                      });
+                    }
+                  });
+                }
+              );
+            }
+          });
+          // button 'en cours'
+          $button.removeClass('green');
+          $button.addClass('blue');
+          $button.html('En cours...');
+        }
       };
 
+      /**
+       * Responsible for drawing the reservation modal
+       * @function
+       * @param e - Event
+       */
       drawModalReservation = (e) => {
         const id_room = e.target.dataset.id;
         const price = e.target.dataset.price;
+        const $modalReservation = $('.modal-reservation');
         const dateDebut = (isRange) ? globalFormattedDate.split(',')[0] : globalFormattedDate;
         const dateFin = (isRange) ? globalFormattedDate.split(',')[1] : globalFormattedDate;
         console.log(id_room, price);
         console.log(dateDebut, dateFin);
 
-        $('.modal-reservation').html(`
+        $modalReservation.html(`
           <div class="modal-content">
             <h4>Formulaire de réservation</h4>
             <div class="row">
@@ -312,21 +320,27 @@ window.addEventListener('load', () => {
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" id="modalButtonReserver"
-            class="modal-close waves-effect waves-green btn-small green">Réserver</button>
+            <button type="button" id="modalButtonReserver" data-id-room="${id_room}"
+            class="waves-effect waves-green btn-small green">Réserver</button>
           </div>
         `);
         $('#modalButtonReserver').on('click', reserveRoom);
-        $('.modal-reservation').modal('open');
+        $modalReservation.modal('open');
       };
 
+      /**
+       * Draws all the free rooms retrieved inside the free rooms container in the page
+       * @function
+       * @param rooms
+       */
       drawFreeRooms = (rooms) => {
+        const $cardFreeRooms = $('#freeRooms');
         // console.log('Free Rooms : ', rooms);
-        $('#freeRooms').html('');
+        $cardFreeRooms.html('');
         $('#amountFreeRooms').html(`(${rooms.length})`);
         if (rooms.length) {
           rooms.forEach((room) => {
-            $('#freeRooms').append(
+            $cardFreeRooms.append(
               `<div class="erpion-rows__row">
                 <i class="material-icons">hotel</i>
                 <div class="erpion-rows__row-element">
@@ -356,17 +370,23 @@ window.addEventListener('load', () => {
             $(`#buttonReserver${room.id_room}`).on('click', drawModalReservation);
           });
         } else {
-          $('#freeRooms').html(defaultEmptyContent);
+          $cardFreeRooms.html(defaultEmptyContent);
         }
       };
 
+      /**
+       * Draws all the occupied rooms retrieved inside the occupied rooms container in the page
+       * @function
+       * @param rooms
+       */
       drawOccupiedRooms = (rooms) => {
+        const $cardOccupiedRooms = $('#occupiedRooms');
         // console.log('Occupied Rooms : ', rooms);
-        $('#occupiedRooms').html('');
+        $cardOccupiedRooms.html('');
         $('#amountOccupiedRooms').html(`(${rooms.length})`);
         if (rooms.length) {
           rooms.forEach((room) => {
-            $('#occupiedRooms').append(
+            $cardOccupiedRooms.append(
               `<div class="erpion-rows__row">
                 <i class="material-icons">hotel</i>
                 <div class="erpion-rows__row-element">
@@ -393,20 +413,24 @@ window.addEventListener('load', () => {
             );
           });
         } else {
-          $('#occupiedRooms').html(defaultEmptyContent);
+          $cardOccupiedRooms.html(defaultEmptyContent);
         }
       };
 
+      /**
+       * Retrieves all the reservations after selecting a date or period on air-datepicker
+       * @function
+       * @param formattedDate
+       * @param date
+       * @param picker
+       */
       fetchReservations = (formattedDate, date, picker) => {
         // Do nothing if selection was cleared
         if (!date) return;
-
         // We clear the reservations from the page (to avoid duplications)
         clearReservationPage();
-
         // we store the formattedDate globally;
         globalFormattedDate = formattedDate;
-
         // If period or else if day
         if (picker.opts.range) {
           // While period, only act if both were selected
@@ -430,6 +454,10 @@ window.addEventListener('load', () => {
         }
       };
 
+      /**
+       * Draws the Air-Datepicker for managing the reservations, in order to access all the free and occupied rooms
+       * @function
+       */
       drawDatepicker = () => {
         datepicker = $('.datepicker-here').datepicker({
           language: 'fr',
@@ -443,12 +471,47 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_chambre': {
+      /**
+       * Responsible for drawing the FullCalendar for the current room (inside 'Gérer Chambre')
+       * @function
+       */
       drawRoomCalendar = () => {
         const calendarEl = document.getElementById('calendar');
         calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: ['dayGrid'],
+          // plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin ],
+          plugins: ['dayGrid', 'timeGrid', 'interaction'],
+          selectable: true,
+          timeZone: 'local',
+          defaultDate: new Date(),
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth'
+          },
+          events: [
+            {
+              title: 'Réservé par Albert Mussot',
+              start: '2019-06-11',
+              end: '2019-06-11',
+              // rendering: 'background',
+              overlap: false,
+              editable: true,
+              color: '#26a69a',
+              allDay: true,
+            },
+          ],
+          dateClick: function(info) {
+            // alert('clicked ' + info.dateStr);
+            console.log('clicked ' + info.dateStr);
+          },
+          select: function(info) {
+            // alert('selected ' + info.startStr + ' to ' + info.endStr);
+            console.log('selected ' + info.startStr + ' to ' + info.endStr)
+          }
         });
         calendar.render();
+
+        const event = calendar.getEventById('a');
       };
       break;
     }
@@ -477,15 +540,10 @@ window.addEventListener('load', () => {
         datepicker.update('range', false);
         isRange = false;
       });
-
       $('#optionOnePeriod').on('click', () => {
         datepicker.clear();
         datepicker.update('range', true);
         isRange = true;
-      });
-
-      $('#buttonReserver').on('click', (e) => {
-        console.log(e.target);
       });
       break;
     }
