@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on sex mai 24 10:07:56 2019
+-- File generated with SQLiteStudio v3.2.1 on Sun Jun 23 18:12:08 2019
 --
 -- Text encoding used: UTF-8
 --
@@ -18,17 +18,32 @@ INSERT INTO Appetizers (id_appetizer, name) VALUES (6, 'Oeufs Mimosa');
 
 -- Table: Client
 DROP TABLE IF EXISTS Client;
-CREATE TABLE Client (id_client INTEGER  PRIMARY KEY AUTOINCREMENT,name      Varchar (50) NOT NULL ,surname   Varchar (50) NOT NULL ,email     Varchar (50) NOT NULL ,number    Varchar (50) NOT NULL );
+CREATE TABLE Client (id_client INTEGER PRIMARY KEY AUTOINCREMENT, name Varchar (50) NOT NULL, surname Varchar (50) NOT NULL, email Varchar (50) NOT NULL UNIQUE, number Varchar (50) NOT NULL UNIQUE);
 INSERT INTO Client (id_client, name, surname, email, number) VALUES (1, 'Jean', 'Silva', 'jean.silva@exemple.fr', '0610000001');
 INSERT INTO Client (id_client, name, surname, email, number) VALUES (2, 'Fréderic', 'Dupont', 'fred.dupont@exemple.fr', '0610000002');
 INSERT INTO Client (id_client, name, surname, email, number) VALUES (3, 'Pierre', 'Martins', 'pierre.martins@exemple.fr', '0610000003');
 INSERT INTO Client (id_client, name, surname, email, number) VALUES (4, 'Thomas', 'Delaporte', 'thomas.delaporte@exemple.fr', '0610000004');
 INSERT INTO Client (id_client, name, surname, email, number) VALUES (5, 'Vitor', 'Oliveira', 'vitor.oliveira@exemple.fr', '0610000005');
 INSERT INTO Client (id_client, name, surname, email, number) VALUES (6, 'Melvin', 'Aube', 'melvin.aube@exemple.fr', '0610000006');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (7, 'Jacques', 'Dupont', 'jacques.dupont@exemple.fr', '0610000007');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (8, 'Carlos', 'Silva', 'carlos.silva@exemple.fr', '0610000008');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (9, 'Eugene', 'Zuckerberg', 'eugene.zuckerberg@exemple.fr', '0610000009');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (10, 'Florent', 'Snow', 'florent.snow@exemple.fr', '0610000010');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (11, 'Yunn', 'Lee', 'yunn.lee@exemple.fr', '0610000011');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (12, 'John', 'Wick', 'john.wick@exemple.fr', '0610000012');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (13, 'Donald', 'Trump', 'the.appocalipse@exemple.fr', '0610000013');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (14, 'Keanu', 'Reeves', 'you.re.breathtaking@exemple.fr', '0610000014');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (15, 'Alex', 'Gama', 'alex.gama@exemple.fr', '0610000015');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (16, 'Daniel', 'Crieg', 'daniel.crieg@exemple.fr', '0610000016');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (17, 'Joseph', 'Standard', 'joseph.standard@exemple.fr', '0610000017');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (18, 'Mick', 'Williams', 'mick.williams@exemple.fr', '0610000018');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (19, 'Albert', 'Mussot', 'albert.mussot@exemple.fr', '0610000019');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (22, 'Sun', 'Moon', 'sun.moon@exemple.fr', '0610000020');
+INSERT INTO Client (id_client, name, surname, email, number) VALUES (23, 'André', 'Santos', 'andre.santos@exemple.fr', '0610000021');
 
 -- Table: Day_Menu
 DROP TABLE IF EXISTS Day_Menu;
-CREATE TABLE Day_Menu(id_day_menu INTEGER  PRIMARY KEY AUTOINCREMENT,date_arrival Date ,evening      Bool NOT NULL,noon        	Bool NOT NULL,id_menu 			INTEGER NOT NULL ,CONSTRAINT Menu_FK FOREIGN KEY (id_menu) REFERENCES Menu(id_menu));
+CREATE TABLE Day_Menu (id_day_menu INTEGER PRIMARY KEY AUTOINCREMENT, date_arrival TEXT, evening Bool NOT NULL, noon Bool NOT NULL, id_menu INTEGER NOT NULL, CONSTRAINT Menu_FK FOREIGN KEY (id_menu) REFERENCES Menu (id_menu));
 INSERT INTO Day_Menu (id_day_menu, date_arrival, evening, noon, id_menu) VALUES (1, '10/05/2019', 0, 1, 1);
 INSERT INTO Day_Menu (id_day_menu, date_arrival, evening, noon, id_menu) VALUES (2, '10/05/2019', 1, 0, 1);
 INSERT INTO Day_Menu (id_day_menu, date_arrival, evening, noon, id_menu) VALUES (3, '11/05/2019', 0, 1, 1);
@@ -64,7 +79,7 @@ INSERT INTO Dessert (id_dessert, name) VALUES (6, 'Cheese cake au citron');
 
 -- Table: Employe
 DROP TABLE IF EXISTS Employe;
-CREATE TABLE Employe (id_employe INTEGER PRIMARY KEY AUTOINCREMENT,name       Varchar (50) NOT NULL ,surname    Varchar (50) NOT NULL ,birthday   Date ,salary     INTEGER NOT NULL,id_role    INTEGER NOT NULL,CONSTRAINT Employe_Role_FK FOREIGN KEY (id_role) REFERENCES Role(id_role));
+CREATE TABLE Employe (id_employe INTEGER PRIMARY KEY AUTOINCREMENT, name Varchar (50) NOT NULL, surname Varchar (50) NOT NULL, birthday TEXT, salary INTEGER NOT NULL, id_role INTEGER NOT NULL, CONSTRAINT Employe_Role_FK FOREIGN KEY (id_role) REFERENCES Role (id_role));
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (1, 'Olivier', 'Rourre', NULL, 5000, 1);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (2, 'Jacques', 'Dupont', NULL, 3500, 2);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (3, 'Jacques', 'Dupont', NULL, 3500, 3);
@@ -94,7 +109,6 @@ INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUE
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (27, 'Jacques', 'Dupont', NULL, 2500, 27);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (28, 'Jacques', 'Dupont', NULL, 2500, 28);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (29, 'Jacques', 'Dupont', NULL, 2500, 29);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (30, 'Jacques', 'Dupont', NULL, 2500, 30);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (31, 'Jacques', 'Dupont', NULL, 2500, 31);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (32, 'Jacques', 'Dupont', NULL, 2500, 32);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (33, 'Jacques', 'Dupont', NULL, 2500, 33);
@@ -104,16 +118,9 @@ INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUE
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (37, 'Jacques', 'Dupont', NULL, 2500, 37);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (38, 'Jacques', 'Dupont', NULL, 2500, 38);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (39, 'Jacques', 'Dupont', NULL, 2500, 39);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (40, 'Jacques', 'Dupont', NULL, 2500, 40);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (41, 'Jacques', 'Dupont', NULL, 2500, 41);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (42, 'Jacques', 'Dupont', NULL, 2500, 42);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (43, 'Jacques', 'Dupont', NULL, 2500, 43);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (44, 'Jacques', 'Dupont', NULL, 2500, 44);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (45, 'Jacques', 'Dupont', NULL, 2500, 45);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (46, 'Jacques', 'Dupont', NULL, 2500, 46);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (47, 'Jacques', 'Dupont', NULL, 2500, 47);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (48, 'Jacques', 'Dupont', NULL, 2500, 48);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (49, 'Jacques', 'Dupont', NULL, 2500, 49);
 
 -- Table: Food_Item
 DROP TABLE IF EXISTS Food_Item;
@@ -258,12 +265,12 @@ INSERT INTO Menu_Main_Course_Item (id_menu_appetizer_item, id_main_course, id_fo
 DROP TABLE IF EXISTS Role;
 CREATE TABLE Role (id_role INTEGER PRIMARY KEY AUTOINCREMENT, name Varchar (50) NOT NULL, id_service INTEGER NOT NULL, permission_level INTEGER, CONSTRAINT Role_Service_FK FOREIGN KEY (id_service) REFERENCES Service (id_service));
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (1, 'Directeur de l''hotel', 1, 1);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (2, 'Directeur du restaurant', 2, 2);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (3, 'Directeur d''hebergement', 2, 2);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (4, 'Chef de reception', 2, 2);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (5, 'Gouvernante generale', 2, 2);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (6, 'Chef de maintenance', 2, 2);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (7, 'Spa manager', 2, 2);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (2, 'Directeur du restaurant', 3, 2);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (3, 'Directeur d''hebergement', 4, 2);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (4, 'Chef de reception', 5, 2);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (5, 'Gouvernante generale', 6, 2);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (6, 'Chef de maintenance', 7, 2);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (7, 'Spa manager', 8, 2);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (8, 'Chef de cuisine', 3, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (9, 'Seconde de cuisine', 3, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (10, 'Chef de partie', 3, 3);
@@ -277,16 +284,15 @@ INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (17, 'Ecai
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (18, 'Plongeur', 3, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (19, 'Chef econome', 3, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (20, 'Econome', 3, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (21, 'Responsable de salle', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (22, 'Maitre d''hotel', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (23, 'Chef de range', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (24, 'Serveur', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (25, 'Commis de salle', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (26, 'Chef sommelier', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (27, 'Sommelier', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (28, 'Barman', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (29, 'Garçon de cafe', 4, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (30, 'Chef de reception', 5, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (21, 'Responsable de salle', 9, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (22, 'Maitre d''hotel', 9, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (23, 'Chef de range', 9, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (24, 'Serveur', 9, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (25, 'Commis de salle', 9, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (26, 'Chef sommelier', 9, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (27, 'Sommelier', 9, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (28, 'Barman', 9, 3);
+INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (29, 'Garçon de cafe', 9, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (31, 'Receptionniste', 5, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (32, 'Night auditor', 5, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (33, 'Veilleur de nuit', 5, 3);
@@ -296,16 +302,9 @@ INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (36, 'Port
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (37, 'Bagagiste', 5, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (38, 'Groom', 5, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (39, 'Room service', 5, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (40, 'Gouvernante Generale', 6, 2);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (41, 'Gouvernante', 6, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (42, 'Femme de chambre', 6, 3);
 INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (43, 'Lingere', 6, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (44, 'Chef de maintenance', 7, 2);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (45, 'Technicien de maintenance', 7, 3);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (46, 'Directeur de l''hotel', 8, 1);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (47, 'Directeur du restaurant', 8, 2);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (48, 'Directeur de l''hebergement', 8, 2);
-INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (49, 'Spa manager', 9, 2);
 
 -- Table: Room
 DROP TABLE IF EXISTS Room;
@@ -373,30 +372,46 @@ INSERT INTO Room (id_room, number, floor, price, type) VALUES (60, 60, '6', 160,
 
 -- Table: Room_Reservation
 DROP TABLE IF EXISTS Room_Reservation;
-CREATE TABLE Room_Reservation(id_room_reservation INTEGER  PRIMARY KEY AUTOINCREMENT,date_arrival   Date ,date_depart    Date ,payment_type   Varchar (50) NOT NULL,payment_amount INTEGER NOT NULL ,id_room   INTEGER NOT NULL ,id_client INTEGER NOT NULL ,CONSTRAINT Room_FK FOREIGN KEY (id_room) REFERENCES Room(id_room),CONSTRAINT Client_FK FOREIGN KEY (id_client) REFERENCES Client(id_client));
-INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client) VALUES (1, '10/05/2019', '20/05/2019', 'CB', 70, 1, 1);
-INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client) VALUES (2, '10/05/2019', '20/05/2019', 'CHEQUE', 95, 6, 2);
-INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client) VALUES (3, '10/05/2019', '20/05/2019', 'ESPECES', 200, 49, 3);
-INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client) VALUES (4, '10/05/2019', '20/05/2019', 'CB', 97, 31, 4);
-INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client) VALUES (5, '10/05/2019', '20/05/2019', 'CHEQUE', 76, 2, 5);
-INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client) VALUES (6, '10/05/2019', '20/05/2019', 'ESPECES', 75, 3, 6);
+CREATE TABLE Room_Reservation (id_room_reservation INTEGER PRIMARY KEY AUTOINCREMENT, date_arrival TEXT, date_depart TEXT, payment_type Varchar (50), payment_amount INTEGER, id_room INTEGER NOT NULL, id_client INTEGER NOT NULL, active BOOLEAN, CONSTRAINT Room_FK FOREIGN KEY (id_room) REFERENCES Room (id_room), CONSTRAINT Client_FK FOREIGN KEY (id_client) REFERENCES Client (id_client));
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (1, '10/06/2019', '20/06/2019', 'CB', 70, 1, 1, 0);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (2, '10/06/2019', '20/06/2019', 'CHEQUE', 95, 2, 2, 0);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (3, '10/06/2019', '20/06/2019', 'ESPECES', 200, 3, 3, 0);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (4, '10/06/2019', '20/06/2019', 'CB', 97, 4, 4, 0);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (5, '10/06/2019', '20/06/2019', 'CHEQUE', 76, 5, 5, 0);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (6, '10/06/2019', '20/06/2019', 'ESPECES', 75, 6, 6, 0);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (7, '15/06/2019', '26/06/2019', 'CB', 70, 7, 7, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (8, '15/06/2019', '26/06/2019', 'CHEQUE', 95, 8, 8, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (9, '15/06/2019', '26/06/2019', 'ESPECES', 200, 9, 9, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (10, '15/06/2019', '26/06/2019', 'CB', 97, 10, 10, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (11, '18/06/2019', '22/06/2019', 'CHEQUE', 76, 11, 11, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (12, '18/06/2019', '22/06/2019', 'ESPECES', 75, 12, 12, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (13, '18/06/2019', '22/06/2019', 'CB', 70, 13, 13, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (14, '18/06/2019', '22/06/2019', 'CHEQUE', 95, 14, 14, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (15, '22/06/2019', '01/07/2019', 'ESPECES', 200, 1, 15, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (16, '22/06/2019', '01/07/2019', 'CB', 97, 2, 16, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (17, '22/06/2019', '01/07/2019', 'CHEQUE', 76, 3, 17, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (18, '22/06/2019', '01/07/2019', 'ESPECES', 75, 4, 18, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (20, '22/6/2019', '22/6/2019', NULL, NULL, 5, 22, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (21, '23/06/2019', '23/06/2019', NULL, NULL, 5, 23, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (22, '23/06/2019', '23/06/2019', NULL, NULL, 6, 23, 1);
+INSERT INTO Room_Reservation (id_room_reservation, date_arrival, date_depart, payment_type, payment_amount, id_room, id_client, active) VALUES (23, '23/06/2019', '23/06/2019', NULL, NULL, 11, 23, 1);
 
 -- Table: Service
 DROP TABLE IF EXISTS Service;
 CREATE TABLE Service (id_service INTEGER PRIMARY KEY AUTOINCREMENT, name Varchar (50) NOT NULL);
 INSERT INTO Service (id_service, name) VALUES (1, 'Admin');
-INSERT INTO Service (id_service, name) VALUES (2, 'Gestionnaires');
-INSERT INTO Service (id_service, name) VALUES (3, 'Cuisine');
-INSERT INTO Service (id_service, name) VALUES (4, 'Salle');
+INSERT INTO Service (id_service, name) VALUES (2, 'Direction');
+INSERT INTO Service (id_service, name) VALUES (3, 'Restauration');
+INSERT INTO Service (id_service, name) VALUES (4, 'Hebergement');
 INSERT INTO Service (id_service, name) VALUES (5, 'Reception');
 INSERT INTO Service (id_service, name) VALUES (6, 'Etages');
 INSERT INTO Service (id_service, name) VALUES (7, 'Maintenance');
-INSERT INTO Service (id_service, name) VALUES (8, 'Direction');
-INSERT INTO Service (id_service, name) VALUES (9, 'Loisirs');
+INSERT INTO Service (id_service, name) VALUES (8, 'Loisirs');
+INSERT INTO Service (id_service, name) VALUES (9, 'Salle');
 
 -- Table: Stock
 DROP TABLE IF EXISTS Stock;
-CREATE TABLE Stock(id_stock        INTEGER  PRIMARY KEY AUTOINCREMENT,date_arrival    Date NOT NULL ,date_expiration Date NOT NULL ,quantity        INTEGER NOT NULL ,id_food_item    INTEGER NOT NULL ,CONSTRAINT Stock_Food_Item_FK FOREIGN KEY (id_food_item) REFERENCES Food_Item(id_food_item));
+CREATE TABLE Stock (id_stock INTEGER PRIMARY KEY AUTOINCREMENT, date_arrival TEXT NOT NULL, date_expiration TEXT NOT NULL, quantity INTEGER NOT NULL, id_food_item INTEGER NOT NULL, CONSTRAINT Stock_Food_Item_FK FOREIGN KEY (id_food_item) REFERENCES Food_Item (id_food_item));
 INSERT INTO Stock (id_stock, date_arrival, date_expiration, quantity, id_food_item) VALUES (1, '10/05/2019', '10/06/2019', 45, 1);
 INSERT INTO Stock (id_stock, date_arrival, date_expiration, quantity, id_food_item) VALUES (2, '10/05/2019', '10/06/2019', 45, 2);
 INSERT INTO Stock (id_stock, date_arrival, date_expiration, quantity, id_food_item) VALUES (3, '10/05/2019', '10/06/2019', 45, 3);

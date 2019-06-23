@@ -100,6 +100,12 @@ window.addEventListener('load', () => {
   };
   let clearReservationPage = () => {
   };
+  let fetchRoomDetails = () => {
+  };
+  let drawRoomDetails = () => {
+  };
+  let fetchRoomReservations = () => {
+  };
   let drawRoomCalendar = () => {
   };
   let drawModalReservation = () => {
@@ -193,7 +199,6 @@ window.addEventListener('load', () => {
         $.each(formData, (i, field) => {
           clientData[field.name] = field.value;
         });
-        console.log(clientData);
 
         if (clientData.clientName !== ''
           && clientData.clientSurname !== ''
@@ -202,29 +207,27 @@ window.addEventListener('load', () => {
         {
           client.checkClientExists(clientData.clientEmail, clientData.clientPhone, (result) => {
             if (result.length === 1) {
-              console.log(result[0].id_client);
               if (isRange) {
                 hebergement.reserveRoomByPeriod(id_room, result[0].id_client, dateDebut, dateFin, () => {
-                  window.location.replace(`../views/hebergement/gerer_chambre.html?${id_room}`);
+                  window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                 });
               } else {
                 hebergement.reserveRoomByDate(id_room, result[0].id_client, dateDebut, () => {
-                  window.location.replace(`../views/hebergement/gerer_chambre.html?${id_room}`);
+                  window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                 });
               }
             } else {
               client.write(
                 clientData.clientName, clientData.clientSurname, clientData.clientEmail, clientData.clientPhone,
                 () => {
-                  console.log(result);
                   client.getClientByEmail(clientData.clientEmail, (result) => {
                     if (isRange) {
                       hebergement.reserveRoomByPeriod(id_room, result[0].id_client, dateDebut, dateFin, () => {
-                        window.location.replace(`../views/hebergement/gerer_chambre.html?${id_room}`);
+                        window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                       });
                     } else {
                       hebergement.reserveRoomByDate(id_room, result[0].id_client, dateDebut, () => {
-                        window.location.replace(`../views/hebergement/gerer_chambre.html?${id_room}`);
+                        window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                       });
                     }
                   });
@@ -250,8 +253,6 @@ window.addEventListener('load', () => {
         const $modalReservation = $('.modal-reservation');
         const dateDebut = (isRange) ? globalFormattedDate.split(',')[0] : globalFormattedDate;
         const dateFin = (isRange) ? globalFormattedDate.split(',')[1] : globalFormattedDate;
-        console.log(id_room, price);
-        console.log(dateDebut, dateFin);
 
         $modalReservation.html(`
           <div class="modal-content">
@@ -408,7 +409,7 @@ window.addEventListener('load', () => {
                   <label style="margin-right: 5px">Periode:</label>
                   <span class="chambre-details">${room.date_arrival} - ${room.date_depart}</span>
                 </div>
-                <a class="btn-small red" href="./gerer_chambre.html?id=${room.id_room}">Réservé</a>
+                <a class="btn-small red" href="./gerer_chambre.html?id_room=${room.id_room}">Réservé</a>
               </div>`,
             );
           });
@@ -471,11 +472,59 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_chambre': {
+
+      /**
+       * Retrieves the current room details
+       * @function
+       * @param idRoom
+       */
+      fetchRoomDetails = (idRoom) => {
+        chambre.getRoomDetails(idRoom, drawRoomDetails);
+      };
+
+      /**
+       * Inserts the current room details into the page
+       * @function
+       * @param results
+       */
+      drawRoomDetails = (results) => {
+        $('#room-description-number').html(results[0].number);
+        $('#room-description-type').html(results[0].type);
+        $('#room-description-floor').html(results[0].floor);
+        $('#room-description-price').html(results[0].price);
+      };
+
+      /**
+       * Retrieves all the reservations for this room in order to draw them into the calendar
+       * later
+       * @function
+       * @param idRoom
+       */
+      fetchRoomReservations = (idRoom) => {
+        chambre.getReservationsByRoom(idRoom, (results) => {
+          chambre.reservations = results;
+          const events = [];
+          results.forEach((row) => {
+            events.push({
+              title: `Client: ${row.name} ${row.surname}`,
+              start: `${row.date_arrival.split('/')[2]}-${row.date_arrival.split('/')[1]}-${row.date_arrival.split('/')[0]}`,
+              end: `${row.date_depart.split('/')[2]}-${row.date_depart.split('/')[1]}-${row.date_depart.split('/')[0]}`,
+              color: (row.active) ? `#26a69a` : `#8e9ea6`,
+              editable: false,
+              overlap: false,
+              allDay: true,
+            });
+          });
+          drawRoomCalendar(events);
+        });
+      };
+
       /**
        * Responsible for drawing the FullCalendar for the current room (inside 'Gérer Chambre')
        * @function
+       * @param events
        */
-      drawRoomCalendar = () => {
+      drawRoomCalendar = (events) => {
         const calendarEl = document.getElementById('calendar');
         calendar = new FullCalendar.Calendar(calendarEl, {
           // plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin ],
@@ -488,18 +537,7 @@ window.addEventListener('load', () => {
             center: 'title',
             right: 'dayGridMonth'
           },
-          events: [
-            {
-              title: 'Réservé par Albert Mussot',
-              start: '2019-06-11',
-              end: '2019-06-11',
-              // rendering: 'background',
-              overlap: false,
-              editable: true,
-              color: '#26a69a',
-              allDay: true,
-            },
-          ],
+          events: events,
           dateClick: function(info) {
             // alert('clicked ' + info.dateStr);
             console.log('clicked ' + info.dateStr);
@@ -594,7 +632,9 @@ window.addEventListener('load', () => {
      */
     case 'gerer_chambre': {
       console.log('GERER CHAMBRE');
-      drawRoomCalendar();
+      const params = Utils.getParams(window.location.href);
+      fetchRoomDetails(params.id_room);
+      fetchRoomReservations(params.id_room);
       break;
     }
     /**

@@ -7,18 +7,35 @@ const database = new Database();
  */
 class Chambre {
 
+  /**
+   * @constructor
+   */
   constructor() {
     this.idRoom = null;
+    this.details = [];
     this.reservations = [];
   }
 
-  getRoomDetails(idRoom) {
-
+  /**
+   * Returns the room details
+   * @param idRoom
+   * @param {function} callback
+   */
+  getRoomDetails(idRoom, callback) {
+    const $query = `SELECT * FROM Room WHERE id_room = ?;`;
+    database.executeQuery($query, [idRoom], callback);
   }
 
+  /**
+   * Returns all the reservations' information with clients
+   * @param {int} idRoom
+   * @param {function} callback
+   */
   getReservationsByRoom(idRoom, callback) {
-    const $query = `SELECT * FROM Room_Reservation RE, Client C
-      WHERE RE.id_client = C.id_client AND RE.id_room = ?`;
+    this.idRoom = idRoom;
+    const $query = `SELECT * FROM Room RO, Room_Reservation RE, Client Cl
+                    WHERE RO.id_room = RE.id_room AND RE.id_client = Cl.id_client
+                      AND RO.id_room = ?;`;
     database.executeQuery($query, [idRoom], callback);
   }
 
