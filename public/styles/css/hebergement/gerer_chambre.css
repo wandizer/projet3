@@ -1,2 +1,17 @@
+.erpion-room-details {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between; }
+  .erpion-room-details img {
+    height: 100%;
+    width: 300px;
+    object-fit: cover; }
+  .erpion-room-details__description {
+    width: 650px;
+    height: 100%;
+    padding: 10px; }
+
 #calendar .fc-view-container {
   background: rgba(255, 255, 255, 0.9); }
