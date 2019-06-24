@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on Sun Jun 23 18:12:08 2019
+-- File generated with SQLiteStudio v3.2.1 on Mon Jun 24 10:41:37 2019
 --
 -- Text encoding used: UTF-8
 --
@@ -215,6 +215,7 @@ INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUE
 INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUES (34, 4, 11);
 INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUES (35, 5, 11);
 INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUES (36, 6, 11);
+INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUES (37, 1, 2);
 
 -- Table: Menu
 DROP TABLE IF EXISTS Menu;
