@@ -45,11 +45,11 @@
 				<img src="../../../assets/img/erpion_logo.png">
 			</div>
 		</div>
-		
-		
+
+
 		<main>
 			<div class="content">
-				
+
 				<!-- -------------- Liste de Menus -------------- -->
 				<div class="erpion-subsection">
 					<div class="erpion-subsection__title">Liste de Menus :</div>
@@ -69,7 +69,7 @@
 						</tbody>
 				</table>
 				</div>
-			
+
 				<!-- -------------- Liste de Menus Prevus -------------- -->
 				<div class="erpion-subsection">
 						<div class="erpion-subsection__title">Liste de Menus Prevus :</div>
@@ -89,13 +89,13 @@
 						</tbody>
 					</table>
 				</div>
-				
+
 			</div>
 		</main>
 	</div>
 	<!--script type="module"> require('../../controllers/menu_list_controller.js');</script-->
 	<script>
-	
+
 		//SET USER INFO
 		if(sessionStorage.getItem("employe")!= null){
 			var employe = JSON.parse(sessionStorage.getItem("employe"));
@@ -109,16 +109,16 @@
 				document.getElementById("stats").style.display = 'none';
 			}
 		}
-		
+
 		//SET MENU VARS
 		const Day_Menu = require('../../models/restauration/Day_Menu.js');
 		const Menu = require('../../models/restauration/Menu.js');
-		
+
 		//MENU ARRAYS
 		let day_menus;
 		let day_menus_list;
 		let menus_list;
-		
+
 		Day_Menu.findAll(getDayMenus);
 
 	function getDayMenus(result){
@@ -129,7 +129,7 @@
 			//Bouton Pour créer un nouveau menu
 		}
 	}
-		
+
 	</script>
 </body>
 </html>

@@ -40,7 +40,7 @@ class Menu {
   }
 
 	/* 
-   * Get Stock Menu
+   * Get Menu
    * @param id_menu
    * @param callback
    */
