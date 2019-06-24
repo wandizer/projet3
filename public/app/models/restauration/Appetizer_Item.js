@@ -12,7 +12,7 @@ class Appetizer_Item {
    * @param id_food_item
    * @param id_appetizer
    */
-  constructor(id_food_item, id_main_course) {
+  constructor(id_food_item, id_appetizer) {
 		this.id_food_item = id_food_item;
 		this.id_appetizer = id_appetizer;
   }

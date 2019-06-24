@@ -13,130 +13,154 @@
   <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
 </head>
 <body>
-	<ul id="slide-out" class="sidenav">
-		<li>
-			<div class="user-view">
-				<img id="profile-img" class="circle" src="coucou.png">
-				<h4>Prénom Nom</h4>
-				<p id="role">Role</p>
+	<div class="viewport">
+		<div class="erpion-sidenav">
+			<div class="erpion-sidenav__menu">
+				<i class="material-icons">menu</i>
 			</div>
-		</li>
-		<li><div class="divider"></div></li>
-		<li><a class="waves-effect waves-blue" href="#!">Gérer les Stocks</a></li>
-		<li><a class="waves-effect waves-blue" href="#!">Gérer les Menus Tarifs</a></li>
-		<li><a class="waves-effect waves-blue" href="#!">Création Tables et Couverts</a></li>
-		<li><a class="waves-effect waves-blue" href="#!">Déconnexion</a></li>
-		<div id="img-container"><img id="logo" src="../../../assets/img/erpion_logo.png"></div>
-	</ul>
-	<a href="#" data-target="slide-out" id="btn-menu" class="sidenav-trigger valign-wrapper" style="background: #0277BD; border-radius: 10px;display: block;width: fit-content;"><i class="medium material-icons" style="color: white">menu</i></a>
-
-	<main>
-		<!-- -------------- Plats du jour -------------- -->
-		<div class="row">
-			<div class="col s8">
-				<div class="card">
-					<a href="#" class="waves-effect waves-blue btn-small btn-tile">Gérer</a>
-					<h4>Plat du Jour</h4>
-					<div class="row">
-						<!-- Get Image -->
-						<div class="col s4"><img src="../../../../../../../Users/andy_/Desktop/cuisine/kebab.png"/></div>
-						<div class="col s4">
-							<!-- Get Nom de Plat -->
-							<h6 class="title">GroKebab</h6>
-							<!-- Get Description -->
-							<p class="descri">Salade Tomate Oignon chef, sauce ketchup de fragile, garniture frites sauce ebola, servi dans sa boite en carton sale</p>
-						</div>
-						<div class="col s4">
-							<!-- Get Prix -->
-							<p><span class="bold">Prix : </span>15.05€</p>
-							<!-- Get TVA -->
-							<p><span class="bold">TVA : </span>20%</p>
-							<!-- Get Heures -->
-							<p><span class="bold">Horaires : </span>12h00-23h00</p>
-						</div>
-					</div>
+			<div class="erpion-sidenav__profile">
+				<div class="erpion-sidenav__profile-fond">
+					<img src="../../../assets/img/user_background.jpg">
+				</div>
+				<div class="erpion-sidenav__profile-avatar">
+					<img src="../../../assets/img/user_logo1.png">
+				</div>
+				<div class="erpion-sidenav__profile-info">
+					<div class="erpion-sidenav__profile-info-nom" id="name">Nom</div>
+					<div class="erpion-sidenav__profile-info-prenom" id="surname">Prénom</div>
+					<div class="erpion-sidenav__profile-info-role" id="role">Directeur d'hébergement</div>
+					<a class="btn" href="../../views/connexion/login_view.html">Déconnexion</a>
 				</div>
 			</div>
-			<!-- ------------- Ca de la semaine ------------ -->
-			<div class="col s4">
-				<div class="card">
-					<h4>CA de la semaine</h4>
-					<div class="row">
-						<!-- Get Image -->
-						<div class="col s6">Courbe</div>
-						<div class="col s6">
-							<!-- Get Chiffres d'affaires -->
-							<p><span class="bold">CA : </span>+5003€</p>
-							<!-- Get Flux -->
-							<p><span class="bold">Flux : </span>0.5€</p>
-							<!-- Get Numero de personnes entrées -->
-							<p><span class="bold">Entrées : </span>103</p>
-							<!-- Get Moyenne prix par personne -->
-							<p><span class="bold">Prix moyen : </span>30€ Pa</p>
-						</div>
-					</div>
-				</div>
+			<div class="erpion-sidenav__divider"></div>
+			<div class="erpion-sidenav__onglets">
+				<a class="erpion-sidenav__onglets-onglet--active" href="restauration_view.html">
+					<i class="material-icons">play_arrow</i>Mon dashboard
+				</a>
+				<a href="menu_list_view.html" class="erpion-sidenav__onglets-onglet">Gérer les ménus</a>
+				<a class="erpion-sidenav__onglets-onglet" href="./gerer_reservations.html">Gérer les ménus</a>
+				<a class="erpion-sidenav__onglets-onglet" href="./gerer_voyages.html">Gérer le stock</a>
+				<a class="erpion-sidenav__onglets-onglet" href="./gerer_notoriete.html">Gérer les commandes</a>
 			</div>
+			<div class="erpion-sidenav__logo">
+				<img src="../../../assets/img/erpion_logo.png">
+			</div>s
 		</div>
-		<!-- ------------ Tables et Couverts ----------- -->
-		<div class="row">
-			<div class="col s12">
-				<div class="card">
-					<div class="row">
-						<div class="col s6">
-							<!-- Heures du Repas -->
-							<h4>Midi</h4>
-							<div>
-								<!-- Get Disponibles -->
-								<p>Couverts Disponibles</p>
-								<p>20</p>
-								<!-- Get Réservés -->
-								<p>Couverts Réservés</p>
-								<p>20</p>
+		
+		
+		<main>
+			<div class="content">
+				<!-- -------------- Plats du jour -------------- -->
+				<div class="erpion-subsection">
+					<div class="erpion-subsection__title">Plat du jour :</div>
+				</div>
+				<div class="erpion-card erpion-card__lg">
+					<h4>Menu:<div id="menu"></div></h4>
+					<h5>Entrée:<div id="appetizer"></div></h5>
+					<p id="ingredientsAppetizer"></p>
+					<h5 >Plat Principal:<div id="maincourse"></div></h5>
+					<p id="ingredientsMaincourse"></p>
+					<h5>Dessert:<div id="dessert"></div></h5>
+					<p id="ingredientsDessert"></p>
+				</div>
+		    <div class="erpion-card erpion-card__sm">
+					<h5>Prix:<div id="price"></div></h5>
+					<!-- Get TVA -->
+					<p><span>TVA : </span>20%</p>
+					<!-- Get Heures -->
+					<p><span>Horaires : </span>12h00-23h00</p>
+				</div>
+			</div>
+									
+	
+			
+										
+					<!-- ------------- Ca de la semaine ------------ -->
+					<div class="col s4" id="stats">
+						<div class="card">
+							<h4>CA de la semaine</h4>
+							<div class="row">
+								<!-- Get Image -->
+								<div class="col s6">Courbe</div>
+								<div class="col s6">
+									<!-- Get Chiffres d'affaires -->
+									<p><span class="bold">CA : </span>+5003€</p>
+									<!-- Get Flux -->
+									<p><span class="bold">Flux : </span>0.5€</p>
+									<!-- Get Numero de personnes entrées -->
+									<p><span class="bold">Entrées : </span>103</p>
+									<!-- Get Moyenne prix par personne -->
+									<p><span class="bold">Prix moyen : </span>30€ Pa</p>
+								</div>
 							</div>
 						</div>
-						<div class="col s6">
+					</div>
+	
+			
+			
+				<!-- ------------ Tables et Couverts ----------- -->
+				<div class="row">
+					<div class="col s12">
+						<div class="card">
+							<div class="row">
+								<div class="col s6">
+									<!-- Heures du Repas -->
+									<h4>Midi</h4>
+									<div>
+										<!-- Get Disponibles -->
+										<p>Couverts Disponibles</p>
+										<p id="couvertsNonReserves"></p>
+										<!-- Get Réservés -->
+										<p>Couverts Réservés</p>
+										<p id="couvertsReserves"></p>
+									</div>
+								</div>
+								<div class="col s6">
+									<a href="#" class="waves-effect waves-blue btn-small btn-tile">Gérer</a>
+									<!-- Heures du Repas -->
+									<h4>Soir</h4>
+									<div>
+										<!-- Get Disponibles -->
+										<p>Couverts Disponibles</p>
+										<p id="couvertsNonReservesNuit"></p>
+										<!-- Get Réservés -->
+										<p>Couverts Réservés</p>
+										<p id="couvertsReservesNuit"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			s
+			
+				<!-- ------------------ Stock ------------------ -->
+				<div class="row">
+					<div class="col s12">
+						<div class="card">
 							<a href="#" class="waves-effect waves-blue btn-small btn-tile">Gérer</a>
 							<!-- Heures du Repas -->
-							<h4>Soir</h4>
-							<div>
-								<!-- Get Disponibles -->
-								<p>Couverts Disponibles</p>
-								<p>20</p>
-								<!-- Get Réservés -->
-								<p>Couverts Réservés</p>
-								<p>20</p>
+							<h4>Stock</h4>
+							<div class="row-stock">
+								<!-- Get Nom -->
+								<span class="left">Patates</span>
+								<!-- Get Quantité -->
+								<span>Qtee : 350/2000</span>
+								<!-- Get Prix -->
+								<span class="right">Prix unitaire : 0.12€</span>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<!-- ------------------ Stock ------------------ -->
-		<div class="row">
-			<div class="col s12">
-				<div class="card">
-					<a href="#" class="waves-effect waves-blue btn-small btn-tile">Gérer</a>
-					<!-- Heures du Repas -->
-					<h4>Stock</h4>
-					<div class="row-stock">
-						<!-- Get Nom -->
-						<span class="left">Patates</span>
-						<!-- Get Quantité -->
-						<span>Qtee : 350/2000</span>
-						<!-- Get Prix -->
-						<span class="right">Prix unitaire : 0.12€</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
-
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			var elems = document.querySelectorAll('.sidenav');
-			var instances = M.Sidenav.init(elems, {});
-		});
-	</script>
+			
+			
+			
+			
+			
+			
+			
+		</main>
+	</div>
+<script type="module"> require('../../controllers/restauration_controller.js');</script>
 </body>
 </html>

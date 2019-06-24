@@ -34,6 +34,16 @@ class Food_Item {
   }
 	
 	/* 
+   * Get Main_Course
+   * @param id_menu
+   * @param callback
+   */
+  static findById(id_food_item, callback) {
+    const sql = `SELECT * FROM ${tableName} WHERE id_food_item = ?;`;
+    database.executeQuery(sql, id_food_item, callback);
+  }
+	
+	/* 
    * Get type
    * @param name
    * @param callback
