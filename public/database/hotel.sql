@@ -243,6 +243,7 @@ INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUE
 INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUES (34, 4, 11);
 INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUES (35, 5, 11);
 INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUES (36, 6, 11);
+INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUES (37, 1, 2);
 
 -- Table: Menu
 DROP TABLE IF EXISTS Menu;
