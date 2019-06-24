@@ -72,3 +72,16 @@ main {
   background: red;
   @include border-radius(50%);
 }
+
+.nothing-found {
+  background: #cecbce;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    margin-left: 10px;
+  }
+}

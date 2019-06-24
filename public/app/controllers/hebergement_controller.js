@@ -16,8 +16,6 @@ const storedEmploye = Utils.getStoredEmploye();
 const storedUser = Utils.getStoredUser();
 const storedService = Utils.getStoredService();
 const viewName = Utils.getViewName(window.location.href);
-const today = new Date();
-const todaysMonth = (`${today.getMonth() + 1}`.length === 1) ? `0${today.getMonth() + 1}`  : today.getMonth() + 1;
 
 document.addEventListener('DOMContentLoaded', () => {
   Sidenav.drawSidenav(storedRole.name, viewName, storedEmploye.name, storedEmploye.surname);
@@ -33,6 +31,8 @@ window.addEventListener('load', () => {
   let datepicker;
   let calendar;
   let isRange = false;
+  const today = new Date();
+  const todaysMonth = (`${today.getMonth() + 1}`.length === 1) ? `0${today.getMonth() + 1}`  : today.getMonth() + 1;
   let globalFormattedDate = `${today.getDate()}/${todaysMonth}/${today.getFullYear()}`;
 
   const hebergement = new Hebergement();
@@ -42,56 +42,6 @@ window.addEventListener('load', () => {
   const defaultEmptyContent = `
     <div class="nothing-found">
       <i class="material-icons">warning</i><p>Rien trouvé</p>
-    </div>`;
-
-  const defaultFreeRoomLine = `
-    <div class="erpion-rows__row">
-      <i class="material-icons">hotel</i>
-      <div class="erpion-rows__row-element">
-        <div class="green-dot"></div>
-      </div>
-      <div class="erpion-rows__row-element">
-        <label style="margin-right: 5px">Nº</label>
-        <span>{{ number }}</span>
-      </div>
-      <div class="erpion-rows__row-element">
-        <label style="margin-right: 5px">Etage:</label>
-        <span>{{ floor }}</span>
-      </div>
-      <div class="erpion-rows__row-element">
-        <label style="margin-right: 5px">Type:</label>
-        <span class="chambre-type">{{ type }}</span>
-      </div>
-      <div class="erpion-rows__row-element">
-        <label style="margin-right: 5px">Prix:</label>
-        <span class="chambre-details">{{ price }} €</span>
-      </div>
-      <a class="btn-small green" href="./gerer_chambre.html?id={{ id }}">Reserver</a>
-    </div>`;
-
-  const defaultOccupiedRoomLine = `
-    <div class="erpion-rows__row">
-      <i class="material-icons">hotel</i>
-      <div class="erpion-rows__row-element">
-        <div class="red-dot"></div>
-      </div>
-      <div class="erpion-rows__row-element">
-        <label style="margin-right: 5px">Nº</label>
-        <span>{{number}}</span>
-      </div>
-      <div class="erpion-rows__row-element">
-        <label style="margin-right: 5px">Etage:</label>
-        <span>{{floor}}</span>
-      </div>
-      <div class="erpion-rows__row-element">
-        <label style="margin-right: 5px">Type:</label>
-        <span class="chambre-type">{{type}}</span>
-      </div>
-      <div class="erpion-rows__row-element">
-        <label style="margin-right: 5px">Periode:</label>
-        <span class="chambre-details">{{date_arrival}} - {{date_depart}}</span>
-      </div>
-      <div class="btn-small red">Réservé</div>
     </div>`;
 
   // ############################################################################################# //
@@ -121,6 +71,8 @@ window.addEventListener('load', () => {
   let drawModalReservation = () => {
   };
   let reserveRoom = () => {
+  };
+  let drawRoomsList = () => {
   };
 
   // -----------------------------------------------------------------------------------------
@@ -570,7 +522,74 @@ window.addEventListener('load', () => {
       break;
     }
     case 'liste_chambres': {
-
+      /**
+       * Responsible for drawing the rooms' list
+       * @function
+       */
+      drawRoomsList = () => {
+        const $roomsListElement = $('#roomsList');
+        hebergement.getAllFreeRooms((freeRooms) => {
+          $roomsListElement.html('');
+          freeRooms.forEach((room) => {
+            $roomsListElement.append(
+              `<div class="erpion-rows__row">
+                <i class="material-icons">hotel</i>
+                <div class="erpion-rows__row-element">
+                  <div class="green-dot"></div>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Nº</label>
+                  <span>${room.number}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Etage:</label>
+                  <span>${room.floor}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Type:</label>
+                  <span class="chambre-type">${room.type}</span>
+                </div>
+                <div class="erpion-rows__row-element">
+                  <label style="margin-right: 5px">Prix:</label>
+                  <span class="chambre-details">${room.price} €</span>
+                </div>
+                <a class="btn-small blue" href="./gerer_chambre.html?id_room=${room.id_room}">
+                  Plus de détails</a>
+              </div>`,
+            );
+          });
+          hebergement.getAllOccupiedRooms((occupiedRooms) => {
+            occupiedRooms.forEach((room) => {
+              $roomsListElement.append(
+                `<div class="erpion-rows__row">
+                  <i class="material-icons">hotel</i>
+                  <div class="erpion-rows__row-element">
+                    <div class="red-dot"></div>
+                  </div>
+                  <div class="erpion-rows__row-element">
+                    <label style="margin-right: 5px">Nº</label>
+                    <span>${room.number}</span>
+                  </div>
+                  <div class="erpion-rows__row-element">
+                    <label style="margin-right: 5px">Etage:</label>
+                    <span>${room.floor}</span>
+                  </div>
+                  <div class="erpion-rows__row-element">
+                    <label style="margin-right: 5px">Type:</label>
+                    <span class="chambre-type">${room.type}</span>
+                  </div>
+                  <div class="erpion-rows__row-element">
+                    <label style="margin-right: 5px">Prix:</label>
+                    <span class="chambre-details">${room.price} €</span>
+                  </div>
+                  <a class="btn-small blue" href="./gerer_chambre.html?id_room=${room.id_room}">
+                    Plus de détails</a>
+                </div>`,
+              );
+            });
+          });
+        });
+      };
       break;
     }
     case 'gerer_centrales_reservation': {
@@ -659,6 +678,7 @@ window.addEventListener('load', () => {
       break;
     }
     case 'liste_chambres': {
+      drawRoomsList();
       break;
     }
     case 'gerer_centrales_reservation': {
