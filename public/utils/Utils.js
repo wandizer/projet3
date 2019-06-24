@@ -28,13 +28,47 @@ const Utils = {
     return viewName;
   },
 
-  getStoredUser: () => window.sessionStorage.getItem('user'),
+  /**
+   * {
+   *     id_user: 1,
+   *     email: 'myemail@exemple.fr'
+   * }
+   * @returns {string}
+   */
+  getStoredUser: () => JSON.parse(window.sessionStorage.getItem('user')),
 
-  getStoredEmploye: () => window.sessionStorage.getItem('employe'),
+  /**
+   * {
+   *     id_employe: 1,
+   *     id_role: 1,
+   *     name: 'Prenom',
+   *     surname: 'Nom',
+   *     birthday: 'dd/mm/yyyy',
+   *     salary: 3500
+   * }
+   * @returns {string}
+   */
+  getStoredEmploye: () => JSON.parse(window.sessionStorage.getItem('employe')),
 
-  getStoredService: () => window.sessionStorage.getItem('service'),
+  /**
+   * {
+   *     id_service: 1,
+   *     name: 'Direction'
+   * }
+   * @returns {string}
+   */
+  getStoredService: () => JSON.parse(window.sessionStorage.getItem('service')),
 
-  getStoredRole: () => window.sessionStorage.getItem('role'),
+  /**
+   * {
+   *     id_role: 1m
+   *     id_service: 1,
+   *     name: 'Directeur Hotel',
+   *     permission_level: 1
+   * }
+   * @returns {string}
+   */
+  getStoredRole: () => JSON.parse(window.sessionStorage.getItem('role')),
 };
 
 module.exports = Utils;
