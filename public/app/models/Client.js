@@ -6,7 +6,9 @@ const database = new Database();
  * @class Client
  */
 class Client {
-
+  /**
+   * @constructor
+   */
   constructor() {
     this.idClient = null;
   }
@@ -17,8 +19,8 @@ class Client {
    * @param {function} callback
    */
   getClientById(idClient, callback) {
-    const $query = `SELECT * FROM Client WHERE id_client = ?;`;
-    database.executeQuery($query, [idClient], callback)
+    const $query = 'SELECT * FROM Client WHERE id_client = ?;';
+    database.executeQuery($query, [idClient], callback);
   }
 
   /**
@@ -27,8 +29,8 @@ class Client {
    * @param {function} callback
    */
   getClientByEmail(email, callback) {
-    const $query = `SELECT * FROM Client WHERE email = ?;`;
-    database.executeQuery($query, [email], callback)
+    const $query = 'SELECT * FROM Client WHERE email = ?;';
+    database.executeQuery($query, [email], callback);
   }
 
   /**
@@ -38,7 +40,7 @@ class Client {
    * @param {function} callback
    */
   checkClientExists(email, number, callback) {
-    const $query = `SELECT * FROM Client WHERE email = ? AND number = ?;`;
+    const $query = 'SELECT * FROM Client WHERE email = ? AND number = ?;';
     database.executeQuery($query, [email, number], callback);
   }
 
@@ -51,11 +53,9 @@ class Client {
    * @param {function} callback
    */
   write(name, surname, email, number, callback) {
-    const $query = `INSERT INTO Client (name, surname, email, number) VALUES (?, ?, ?, ?);`;
+    const $query = 'INSERT INTO Client (name, surname, email, number) VALUES (?, ?, ?, ?);';
     database.executeQuery($query, [name, surname, email, number], callback);
   }
-
-
 }
 
 module.exports = Client;

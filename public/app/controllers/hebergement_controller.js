@@ -6,6 +6,7 @@ require('../../plugins/air-datepicker/js/i18n/datepicker.fr');
 
 const Utils = require('../../utils/Utils.js');
 const Sidenav = require('../../utils/Sidenav.js');
+const Rating = require('../../utils/Rating.js');
 const Hebergement = require('../models/Hebergement');
 const Chambre = require('../models/Chambre');
 const Client = require('../models/Client');
@@ -605,7 +606,6 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_centrales_reservation': {
-
       /**
        * Default template for modification or creation of centrals of reservation
        * @function
@@ -881,6 +881,10 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_voyages': {
+      $('#rating').append(`${Rating.getRatingStars(3.4)}<br>`);
+      $('#rating').append(`${Rating.getRatingStars(5)}<br>`);
+      $('#rating').append(`${Rating.getRatingStars(4.4)}<br>`);
+      $('#rating').append(`${Rating.getRatingStars(4.6)}<br>`);
       break;
     }
     case 'gerer_notoriete': {

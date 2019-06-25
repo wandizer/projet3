@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on ter jun 25 14:38:31 2019
+-- File generated with SQLiteStudio v3.2.1 on Tue Jun 25 22:22:50 2019
 --
 -- Text encoding used: UTF-8
 --
@@ -25,6 +25,10 @@ INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, statu
 INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (4, 'AllTheRooms', 'https://www.alltherooms.com/', 'Disponible', 'alltherooms_logo.jpg');
 INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (5, 'EventBlocks', 'http://www.eventblocks.com/', 'Indisponible', 'eventblocks_logo.png');
 INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (6, 'TripWolf', 'https://www.tripwolf.com/app/language/fr/', 'Disponible', 'tripwolf_logo.png');
+
+-- Table: Cleaning
+DROP TABLE IF EXISTS Cleaning;
+CREATE TABLE Cleaning (id_cleaning INTEGER PRIMARY KEY AUTOINCREMENT, priority VARCHAR (100), date_creation TEXT NOT NULL, date_deadline TEXT NOT NULL, state BOOLEAN NOT NULL DEFAULT (false), id_employe INTEGER REFERENCES Employe (id_employe), id_room INTEGER REFERENCES Room (id_room), title VARCHAR (100), description TEXT);
 
 -- Table: Client
 DROP TABLE IF EXISTS Client;
@@ -176,6 +180,14 @@ INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (38, 'Oignon', 2
 INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (39, 'Brocoli', 2);
 INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (40, 'Aubergine', 2);
 
+-- Table: Loisirs
+DROP TABLE IF EXISTS Loisirs;
+CREATE TABLE Loisirs (id_loisir INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100), description TEXT, price DOUBLE NOT NULL, active BOOLEAN NOT NULL DEFAULT (true));
+
+-- Table: Loisirs_Reservations
+DROP TABLE IF EXISTS Loisirs_Reservations;
+CREATE TABLE Loisirs_Reservations (id_loisirs_reservations INTEGER PRIMARY KEY AUTOINCREMENT, date_reservation TEXT NOT NULL, date_seance TEXT NOT NULL, id_client INTEGER REFERENCES Client (id_client) NOT NULL, id_loisir INTEGER REFERENCES Loisirs (id_loisir));
+
 -- Table: Main_Course
 DROP TABLE IF EXISTS Main_Course;
 CREATE TABLE Main_Course(id_main_course INTEGER  PRIMARY KEY AUTOINCREMENT,name         Varchar (50) NOT NULL );
@@ -185,6 +197,10 @@ INSERT INTO Main_Course (id_main_course, name) VALUES (3, 'Lasagnes à la bologn
 INSERT INTO Main_Course (id_main_course, name) VALUES (4, 'Sauté de veau au chorizo');
 INSERT INTO Main_Course (id_main_course, name) VALUES (5, 'Hachis Parmentier');
 INSERT INTO Main_Course (id_main_course, name) VALUES (6, 'Boeuf Bourguignon rapide');
+
+-- Table: Maintenance
+DROP TABLE IF EXISTS Maintenance;
+CREATE TABLE Maintenance (id_maintenance INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100), description TEXT, date_creation TEXT NOT NULL, date_deadline TEXT NOT NULL, state BOOLEAN NOT NULL DEFAULT (false), id_employe INTEGER REFERENCES Employe (id_employe), id_service_externe INTEGER REFERENCES Services_Externes (id_service_externe));
 
 -- Table: Meal_Reservation
 DROP TABLE IF EXISTS Meal_Reservation;
@@ -419,6 +435,14 @@ INSERT INTO Service (id_service, name) VALUES (7, 'Maintenance');
 INSERT INTO Service (id_service, name) VALUES (8, 'Loisirs');
 INSERT INTO Service (id_service, name) VALUES (9, 'Salle');
 
+-- Table: Services_Externes
+DROP TABLE IF EXISTS Services_Externes;
+CREATE TABLE Services_Externes (id_service_externe INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR (100) NOT NULL, phone VARCHAR (100) NOT NULL, price DOUBLE NOT NULL);
+
+-- Table: Services_Externes_Reservations
+DROP TABLE IF EXISTS Services_Externes_Reservations;
+CREATE TABLE Services_Externes_Reservations (id_service_externe_reservation INTEGER PRIMARY KEY AUTOINCREMENT, date_reservation TEXT NOT NULL, date_seance TEXT, id_client INTEGER REFERENCES Client (id_client), id_service_externe INTEGER REFERENCES Services_Externes (id_service_externe));
+
 -- Table: Stock
 DROP TABLE IF EXISTS Stock;
 CREATE TABLE Stock (id_stock INTEGER PRIMARY KEY AUTOINCREMENT, date_arrival TEXT NOT NULL, date_expiration TEXT NOT NULL, quantity INTEGER NOT NULL, id_food_item INTEGER NOT NULL, CONSTRAINT Stock_Food_Item_FK FOREIGN KEY (id_food_item) REFERENCES Food_Item (id_food_item));
@@ -463,6 +487,10 @@ INSERT INTO Stock (id_stock, date_arrival, date_expiration, quantity, id_food_it
 INSERT INTO Stock (id_stock, date_arrival, date_expiration, quantity, id_food_item) VALUES (39, '10/05/2019', '21/05/2019', 45, 35);
 INSERT INTO Stock (id_stock, date_arrival, date_expiration, quantity, id_food_item) VALUES (40, '10/05/2019', '21/05/2019', 45, 36);
 
+-- Table: Transactions
+DROP TABLE IF EXISTS Transactions;
+CREATE TABLE Transactions (id_transaction INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR (50) NOT NULL, amount DOUBLE (50) NOT NULL, date TEXT NOT NULL, payed BOOLEAN NOT NULL DEFAULT (false), id_client INTEGER REFERENCES Client (id_client), id_room_reservation INTEGER REFERENCES Room_Reservation (id_room_reservation), id_stock INTEGER REFERENCES Stock (id_stock), id_meal_reservation INTEGER REFERENCES Meal_Reservation (id_meal_reservation), id_loisir_reservation INTEGER REFERENCES Loisirs_Reservations (id_loisirs_reservations), id_service_externe_reservation INTEGER REFERENCES Services_Externes_Reservations (id_service_externe_reservation), id_maintenance INTEGER REFERENCES Maintenance (id_maintenance));
+
 -- Table: Type_Food
 DROP TABLE IF EXISTS Type_Food;
 CREATE TABLE Type_Food(id_type_food INTEGER  PRIMARY KEY AUTOINCREMENT,name         Varchar (5) NOT NULL );
@@ -485,6 +513,15 @@ INSERT INTO User (id_user, email, username, password, id_employe) VALUES (4, 'ch
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (5, 'gouvernante.generale@erpion.fr', 'gouvernante_generale', '1234', 5);
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (6, 'chef.maintenance@erpion.fr', 'chef_maintenance', '1234', 6);
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (7, 'spa.managert@erpion.fr', 'spa_manager', '1234', 7);
+
+-- Table: Voyages
+DROP TABLE IF EXISTS Voyages;
+CREATE TABLE Voyages (id_voyage INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100) NOT NULL, description TEXT, price DOUBLE, photo VARCHAR (100), rating DOUBLE, starting_date TEXT, duration TEXT, id_agence INTEGER REFERENCES Centrales_Reservation (id_centrales_reservation));
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, id_agence) VALUES (1, 'Minorque', NULL, 874.0, 'minorque1.jpg', 4.5, '01/07/2019', '8d', 1);
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, id_agence) VALUES (2, 'Tunisie', NULL, 622.0, 'tunisie1.jpg', 5.0, '01/07/2019', '11d', 3);
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, id_agence) VALUES (3, 'Crète', NULL, 830.0, 'crete.jpg', 4.0, '01/07/2019', '10d', 2);
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, id_agence) VALUES (4, 'Majorque', NULL, 667.0, 'majorque.jpg', 5.0, '05/07/2019', '15d', 6);
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, id_agence) VALUES (5, 'Egypte', NULL, 699.0, 'egypte.jpg', 4.5, '13/07/2019', '8d', 4);
 
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = on;
