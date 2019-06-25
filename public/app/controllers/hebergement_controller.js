@@ -5,13 +5,23 @@ require('../../plugins/air-datepicker/js/datepicker.min.js');
 require('../../plugins/air-datepicker/js/i18n/datepicker.fr');
 
 const Utils = require('../../utils/Utils.js');
+const Sidenav = require('../../utils/Sidenav.js');
 const Hebergement = require('../models/Hebergement');
 const Chambre = require('../models/Chambre');
 const Client = require('../models/Client');
 
-const currentPage = Utils.getViewName(window.location.href);
+// Session Storage
+const storedRole = Utils.getStoredRole();
+const storedEmploye = Utils.getStoredEmploye();
+const storedUser = Utils.getStoredUser();
+const storedService = Utils.getStoredService();
+const viewName = Utils.getViewName(window.location.href);
 const today = new Date();
 const todaysMonth = (`${today.getMonth() + 1}`.length === 1) ? `0${today.getMonth() + 1}`  : today.getMonth() + 1;
+
+document.addEventListener('DOMContentLoaded', () => {
+  Sidenav.drawSidenav(storedRole.name, viewName, storedEmploye.name, storedEmploye.surname);
+});
 
 window.addEventListener('load', () => {
   // ############################################################################################# //
@@ -115,7 +125,7 @@ window.addEventListener('load', () => {
 
   // -----------------------------------------------------------------------------------------
 
-  switch (currentPage) {
+  switch (viewName) {
     case 'dashboard_hebergement': {
       /**
        * Draws all the charts necessary for the statistics on the dashboard
@@ -559,6 +569,14 @@ window.addEventListener('load', () => {
     case 'gerer_notoriete': {
       break;
     }
+    case 'liste_chambres': {
+
+      break;
+    }
+    case 'gerer_centrales_reservation': {
+
+      break;
+    }
     default: {
       break;
     }
@@ -568,7 +586,7 @@ window.addEventListener('load', () => {
   // #################################    EVENT LISTENERS    ##################################### //
   // ############################################################################################# //
 
-  switch (currentPage) {
+  switch (viewName) {
     case 'dashboard_hebergement': {
       break;
     }
@@ -594,6 +612,14 @@ window.addEventListener('load', () => {
     case 'gerer_notoriete': {
       break;
     }
+    case 'liste_chambres': {
+
+      break;
+    }
+    case 'gerer_centrales_reservation': {
+
+      break;
+    }
     default: {
       break;
     }
@@ -604,21 +630,14 @@ window.addEventListener('load', () => {
   // #######################################    MAIN    ########################################## //
   // ############################################################################################# //
 
+  console.log(`@ROUTE : /hebergement/${viewName}.html`);
   // ACTION MANAGER
-  switch (currentPage) {
-    /**
-     * @Route /hebergement/dashboard_hebergement
-     */
+  switch (viewName) {
     case 'dashboard_hebergement': {
-      console.log('DASHBOARD');
       drawStatisticsCharts();
       break;
     }
-    /**
-     * @Route /hebergement/gerer_reservations
-     */
     case 'gerer_reservations': {
-      console.log('GERER RESERVATIONS');
       drawDatepicker();
       hebergement.getAllOccupiedRoomsByDate(globalFormattedDate, drawOccupiedRooms);
       hebergement.getAllFreeRoomsByDate(globalFormattedDate, drawFreeRooms);
@@ -627,33 +646,24 @@ window.addEventListener('load', () => {
       });
       break;
     }
-    /**
-     * @Route /hebergement/gerer_chambre
-     */
     case 'gerer_chambre': {
-      console.log('GERER CHAMBRE');
       const params = Utils.getParams(window.location.href);
       fetchRoomDetails(params.id_room);
       fetchRoomReservations(params.id_room);
       break;
     }
-    /**
-     * @Route /hebergement/gerer_voyages
-     */
     case 'gerer_voyages': {
-      console.log('GERER VOYAGES');
       break;
     }
-    /**
-     * @Route /hebergement/gerer_notoriete
-     */
     case 'gerer_notoriete': {
-      console.log('GERER NOTORIETE');
       break;
     }
-    /**
-     * @Route /
-     */
+    case 'liste_chambres': {
+      break;
+    }
+    case 'gerer_centrales_reservation': {
+      break;
+    }
     default: {
       console.log('View not found! No action executed!');
     }
