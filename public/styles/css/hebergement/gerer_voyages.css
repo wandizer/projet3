@@ -1,0 +1,26 @@
+.erpion-voyages {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap; }
+  .erpion-voyages .erpion-voyage {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap; }
+    .erpion-voyages .erpion-voyage__photo {
+      flex-basis: 25%;
+      height: 100%;
+      object-fit: cover;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-voyages .erpion-voyage__content {
+      flex-basis: 75%;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between; }
+      .erpion-voyages .erpion-voyage__content-header {
+        width: 100%;
+        background: #f0f0f0; }
+      .erpion-voyages .erpion-voyage__content-body {
+        width: 100%; }
+      .erpion-voyages .erpion-voyage__content-footer {
+        width: 100%;
+        background: #00acc1; }
