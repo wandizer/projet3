@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on Sun Jun 23 18:12:08 2019
+-- File generated with SQLiteStudio v3.2.1 on ter jun 25 14:38:31 2019
 --
 -- Text encoding used: UTF-8
 --
@@ -15,6 +15,16 @@ INSERT INTO Appetizers (id_appetizer, name) VALUES (3, 'Soupe Carotte');
 INSERT INTO Appetizers (id_appetizer, name) VALUES (4, 'Soupe Miso');
 INSERT INTO Appetizers (id_appetizer, name) VALUES (5, 'Gaspacho');
 INSERT INTO Appetizers (id_appetizer, name) VALUES (6, 'Oeufs Mimosa');
+
+-- Table: Centrales_Reservation
+DROP TABLE IF EXISTS Centrales_Reservation;
+CREATE TABLE Centrales_Reservation (id_centrales_reservation INTEGER PRIMARY KEY AUTOINCREMENT, nom VARCHAR (60) NOT NULL, website VARCHAR (255) NOT NULL, status VARCHAR (20), logo TEXT);
+INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (1, 'Trivago', 'https://www.trivago.fr/', 'Disponible', 'trivago_logo.png');
+INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (2, 'Kayak', 'https://www.kayak.fr/', 'Disponible', 'kayak_logo.png');
+INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (3, 'Expedia', 'https://www.expedia.fr/', 'Disponible', 'expedia_logo.png');
+INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (4, 'AllTheRooms', 'https://www.alltherooms.com/', 'Disponible', 'alltherooms_logo.jpg');
+INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (5, 'EventBlocks', 'http://www.eventblocks.com/', 'Indisponible', 'eventblocks_logo.png');
+INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, status, logo) VALUES (6, 'TripWolf', 'https://www.tripwolf.com/app/language/fr/', 'Disponible', 'tripwolf_logo.png');
 
 -- Table: Client
 DROP TABLE IF EXISTS Client;

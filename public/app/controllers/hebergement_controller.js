@@ -9,6 +9,7 @@ const Sidenav = require('../../utils/Sidenav.js');
 const Hebergement = require('../models/Hebergement');
 const Chambre = require('../models/Chambre');
 const Client = require('../models/Client');
+const CentralesReservation = require('../models/CentralesReservation');
 
 // Session Storage
 const storedRole = Utils.getStoredRole();
@@ -32,12 +33,13 @@ window.addEventListener('load', () => {
   let calendar;
   let isRange = false;
   const today = new Date();
-  const todaysMonth = (`${today.getMonth() + 1}`.length === 1) ? `0${today.getMonth() + 1}`  : today.getMonth() + 1;
+  const todaysMonth = (`${today.getMonth() + 1}`.length === 1) ? `0${today.getMonth() + 1}` : today.getMonth() + 1;
   let globalFormattedDate = `${today.getDate()}/${todaysMonth}/${today.getFullYear()}`;
 
   const hebergement = new Hebergement();
   const chambre = new Chambre();
   const client = new Client();
+  const centralesReservation = new CentralesReservation();
 
   const defaultEmptyContent = `
     <div class="nothing-found">
@@ -74,6 +76,20 @@ window.addEventListener('load', () => {
   };
   let drawRoomsList = () => {
   };
+  let buildModalCentraleReservation = () => {
+  };
+  let modifierCentraleReservation = () => {
+  };
+  let openModalModificationCentrale = () => {
+  };
+  let deleteCentraleReservation = () => {
+  };
+  let openModalDeleteCentrale = () => {
+  };
+  let addCentraleReservation = () => {
+  };
+  let drawCentralsOfReservation = () => {
+  };
 
   // -----------------------------------------------------------------------------------------
 
@@ -104,8 +120,8 @@ window.addEventListener('load', () => {
             legend: { display: true, position: 'right' },
             maintainAspectRatio: true,
             spanGaps: false,
-            plugins:{ filler: { propagate: false }},
-            scales: { yAxes: [{ display: false, ticks: { beginAtZero: true }}], xAxes: [{ display: false }] },
+            plugins: { filler: { propagate: false } },
+            scales: { yAxes: [{ display: false, ticks: { beginAtZero: true } }], xAxes: [{ display: false }] },
           },
         });
         const elLineChart = document.getElementById('lineChart').getContext('2d');
@@ -126,9 +142,9 @@ window.addEventListener('load', () => {
             legend: { display: false },
             maintainAspectRatio: false,
             spanGaps: false,
-            elements:{ line:{ tension: 0.4 }, point: { radius: 2, hitRadius: 8, hoverRadius: 8 } },
-            plugins:{ filler: { propagate: false }},
-            scales: { yAxes: [{ display: false, ticks: { beginAtZero: true }}], xAxes: [{ display: false }] },
+            elements: { line: { tension: 0.4 }, point: { radius: 2, hitRadius: 8, hoverRadius: 8 } },
+            plugins: { filler: { propagate: false } },
+            scales: { yAxes: [{ display: false, ticks: { beginAtZero: true } }], xAxes: [{ display: false }] },
           },
         });
       };
@@ -165,16 +181,15 @@ window.addEventListener('load', () => {
         if (clientData.clientName !== ''
           && clientData.clientSurname !== ''
           && clientData.clientEmail !== ''
-          && clientData.clientPhone !== '')
-        {
-          client.checkClientExists(clientData.clientEmail, clientData.clientPhone, (result) => {
-            if (result.length === 1) {
+          && clientData.clientPhone !== '') {
+          client.checkClientExists(clientData.clientEmail, clientData.clientPhone, (clients) => {
+            if (clients.length === 1) {
               if (isRange) {
-                hebergement.reserveRoomByPeriod(id_room, result[0].id_client, dateDebut, dateFin, () => {
+                hebergement.reserveRoomByPeriod(id_room, clients[0].id_client, dateDebut, dateFin, () => {
                   window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                 });
               } else {
-                hebergement.reserveRoomByDate(id_room, result[0].id_client, dateDebut, () => {
+                hebergement.reserveRoomByDate(id_room, clients[0].id_client, dateDebut, () => {
                   window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                 });
               }
@@ -182,18 +197,18 @@ window.addEventListener('load', () => {
               client.write(
                 clientData.clientName, clientData.clientSurname, clientData.clientEmail, clientData.clientPhone,
                 () => {
-                  client.getClientByEmail(clientData.clientEmail, (result) => {
+                  client.getClientByEmail(clientData.clientEmail, (client) => {
                     if (isRange) {
-                      hebergement.reserveRoomByPeriod(id_room, result[0].id_client, dateDebut, dateFin, () => {
+                      hebergement.reserveRoomByPeriod(id_room, client[0].id_client, dateDebut, dateFin, () => {
                         window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                       });
                     } else {
-                      hebergement.reserveRoomByDate(id_room, result[0].id_client, dateDebut, () => {
+                      hebergement.reserveRoomByDate(id_room, client[0].id_client, dateDebut, () => {
                         window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                       });
                     }
                   });
-                }
+                },
               );
             }
           });
@@ -434,7 +449,6 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_chambre': {
-
       /**
        * Retrieves the current room details
        * @function
@@ -471,7 +485,7 @@ window.addEventListener('load', () => {
               title: `Client: ${row.name} ${row.surname}`,
               start: `${row.date_arrival.split('/')[2]}-${row.date_arrival.split('/')[1]}-${row.date_arrival.split('/')[0]}`,
               end: `${row.date_depart.split('/')[2]}-${row.date_depart.split('/')[1]}-${row.date_depart.split('/')[0]}`,
-              color: (row.active) ? `#26a69a` : `#8e9ea6`,
+              color: (row.active) ? '#26a69a' : '#8e9ea6',
               editable: false,
               overlap: false,
               allDay: true,
@@ -497,21 +511,19 @@ window.addEventListener('load', () => {
           header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth'
+            right: 'dayGridMonth',
           },
-          events: events,
-          dateClick: function(info) {
+          events,
+          dateClick(info) {
             // alert('clicked ' + info.dateStr);
-            console.log('clicked ' + info.dateStr);
+            console.log(`clicked ${info.dateStr}`);
           },
-          select: function(info) {
+          select(info) {
             // alert('selected ' + info.startStr + ' to ' + info.endStr);
-            console.log('selected ' + info.startStr + ' to ' + info.endStr)
-          }
+            console.log(`selected ${info.startStr} to ${info.endStr}`);
+          },
         });
         calendar.render();
-
-        const event = calendar.getEventById('a');
       };
       break;
     }
@@ -594,6 +606,204 @@ window.addEventListener('load', () => {
     }
     case 'gerer_centrales_reservation': {
 
+      /**
+       * Default template for modification or creation of centrals of reservation
+       * @function
+       * @param {int} idCentrale
+       * @param {string} nomCentrale
+       * @param {string} websiteCentrale
+       * @param {string} statusCentrale
+       * @param {string} logoCentrale
+       */
+      buildModalCentraleReservation = (idCentrale, nomCentrale, websiteCentrale, statusCentrale, logoCentrale) => `
+          <div class="modal-content">
+            <h4>${(idCentrale) ? 'Modification' : 'Création'} centrale de réservation</h4>
+            <div class="row">
+              <form class="col s12" id="formModalCentraleReservation">
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="modalNomCentrale" name="modalNomCentrale"
+                    value="${nomCentrale || ''}" type="text" class="validate">
+                    <label for="modalNomCentrale" class="${(nomCentrale) ? 'active' : ''}">Nom</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <input id="modalWebsiteCentrale" name="modalWebsiteCentrale"
+                    value="${websiteCentrale || ''}" type="text" class="validate">
+                    <label for="modalWebsiteCentrale" class="${(websiteCentrale) ? 'active' : ''}">Website</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="modalLogoCentrale" name="modalLogoCentrale"
+                    value="${logoCentrale || ''}" type="text" class="validate">
+                    <label for="modalLogoCentrale" class="${(logoCentrale) ? 'active' : ''}">Logo</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <input id="modalStatusCentrale" name="modalStatusCentrale"
+                    value="${statusCentrale || ''}" type="text" class="validate">
+                    <label for="modalStatusCentrale" class="${(statusCentrale) ? 'active' : ''}">Status</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="${(idCentrale) ? `buttonModifyCentrale${idCentrale}` : 'buttonNewCentrale'}"
+            data-id="${idCentrale || ''}" class="waves-effect waves-blue btn-small blue">${(idCentrale) ? 'Modifier' : 'Ajouter'}</button>
+          </div>
+        `;
+
+      /**
+       * Responsible for modifying the current central of reservation by reading the modal form
+       * @function
+       * @param e
+       */
+      modifierCentraleReservation = (e) => {
+        const idCentrale = e.target.dataset.id;
+        const $modalCentraleReservation = $('#modalCentraleReservation');
+        const formData = $('form#formModalCentraleReservation').serializeArray();
+        const centraleData = [];
+        $.each(formData, (i, field) => {
+          centraleData[field.name] = field.value;
+        });
+        centralesReservation.rewrite(
+          idCentrale,
+          centraleData.modalNomCentrale,
+          centraleData.modalWebsiteCentrale,
+          centraleData.modalStatusCentrale,
+          centraleData.modalLogoCentrale,
+          () => {
+            drawCentralsOfReservation();
+            $modalCentraleReservation.modal('close');
+          },
+        );
+      };
+
+      /**
+       * Opens the modal with modification form inside of it
+       * @function
+       * @param e - Event
+       */
+      openModalModificationCentrale = (e) => {
+        const idCentrale = e.target.dataset.id;
+        const $modalCentraleReservation = $('#modalCentraleReservation');
+        centralesReservation.getCentraleReservationById(idCentrale, (centrale) => {
+          const modalHTML = buildModalCentraleReservation(
+            centrale[0].id_centrales_reservation,
+            centrale[0].nom,
+            centrale[0].website,
+            centrale[0].status,
+            centrale[0].logo,
+          );
+          $modalCentraleReservation.html('');
+          $modalCentraleReservation.append(modalHTML);
+          $(`#buttonModifyCentrale${idCentrale}`).on('click', modifierCentraleReservation);
+          $modalCentraleReservation.modal('open');
+        });
+      };
+
+      /**
+       * Responsible for deleting the central of reservation after confirmation
+       * @function
+       * @param e - Event
+       */
+      deleteCentraleReservation = (e) => {
+        const idCentrale = e.target.dataset.id;
+        const $modalCentraleReservation = $('#modalCentraleReservation');
+        centralesReservation.deleteRow(idCentrale, () => {
+          drawCentralsOfReservation();
+          $modalCentraleReservation.modal('close');
+        });
+      };
+
+      /**
+       * Opens the modal with delete content inside
+       * @function
+       * @param e - Event
+       */
+      openModalDeleteCentrale = (e) => {
+        const idCentrale = e.target.dataset.id;
+        const $modalCentraleReservation = $('#modalCentraleReservation');
+        $modalCentraleReservation.html(`
+          <div class="modal-content">
+            <div class="row"><p>Voulez-vous vraiment supprimer cette centrale de réservation ?</p></div>
+            <div class="row"><label>(Cette action est irreversible!)</label></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-small modal-close">Annuler</button>
+            <button type="button" class="btn-small red" 
+            data-id="${idCentrale}" id="buttonConfirmDeleteCentral${idCentrale}">Confirmer</button>
+          </div>
+        `);
+        $(`#buttonConfirmDeleteCentral${idCentrale}`).on('click', deleteCentraleReservation);
+        $modalCentraleReservation.modal('open');
+      };
+
+      /**
+       * Adds a new central of reservation
+       * @function
+       */
+      addCentraleReservation = () => {
+        const formData = $('form#formAjouter').serializeArray();
+        const centraleData = [];
+        $.each(formData, (i, field) => {
+          centraleData[field.name] = field.value;
+        });
+        console.log(centraleData);
+        centralesReservation.write(
+          centraleData.newNomCentral,
+          centraleData.newWebsiteCentral,
+          centraleData.newStatusCentral,
+          centraleData.newLogoCentral,
+          () => {
+            drawCentralsOfReservation();
+          },
+        );
+      };
+
+      /**
+       * Draws the list of all centrals of Reservation
+       * @function
+       */
+      drawCentralsOfReservation = () => {
+        centralesReservation.getAllCentralesReservation((centrales) => {
+          const $listeCentralesElement = $('#listCentralesReservation');
+          $listeCentralesElement.html('');
+          centrales.forEach((centrale) => {
+            $listeCentralesElement.append(`
+            <div class="erpion-rows__row">
+              <div class="erpion-rows__row-element">
+                <img src="../../../assets/img/centrales_reservation/${centrale.logo}"
+                     alt="${centrale.logo}" class="logo-centrale-reservation">
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Nom:</label>
+                <span>${centrale.nom}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Site:</label>
+                <span>${centrale.website}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <label style="margin-right: 5px">Status:</label>
+                <span class="${(centrale.status === 'Disponible') ? 'green-text' : 'red-text'}">${centrale.status}</span>
+              </div>
+              <div class="erpion-rows__row-element">
+                <button type="button" class="btn-small blue"
+                          id="buttonModifierCentrale${centrale.id_centrales_reservation}" 
+                          data-id="${centrale.id_centrales_reservation}"
+                          style="margin-right: 10px">Modifier</button>
+                <button type="button" class="btn-small red"
+                        id="buttonSupprimerCentrale${centrale.id_centrales_reservation}"
+                        data-id="${centrale.id_centrales_reservation}">Supprimer</button>
+              </div>
+            </div>
+            `);
+            $(`#buttonModifierCentrale${centrale.id_centrales_reservation}`).on('click', openModalModificationCentrale);
+            $(`#buttonSupprimerCentrale${centrale.id_centrales_reservation}`).on('click', openModalDeleteCentrale);
+          });
+        });
+      };
       break;
     }
     default: {
@@ -632,11 +842,12 @@ window.addEventListener('load', () => {
       break;
     }
     case 'liste_chambres': {
-
       break;
     }
     case 'gerer_centrales_reservation': {
-
+      $('#boutonAjouterCentrale').on('click', () => {
+        addCentraleReservation();
+      });
       break;
     }
     default: {
@@ -660,9 +871,7 @@ window.addEventListener('load', () => {
       drawDatepicker();
       hebergement.getAllOccupiedRoomsByDate(globalFormattedDate, drawOccupiedRooms);
       hebergement.getAllFreeRoomsByDate(globalFormattedDate, drawFreeRooms);
-      $(document).ready(() => {
-        $('.modal-reservation').modal();
-      });
+      $(document).ready(() => $('.modal-reservation').modal());
       break;
     }
     case 'gerer_chambre': {
@@ -682,6 +891,8 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_centrales_reservation': {
+      drawCentralsOfReservation();
+      $(document).ready(() => $('#modalCentraleReservation').modal());
       break;
     }
     default: {
