@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on ter jun 25 14:38:31 2019
+-- File generated with SQLiteStudio v3.2.1 on ter jun 25 16:14:41 2019
 --
 -- Text encoding used: UTF-8
 --
@@ -485,6 +485,15 @@ INSERT INTO User (id_user, email, username, password, id_employe) VALUES (4, 'ch
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (5, 'gouvernante.generale@erpion.fr', 'gouvernante_generale', '1234', 5);
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (6, 'chef.maintenance@erpion.fr', 'chef_maintenance', '1234', 6);
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (7, 'spa.managert@erpion.fr', 'spa_manager', '1234', 7);
+
+-- Table: Voyages
+DROP TABLE IF EXISTS Voyages;
+CREATE TABLE Voyages (id_voyage INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100) NOT NULL, description TEXT, price DOUBLE, photo VARCHAR (100), rating DOUBLE, starting_date TEXT, duration TEXT, agence INTEGER REFERENCES Centrales_Reservation (id_centrales_reservation));
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, agence) VALUES (1, 'Minorque', NULL, 874.0, 'minorque1.jpg', 4.5, '01/07/2019', '8d', 1);
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, agence) VALUES (2, 'Tunisie', NULL, 622.0, 'tunisie1.jpg', 5.0, '01/07/2019', '11d', 3);
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, agence) VALUES (3, 'Crète', NULL, 830.0, 'crete.jpg', 4.0, '01/07/2019', '10d', 2);
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, agence) VALUES (4, 'Majorque', NULL, 667.0, 'majorque.jpg', 5.0, '05/07/2019', '15d', 6);
+INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, agence) VALUES (5, 'Egypte', NULL, 699.0, 'egypte.jpg', 4.5, '13/07/2019', '8d', 4);
 
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = on;
