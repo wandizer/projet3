@@ -41,7 +41,7 @@ class Hebergement {
 
   /**
    * Returns all the occupied rooms at the moment
-   * @param {Function} callback
+   * @param {function} callback
    */
   getAllOccupiedRooms(callback) {
     const $query = `
@@ -52,13 +52,30 @@ class Hebergement {
 
   /**
    * Returns all the free rooms at the moment
-   * @param {Function} callback
+   * @param {function} callback
    */
   getAllFreeRooms(callback) {
-    const $query = `
-      SELECT * FROM ROOM R WHERE R.id_room NOT IN (
-      SELECT RE.id_room FROM Room_Reservation RE WHERE RE.active is TRUE);`;
-    database.executeQuery($query, callback);
+    this.getAllOccupiedRooms((rooms) => {
+      let blackListedIds = '';
+      rooms.forEach(room => {
+        blackListedIds += `${room.id_room},`;
+      });
+      // We remove the last ','
+      if (blackListedIds != null && blackListedIds.length > 0) {
+        blackListedIds = blackListedIds.substring(0, blackListedIds.length - 1);
+      }
+      const $query = `SELECT * FROM Room WHERE id_room NOT IN (${blackListedIds})`;
+      database.executeQuery($query, [], callback);
+    });
+  }
+
+  /**
+   * Returns the list of all rooms of the hotel
+   * @param {function} callback
+   */
+  getRoomsList(callback) {
+    const $query = `SELECT * FROM Room ORDER BY type`;
+    database.executeQuery($query,[], callback);
   }
 
   /**

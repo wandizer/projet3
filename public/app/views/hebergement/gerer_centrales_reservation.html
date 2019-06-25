@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>ERPion</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../../styles/css/style.css">
+  <link rel="stylesheet" href="../../../styles/css/hebergement/gerer_centrales_reservation.css">
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+</head>
+<body>
+<div class="viewport">
+  <!-- BEGIN SIDENAV -->
+  <div class="erpion-sidenav"></div>
+  <!-- END SIDENAV-->
+
+  <!-- BEGIN MAIN -->
+  <main>
+    <div class="content">
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Liste des centrales de réservation :<label id="amountFreeRooms"></label></div>
+      </div>
+      <form id="formAjouter">
+        <div class="row">
+          <div class="col s1">
+            <div class="input-field col s12">
+              <button type="button" id="boutonAjouterCentrale" class="btn-small waves-effect">
+                <i class="material-icons">add</i>
+              </button>
+            </div>
+          </div>
+          <div class="col s11">
+            <div class="input-field col s3">
+              <input id="newNomCentral" name="newNomCentral" type="text" class="validate">
+              <label for="newNomCentral">Nom</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="newWebsiteCentral" name="newWebsiteCentral" type="text" class="validate">
+              <label for="newWebsiteCentral">Website</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="newLogoCentral" name="newLogoCentral" type="text" class="validate">
+              <label for="newLogoCentral">Logo</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="newStatusCentral" name="newStatusCentral" type="text" class="validate">
+              <label for="newStatusCentral">Status</label>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="erpion-container">
+        <div class="erpion-rows" id="listCentralesReservation"></div>
+      </div>
+      <!-- BEGIN MODAL -->
+      <div id="modalCentraleReservation" class="modal"></div>
+      <!-- END MODAL -->
+    </div>
+  </main>
+  <!-- END MAIN -->
+</div>
+<!-- CRUD MANAGER BUTTON -->
+<a href="../connexion/login_view.html" class="waves-effect waves-light btn"
+   style="position: fixed; bottom: 10px; right: 10px;">
+  <i class="small material-icons left">reply</i>Back to login
+</a>
+<script type="module"> require('../../controllers/hebergement_controller.js');</script>
+</body>
+</html>

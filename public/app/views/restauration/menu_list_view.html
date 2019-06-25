@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Menu - Création</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../../styles/css/style.css">
+  <link rel="stylesheet" href="../../../styles/css/sidenav2.css">
+  <link rel="stylesheet" href="../../../styles/css/views/CHANGE_HERE.css">
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+</head>
+<body>
+	<div class="viewport">
+		<div class="erpion-sidenav">
+			<div class="erpion-sidenav__menu">
+				<i class="material-icons">menu</i>
+			</div>
+			<div class="erpion-sidenav__profile">
+				<div class="erpion-sidenav__profile-fond">
+					<img src="../../../assets/img/user_background.jpg">
+				</div>
+				<div class="erpion-sidenav__profile-avatar">
+					<img src="../../../assets/img/user_logo1.png">
+				</div>
+				<div class="erpion-sidenav__profile-info">
+					<div class="erpion-sidenav__profile-info-nom" id="name">Nom</div>
+					<div class="erpion-sidenav__profile-info-prenom" id="surname">Prénom</div>
+					<div class="erpion-sidenav__profile-info-role" id="role">Directeur d'hébergement</div>
+					<a class="btn" href="../../views/connexion/login_view.html">Déconnexion</a>
+				</div>
+			</div>
+			<div class="erpion-sidenav__divider"></div>
+			<div class="erpion-sidenav__onglets">
+				<a class="erpion-sidenav__onglets-onglet--active" href="restauration_view.html">
+					<i class="material-icons">play_arrow</i>Mon dashboard
+				</a>
+				<a href="menu_list_view.html" class="erpion-sidenav__onglets-onglet">Gérer les ménus</a>
+				<a class="erpion-sidenav__onglets-onglet" href="./gerer_voyages.html">Gérer le stock</a>
+				<a class="erpion-sidenav__onglets-onglet" href="./gerer_notoriete.html">Gérer les commandes</a>
+			</div>
+			<div class="erpion-sidenav__logo">
+				<img src="../../../assets/img/erpion_logo.png">
+			</div>
+		</div>
+		
+		
+		<main>
+			<div class="content">
+				
+				<!-- -------------- Liste de Menus -------------- -->
+				<div class="erpion-subsection">
+					<div class="erpion-subsection__title">Liste de Menus :</div>
+				</div>
+				<div class="erpion-card erpion-card__lg">
+					<table>
+						<thead>
+								<tr>
+										<th colspan="2">The table header</th>
+								</tr>
+						</thead>
+						<tbody>
+								<tr>
+										<td>The table body</td>
+										<td>with two columns</td>
+								</tr>
+						</tbody>
+				</table>
+				</div>
+			
+				<!-- -------------- Liste de Menus Prevus -------------- -->
+				<div class="erpion-subsection">
+						<div class="erpion-subsection__title">Liste de Menus Prevus :</div>
+				</div>
+				<div class="erpion-card erpion-card__lg">
+					<table>
+						<thead>
+								<tr>
+										<th colspan="2">The table header</th>
+								</tr>
+						</thead>
+						<tbody>
+								<tr>
+										<td>The table body</td>
+										<td>with two columns</td>
+								</tr>
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+		</main>
+	</div>
+	<!--script type="module"> require('../../controllers/menu_list_controller.js');</script-->
+	<script>
+	
+		//SET USER INFO
+		if(sessionStorage.getItem("employe")!= null){
+			var employe = JSON.parse(sessionStorage.getItem("employe"));
+			document.getElementById("name").innerHTML = employe.name;
+			document.getElementById("surname").innerHTML = employe.surname;
+		}
+		if(sessionStorage.getItem("role")!= null){
+			var role = JSON.parse(sessionStorage.getItem("role"));
+			document.getElementById("role").innerHTML = role.name;
+			if(role.permission_level > 2){
+				document.getElementById("stats").style.display = 'none';
+			}
+		}
+		
+		//SET MENU VARS
+		const Day_Menu = require('../../models/restauration/Day_Menu.js');
+		const Menu = require('../../models/restauration/Menu.js');
+		
+		//MENU ARRAYS
+		let day_menus;
+		let day_menus_list;
+		let menus_list;
+		
+		Day_Menu.findAll(getDayMenus);
+
+	function getDayMenus(result){
+		if (Array.isArray(result) && result[0] != undefined) {
+			console.log(result);
+		} else {
+			console.log("Menu Inexistant");
+			//Bouton Pour créer un nouveau menu
+		}
+	}
+		
+	</script>
+</body>
+</html>

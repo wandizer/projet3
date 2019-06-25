@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Gérer Réservations</title>
+  <title>ERPion</title>
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
   <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
   <link rel="stylesheet" href="../../../styles/css/style.css">
-  <link rel="stylesheet" href="../../../styles/css/hebergement/gerer_voyages.css">
+  <link rel="stylesheet" href="../../../styles/css/hebergement/liste_chambres.css">
   <!-- Compiled and minified JavaScript -->
   <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
 </head>
@@ -19,11 +19,18 @@
 
   <!-- BEGIN MAIN -->
   <main>
-    <div class="content"></div>
+    <div class="content">
+      <div class="erpion-container">
+        <div class="erpion-rows" id="roomsList">
+          <div class="nothing-found">
+            <i class="material-icons">warning</i><p>Rien trouvé</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <!-- END MAIN -->
 </div>
-
 <!-- CRUD MANAGER BUTTON -->
 <a href="../connexion/login_view.html" class="waves-effect waves-light btn"
    style="position: fixed; bottom: 10px; right: 10px;">
