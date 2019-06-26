@@ -44,40 +44,54 @@
 			</div>
 			<div class="erpion-sidenav__logo">
 				<img src="../../../assets/img/erpion_logo.png">
-			</div>s
+			</div>
 		</div>
-		
-		
+
 		<main>
 			<div class="content">
 				<!-- -------------- Plats du jour -------------- -->
 				<div class="erpion-subsection">
 					<div class="erpion-subsection__title">Plat du jour :</div>
 				</div>
-				<div class="erpion-card erpion-card__lg">
-					<h4>Menu:<div id="menu"></div></h4>
-					<h5>Entrée:<div id="appetizer"></div></h5>
-					<p id="ingredientsAppetizer"></p>
-					<h5 >Plat Principal:<div id="maincourse"></div></h5>
-					<p id="ingredientsMaincourse"></p>
-					<h5>Dessert:<div id="dessert"></div></h5>
-					<p id="ingredientsDessert"></p>
+
+				<div class="row">
+					<div class="col s9">
+							<div class="erpion-card erpion-card__sm">
+								<div class="row">
+									<div class="col s3">
+										<img src="../../../assets/img/kitchen/plat.png">
+										<h6>Menu:<div id="menu"></div></h6>
+									</div>
+									<div class="col s3">
+										<h6>Entrée:<div id="appetizer"></div></h6>
+										<p id="ingredientsAppetizer"></p>
+									</div>
+									<div class="col s3">
+										<h6>Plat Principal:<div id="maincourse"></div></h6>
+										<p id="ingredientsMaincourse"></p>
+									</div>
+									<div class="col s3">
+										<h6>Dessert:<div id="dessert"></div></h6>
+										<p id="ingredientsDessert"></p>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col s3">
+				    	<div class="erpion-card erpion-card__sm">
+							<h6>Prix:<div id="price"></div></h6>
+							<!-- Get TVA -->
+							<p><span>TVA : </span>20%</p>
+							<!-- Get Heures -->
+							<p><span>Horaires : </span>12h00-23h00</p>
+						</div>
+					</div>
 				</div>
-		    <div class="erpion-card erpion-card__sm">
-					<h5>Prix:<div id="price"></div></h5>
-					<!-- Get TVA -->
-					<p><span>TVA : </span>20%</p>
-					<!-- Get Heures -->
-					<p><span>Horaires : </span>12h00-23h00</p>
-				</div>
-			</div>
-									
-	
-			
-										
+
+				<div class="row">
 					<!-- ------------- Ca de la semaine ------------ -->
-					<div class="col s4" id="stats">
-						<div class="card">
+					<div class="col s6" id="stats">
+						<div class="erpion-card erpion-card__sm">
 							<h4>CA de la semaine</h4>
 							<div class="row">
 								<!-- Get Image -->
@@ -95,13 +109,13 @@
 							</div>
 						</div>
 					</div>
-	
-			
-			
+
+
+
 				<!-- ------------ Tables et Couverts ----------- -->
-				<div class="row">
+				<div class="col s6 row">
 					<div class="col s12">
-						<div class="card">
+						<div class="erpion-card erpion-card__sm">
 							<div class="row">
 								<div class="col s6">
 									<!-- Heures du Repas -->
@@ -132,7 +146,8 @@
 						</div>
 					</div>
 				</div>
-		
+
+
 				<!-- ------------------ Stock ------------------ -->
 				<div class="erpion-subsection">
           <div class="erpion-subsection__title">Stock :<label id="stock"></label></div>
@@ -144,13 +159,13 @@
             </div>
           </div>
         </div>
-			
-			
-			
-			
-			
-			
-			
+
+			</div>
+
+
+
+
+
 		</main>
 	</div>
 <script type="module"> require('../../controllers/restauration_controller.js');</script>
