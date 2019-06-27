@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on qui jun 27 16:02:58 2019
+-- File generated with SQLiteStudio v3.2.1 on qui jun 27 18:38:34 2019
 --
 -- Text encoding used: UTF-8
 --
@@ -514,7 +514,7 @@ INSERT INTO Stock (id_stock, date_arrival, date_expiration, quantity, id_food_it
 -- Table: Transactions
 DROP TABLE IF EXISTS Transactions;
 CREATE TABLE Transactions (id_transaction INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR (50) NOT NULL, amount DOUBLE (50) NOT NULL, date TEXT NOT NULL, payed BOOLEAN NOT NULL DEFAULT (false), id_client INTEGER REFERENCES Client (id_client), id_room_reservation INTEGER REFERENCES Room_Reservation (id_room_reservation), id_stock INTEGER REFERENCES Stock (id_stock), id_meal_reservation INTEGER REFERENCES Meal_Reservation (id_meal_reservation), id_loisir_reservation INTEGER REFERENCES Loisirs_Reservations (id_loisirs_reservations), id_service_externe_reservation INTEGER REFERENCES Services_Externes_Reservations (id_service_externe_reservation), id_maintenance INTEGER REFERENCES Maintenance (id_maintenance));
-INSERT INTO Transactions (id_transaction, type, amount, date, payed, id_client, id_room_reservation, id_stock, id_meal_reservation, id_loisir_reservation, id_service_externe_reservation, id_maintenance) VALUES (1, 'Room_Reservation', 70.0, '10/06/2019', 0, 1, 1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO Transactions (id_transaction, type, amount, date, payed, id_client, id_room_reservation, id_stock, id_meal_reservation, id_loisir_reservation, id_service_externe_reservation, id_maintenance) VALUES (1, 'Room_Reservation', 70.0, '10/06/2019', 0, 1, 1, '', '', '', '', '');
 INSERT INTO Transactions (id_transaction, type, amount, date, payed, id_client, id_room_reservation, id_stock, id_meal_reservation, id_loisir_reservation, id_service_externe_reservation, id_maintenance) VALUES (2, 'Room_Reservation', 95.0, '10/06/2019', 0, 2, 2, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO Transactions (id_transaction, type, amount, date, payed, id_client, id_room_reservation, id_stock, id_meal_reservation, id_loisir_reservation, id_service_externe_reservation, id_maintenance) VALUES (3, 'Room_Reservation', 200.0, '10/06/2019', 0, 3, 3, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO Transactions (id_transaction, type, amount, date, payed, id_client, id_room_reservation, id_stock, id_meal_reservation, id_loisir_reservation, id_service_externe_reservation, id_maintenance) VALUES (4, 'Room_Reservation', 97.0, '10/06/2019', 0, 4, 4, NULL, NULL, NULL, NULL, NULL);
@@ -568,7 +568,7 @@ INSERT INTO User (id_user, email, username, password, id_employe) VALUES (5, 'go
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (6, 'chef.maintenance@erpion.fr', 'chef_maintenance', '1234', 6);
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (7, 'spa.managert@erpion.fr', 'spa_manager', '1234', 7);
 
--- Table : Voyages
+-- Table: Voyages
 DROP TABLE IF EXISTS Voyages;
 CREATE TABLE Voyages (id_voyage INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100) NOT NULL, description TEXT, price DOUBLE, photo VARCHAR (100), rating DOUBLE, starting_date TEXT, duration TEXT, id_agence INTEGER REFERENCES Centrales_Reservation (id_centrales_reservation));
 INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, id_agence) VALUES (1, 'Minorque', 'Iamque non umbratis fallaciis res agebatur, sed qua palatium est extra muros, armatis omne circumdedit. ingressusque obscuro iam die, ablatis regiis indumentis Caesarem tunica texit et paludamento communi, eum post haec nihil passurum velut mandato principis iurandi crebritate confirmans et statim inquit exsurge et inopinum carpento privato inpositum ad Histriam duxit prope oppidum Polam, ubi quondam peremptum Constantini filium accepimus Crispum.', 874.0, 'minorque1.jpg', 4.5, '01/07/2019', '8d', 1);
