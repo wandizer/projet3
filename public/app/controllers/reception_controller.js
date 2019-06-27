@@ -17,6 +17,8 @@ const CentralesReservation = require('../models/CentralesReservation');
 const Voyages = require('../models/Voyage');
 const Transactions = require('../models/Transactions');
 const Notoriete = require('../models/Notoriete');
+const Cleaning = require('../models/Cleaning');
+const Maintenance = require('../models/Maintenance');
 
 // Session Storage
 const storedRole = Utils.getStoredRole();
@@ -50,6 +52,8 @@ window.addEventListener('load', () => {
   const voyages = new Voyages();
   const transactions = new Transactions();
   const notoriete = new Notoriete();
+  const cleaning = new Cleaning();
+  const maintenance = new Maintenance();
 
   const defaultEmptyContent = `
     <div class="nothing-found">
@@ -77,6 +81,10 @@ window.addEventListener('load', () => {
   let fetchWeeklyValues = () => {
   };
   let fetchAmountOfRoomTypeFilled = () => {
+  };
+  let registerNewMaintenanceDemand = () => {
+  };
+  let registerNewNettoyageDemand = () => {
   };
   let drawDatepicker = () => {
   };
@@ -259,6 +267,39 @@ window.addEventListener('load', () => {
           });
         });
       };
+
+      registerNewMaintenanceDemand = () => {
+        const formData = $('form#formDemandeMaintenance').serializeArray();
+        const demandData = [];
+        $.each(formData, (i, field) => {
+          demandData[field.name] = field.value;
+        });
+        maintenance.write(
+          demandData.titreDemandeMaintenance,
+          demandData.descDemandeMaintenance,
+          demandData.prioDemandeMaintenance,
+          demandData.deadlineDemandeMaintenance,
+          false,
+          () => {},
+        );
+      };
+
+      registerNewNettoyageDemand = () => {
+        const formData = $('form#formDemandeNettoyage').serializeArray();
+        const demandData = [];
+        $.each(formData, (i, field) => {
+          demandData[field.name] = field.value;
+        });
+        cleaning.write(
+          demandData.titreDemandeNettoyage,
+          demandData.descDemandeNettoyage,
+          demandData.prioDemandeNettoyage,
+          demandData.deadlineDemandeNettoyage,
+          false,
+          () => {},
+        );
+      };
+
       break;
     }
     case 'gerer_reservations': {
@@ -688,6 +729,17 @@ window.addEventListener('load', () => {
 
   switch (viewName) {
     case 'dashboard_reception': {
+      $('#boutonReserverChambre').on('click', () => {
+        window.location.replace('../hebergement/gerer_reservations.html');
+      });
+      $('#boutonEncaisserClient').on('click', () => {
+        window.location.replace('../reception/encaisser_client.html');
+      });
+      $('#boutonGestionFacturation').on('click', () => {
+        window.location.replace('../reception/gerer_facturation.html');
+      });
+      $('#boutonNewDemandeMaintenance').on('click', registerNewMaintenanceDemand);
+      $('#boutonNewDemandeNettoyage').on('click', registerNewNettoyageDemand);
       break;
     }
     case 'gerer_reservations': {
@@ -749,6 +801,7 @@ window.addEventListener('load', () => {
       fetchAmountAvailableRooms();
       fetchWeeklyValues();
       fetchAmountOfRoomTypeFilled();
+      $(document).ready(() => $('select').formSelect());
       break;
     }
     case 'gerer_reservations': {

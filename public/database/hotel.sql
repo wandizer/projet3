@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on qui jun 27 08:18:17 2019
+-- File generated with SQLiteStudio v3.2.1 on qui jun 27 16:02:58 2019
 --
 -- Text encoding used: UTF-8
 --
@@ -28,6 +28,7 @@ INSERT INTO Centrales_Reservation (id_centrales_reservation, nom, website, statu
 -- Table: Cleaning
 DROP TABLE IF EXISTS Cleaning;
 CREATE TABLE Cleaning (id_cleaning INTEGER PRIMARY KEY AUTOINCREMENT, priority VARCHAR (100), date_creation TEXT NOT NULL, date_deadline TEXT NOT NULL, state BOOLEAN NOT NULL DEFAULT (false), id_employe INTEGER REFERENCES Employe (id_employe), id_room INTEGER REFERENCES Room (id_room), title VARCHAR (100), description TEXT);
+INSERT INTO Cleaning (id_cleaning, priority, date_creation, date_deadline, state, id_employe, id_room, title, description) VALUES (1, 'high', '27/06/2019', '27/06/2019', 0, NULL, NULL, 'Menage 3ème étage', 'Il faut fair avant l''arrivé des nouveaux clients');
 
 -- Table: Client
 DROP TABLE IF EXISTS Client;
@@ -201,7 +202,7 @@ INSERT INTO Main_Course (id_main_course, name) VALUES (6, 'Boeuf Bourguignon rap
 
 -- Table: Maintenance
 DROP TABLE IF EXISTS Maintenance;
-CREATE TABLE Maintenance (id_maintenance INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100), description TEXT, date_creation TEXT NOT NULL, date_deadline TEXT NOT NULL, state BOOLEAN NOT NULL DEFAULT (false), id_employe INTEGER REFERENCES Employe (id_employe), id_service_externe INTEGER REFERENCES Services_Externes (id_service_externe));
+CREATE TABLE Maintenance (id_maintenance INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100), description TEXT, date_creation TEXT NOT NULL, date_deadline TEXT NOT NULL, state BOOLEAN NOT NULL DEFAULT (false), priority VARCHAR (30) DEFAULT medium, id_employe INTEGER REFERENCES Employe (id_employe), id_service_externe INTEGER REFERENCES Services_Externes (id_service_externe));
 
 -- Table: Meal_Reservation
 DROP TABLE IF EXISTS Meal_Reservation;

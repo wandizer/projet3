@@ -49,7 +49,7 @@
 
       <div class="erpion-subsection">
         <div class="erpion-subsection__title">Reservations :</div>
-        <a class="btn" href="./gerer_reservations.html">Gérer</a>
+        <a class="btn" href="../hebergement/gerer_reservations.html">Gérer</a>
       </div>
       <div class="erpion-card erpion-card__xxl">
         <div class="erpion-rows">
@@ -119,21 +119,21 @@
         </div>
       </div>
 
-      <button class="btn-flat erpion-card erpion-card__xs">
+      <button type="button" id="boutonReserverChambre" class="btn-flat erpion-card erpion-card__xs">
         <div class="center-align">
-          <i class="material-icons">add_circle_outline</i><p>Réserver chambre</p>
+          <i class="material-icons" style="font-size: 40px">add_circle</i><p>Réserver chambre</p>
         </div>
       </button>
-      <div class="erpion-card erpion-card__sm">
-        <div class="nothing-found">
-          <i class="material-icons">warning</i><p>Rien trouvé</p>
+      <button type="button" id="boutonEncaisserClient" class="btn-flat erpion-card erpion-card__sm">
+        <div class="center-align">
+          <i class="material-icons" style="font-size: 40px">monetization_on</i><p>Encaisser client</p>
         </div>
-      </div>
-      <div class="erpion-card erpion-card__sm">
-        <div class="nothing-found">
-          <i class="material-icons">warning</i><p>Rien trouvé</p>
+      </button>
+      <button type="button" id="boutonGestionFacturation" class="btn-flat erpion-card erpion-card__sm">
+        <div class="center-align">
+          <i class="material-icons" style="font-size: 40px">receipt</i><p>Gérer facturations</p>
         </div>
-      </div>
+      </button>
 
       <div class="erpion-subsection">
         <div class="erpion-subsection__title">Créer une demande de maintenance :</div>
@@ -148,23 +148,30 @@
             </div>
           </div>
           <div class="col s11">
-            <div class="input-field col s4">
+            <div class="input-field col s3">
               <input id="titreDemandeMaintenance" name="titreDemandeMaintenance" type="text" class="validate">
               <label for="titreDemandeMaintenance">Titre</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
               <input id="descDemandeMaintenance" name="descDemandeMaintenance" type="text" class="validate">
               <label for="descDemandeMaintenance">Description</label>
             </div>
-            <div class="input-field col s4">
-              <input id="deadlineDemandeMaintenance" name="deadlineDemandeMaintenance" type="text" class="validate">
+            <div class="input-field col s3">
+              <input id="deadlineDemandeMaintenance" name="deadlineDemandeMaintenance" type="text" class="validate" placeholder="dd/mm/yyyy">
               <label for="deadlineDemandeMaintenance">Deadline</label>
+            </div>
+            <div class="input-field col s3">
+              <select name="prioDemandeMaintenance">
+                <option value="" disabled selected>Choisir la priorité</option>
+                <option value="low">Basse</option>
+                <option value="medium">Moyenne</option>
+                <option value="high">Haute</option>
+              </select>
+              <label>Priorité</label>
             </div>
           </div>
         </div>
       </form>
-
-
 
       <div class="erpion-subsection">
         <div class="erpion-subsection__title">Créer une demande de netoyage :</div>
@@ -179,17 +186,26 @@
             </div>
           </div>
           <div class="col s11">
-            <div class="input-field col s4">
+            <div class="input-field col s3">
               <input id="titreDemandeNettoyage" name="titreDemandeNettoyage" type="text" class="validate">
               <label for="titreDemandeNettoyage">Titre</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
               <input id="descDemandeNettoyage" name="descDemandeNettoyage" type="text" class="validate">
               <label for="descDemandeNettoyage">Description</label>
             </div>
-            <div class="input-field col s4">
-              <input id="deadlineDemandeNettoyage" name="deadlineDemandeNettoyage" type="text" class="validate">
+            <div class="input-field col s3">
+              <input id="deadlineDemandeNettoyage" name="deadlineDemandeNettoyage" type="text" class="validate" placeholder="dd/mm/yyyy">
               <label for="deadlineDemandeNettoyage">Deadline</label>
+            </div>
+            <div class="input-field col s3">
+              <select name="prioDemandeNettoyage">
+                <option value="" disabled selected>Choisir la priorité</option>
+                <option value="low">Basse</option>
+                <option value="medium">Moyenne</option>
+                <option value="high">Haute</option>
+              </select>
+              <label>Priorité</label>
             </div>
           </div>
         </div>
