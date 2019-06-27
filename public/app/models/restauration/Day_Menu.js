@@ -24,14 +24,14 @@ class Day_Menu {
    * Equivalent to INSERT INTO for table Day_Menu
    */
   static write() {
-    database.write(tableName, ['date','evening','noon','id_menu'], [this.date,this.evening,this.noon,this.id_menu]);
+    database.write(tableName, ['date_arrival','evening','noon','id_menu'], [this.date,this.evening,this.noon,this.id_menu]);
   }
 
   /**
    * Equivalent to UPDATE for table Day_Menu
    */
   static rewrite() {
-    database.rewrite(tableName, ['date','evening','noon','id_menu'], [this.date,this.evening,this.noon,this.id_menu], 'id_day_menu', this.id);
+    database.rewrite(tableName, ['date_arrival','evening','noon','id_menu'], [this.date,this.evening,this.noon,this.id_menu], 'id_day_menu', this.id);
   }
 
 	/* 
@@ -40,7 +40,7 @@ class Day_Menu {
    * @param callback
    */
   static findByDate(date, callback) {
-    const sql = `SELECT * FROM ${tableName} WHERE date = ?;`;
+    const sql = `SELECT * FROM ${tableName} WHERE date_arrival = ?;`;
     database.executeQuery(sql, date, callback);
   }
 	

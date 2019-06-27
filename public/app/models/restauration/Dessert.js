@@ -1,12 +1,12 @@
 const Database = require('../../../database/DatabaseV2.js');
 
-const tableName = 'Main_Course';
+const tableName = 'Dessert';
 const database = new Database();
 
 /**
- * @class Main_Course
+ * @class Dessert
  */
-class Main_Course {
+class Dessert {
   /**
    * @constructor
    * @param id
@@ -17,22 +17,22 @@ class Main_Course {
     this.name = name;
   }
 
-  /**ç
-   * Equivalent to INSERT INTO for table Main_Course
+  /**
+   * Equivalent to INSERT INTO for table Dessert
    */
   static write() {
     database.write(tableName, ['name'], [this.name]);
   }
 
   /**
-   * Equivalent to UPDATE for table Main_Course
+   * Equivalent to UPDATE for table Dessert
    */
   static rewrite() {
-    database.rewrite(tableName, ['name'], [this.name], 'id_main_course', this.id);
+    database.rewrite(tableName, ['name'], [this.name], 'id_dessert', this.id);
   }
 
 	/* 
-   * Get Main_Course
+   * Get Dessert
    * @param name
    * @param callback
    */
@@ -41,17 +41,18 @@ class Main_Course {
     database.executeQuery(sql, name, callback);
   }
 	
-		/* 
-   * Get Main_Course
+	
+	/* 
+   * Get Dessert
    * @param id_menu
    * @param callback
    */
   static findById(id_menu, callback) {
-    const sql = `SELECT * FROM ${tableName} WHERE id_main_course = ?;`;
+    const sql = `SELECT * FROM ${tableName} WHERE id_dessert = ?;`;
     database.executeQuery(sql, id_menu, callback);
   }
 	
-	/* 
+/* 
    * Find all types
 	 * @param callback
    */
@@ -62,4 +63,4 @@ class Main_Course {
 	
 }
 
-module.exports = Main_Course;
+module.exports = Dessert;

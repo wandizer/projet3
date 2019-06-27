@@ -17,7 +17,10 @@ const Sidenav = {
     {
       role: 'Directeur du restaurant',
       items: [
-        { label: '', url: '..//.html', viewName: '' },
+        { label: 'Mon dashboard', url: '../restauration/restauration_view.html', viewName: 'restauration_view' },
+        { label: 'Gérer les menus', url: '../restauration/menu_list_view.html', viewName: 'menu_list_view' },
+        { label: 'Gérer le stock', url: '../restauration/stock_list_view.html', viewName: 'stock_list_view' },
+        { label: 'Gérer les commandes', url: '../restauration/reservation_restaurant_view.html', viewName: 'reservation_restaurant_view' },
       ],
     },
     {

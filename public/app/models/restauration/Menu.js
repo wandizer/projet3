@@ -40,13 +40,22 @@ class Menu {
   }
 
 	/* 
-   * Get Stock Menu
+   * Get Menu
    * @param id_menu
    * @param callback
    */
   static findById(id_menu, callback) {
     const sql = `SELECT * FROM ${tableName} WHERE id_menu = ?;`;
     database.executeQuery(sql, id_menu, callback);
+  }
+	
+	/* 
+   * Find all types
+	 * @param callback
+   */
+  static findAll(callback) {
+    const sql = `SELECT * FROM ${tableName};`;
+    database.executeQuery(sql,{},callback);
   }
 	
 }
