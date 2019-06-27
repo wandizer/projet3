@@ -12,6 +12,7 @@
   <!-- Compiled and minified JavaScript -->
   <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
 </head>
+
 <body>
 	<div class="viewport">
 		<div class="erpion-sidenav">
@@ -47,8 +48,8 @@
 			</div>
 		</div>
 
-		<main>
-			<div class="content">
+		<div class="content">
+			<main>
 				<!-- -------------- Plats du jour -------------- -->
 				<div class="erpion-subsection">
 					<div class="erpion-subsection__title">Plat du jour :</div>
@@ -58,19 +59,25 @@
 					<div class="col s9">
 							<div class="erpion-card erpion-card__sm">
 								<div class="row">
-									<div class="col s3">
-										<img src="../../../assets/img/kitchen/plat.png">
-										<h6>Menu:<div id="menu"></div></h6>
+									<div class="col s6">
+										<div class="row">
+											<div class="col s6">
+												<img src="../../../assets/img/kitchen/plat.png">
+											</div>
+											<div class="col s6">
+												<h6>Menu:<div id="menu"></div></h6>
+											</div>
+										</div>
 									</div>
-									<div class="col s3">
+									<div class="col s2">
 										<h6>Entrée:<div id="appetizer"></div></h6>
 										<p id="ingredientsAppetizer"></p>
 									</div>
-									<div class="col s3">
+									<div class="col s2">
 										<h6>Plat Principal:<div id="maincourse"></div></h6>
 										<p id="ingredientsMaincourse"></p>
 									</div>
-									<div class="col s3">
+									<div class="col s2">
 										<h6>Dessert:<div id="dessert"></div></h6>
 										<p id="ingredientsDessert"></p>
 									</div>
@@ -87,12 +94,17 @@
 						</div>
 					</div>
 				</div>
-									
+						
+			    <div class="erpion-subsection">
+			        <div class="erpion-subsection__title"></div>
+			        <button type="button" class="btn">Gérer</button>
+		    	</div>
+
 				<div class="row">
 					<!-- ------------- Ca de la semaine ------------ -->
 					<div class="col s6" id="stats">
 						<div class="erpion-card erpion-card__sm">
-							<h4>CA de la semaine</h4>
+							<h5>CA de la semaine</h5>
 							<div class="row">
 								<!-- Get Image -->
 								<div class="col s6">Courbe</div>
@@ -119,7 +131,7 @@
 							<div class="row">
 								<div class="col s6">
 									<!-- Heures du Repas -->
-									<h4>Midi</h4>
+									<h5>Midi</h5>
 									<div>
 										<!-- Get Disponibles -->
 										<p>Couverts Disponibles</p>
@@ -130,9 +142,9 @@
 									</div>
 								</div>
 								<div class="col s6">
-									<a href="#" class="waves-effect waves-blue btn-small btn-tile">Gérer</a>
+									
 									<!-- Heures du Repas -->
-									<h4>Soir</h4>
+									<h5>Soir</h5>
 									<div>
 										<!-- Get Disponibles -->
 										<p>Couverts Disponibles</p>
@@ -147,13 +159,17 @@
 					</div>
 				</div>
 
-			
+
+				<div class="erpion-subsection">
+			        <div class="erpion-subsection__title"></div>
+			        <button type="button" class="btn">Gérer</button>
+		    	</div>
 				<!-- ------------------ Stock ------------------ -->
 					<div class="col s12">
 						<div class="erpion-card erpion-card__sm">
-							<a href="#" class="waves-effect waves-blue btn-small btn-tile">Gérer</a>
+
 							<!-- Heures du Repas -->
-							<h4>Stock</h4>
+							<h5>Stock</h5>
 							<div class="row-stock">
 								<!-- Get Nom -->
 								<span class="left">Patates</span>
@@ -165,14 +181,9 @@
 						</div>
 					</div>
 				</div>
-			
-			</div>
-			
-			
-			
-			
-			
-		</main>
+			</main>
+		</div>
+
 	</div>
 <script type="module"> require('../../controllers/restauration_controller.js');</script>
 </body>
