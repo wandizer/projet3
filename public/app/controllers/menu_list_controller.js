@@ -1,5 +1,6 @@
 
 window.$ = window.jQuery = require('../../plugins/jquery/jquery-3.3.1.min.js');
+require('../../plugins/materialize/js/materialize.min.js');
 
 const Utils = require('../../utils/Utils.js');
 const Sidenav = require('../../utils/Sidenav.js');
@@ -121,20 +122,27 @@ function getMenus(result) {
 
 					<div class="erpion-rows__row-element">
 						<button type="button" class="btn-small blue" 
-						id="buttonReserver${result.id_menu}" data-id="${result.id_menu}"
-						data-price="${result.id_menu}">
+							id="buildModalMenu${result.id_menu}" 
+							data-id="${result.id_menu}"
+							data-price="${result.id_menu}">
 							<i class="material-icons">create</i>
 						</button>
 
 						<button type="button" class="btn-small red" 
-						id="buttonReserver${result.id_menu}" data-id="${result.id_menu}"
-						data-price="${result.id_menu}">
+							id="deleteModalMenu${result.id_menu}" 
+							data-id="${result.id_menu}"
+							data-price="${result.id_menu}">
 							<i class="material-icons">delete</i>
 						</button>
 					</div>
-				</div>`,
+				</div>`
       );
-      // $(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
+      $(`#buildModalMenu${result.id_menu}`).on('click', function (e) {
+				const idMenu = e.target.dataset.id;
+				const $buildModalMenu = $('#buildModalMenu');
+				$buildModalMenu.html(buildModalMenu);
+				$buildModalMenu.modal('open');
+			});
     });
   } else {
     $cardMenu.html(defaultEmptyContent);
@@ -195,25 +203,107 @@ function getDayMenus(result) {
 
 							<div class="erpion-rows__row-element">
 								<button type="button" class="btn-small blue" 
-								id="buttonReserver${result.id_menu}" data-id="${result.id_menu}"
-								data-price="${result.id_menu}">
+									id="blabla{result.id_menu}" 
+									data-id="${result.id_menu}"
+									data-price="${result.id_menu}"
+								>
 									<i class="material-icons">create</i>
 								</button>
 
 								<button type="button" class="btn-small red" 
-								id="buttonReserver${result.id_menu}" data-id="${result.id_menu}"
-								data-price="${result.id_menu}">
+									id="blabla{result.id_menu}" 
+									data-id="${result.id_menu}"
+									data-price="${result.id_menu}"
+								>
 									<i class="material-icons">delete</i>
 								</button>
+
 							</div>
 
-						</div>`,
+						</div>`
       );
       // $(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
     });
   } else {
     $cardDayMenu.html(defaultEmptyContent);
-    console.log('Menu Inexistant');
     // Bouton Pour créer un nouveau menu
   }
-}
+	
+	$(document).ready(() => $('#buildModalMenu').modal());
+	
+	/**
+	 * Default template for modification or creation of menu of reservation
+	 * @function
+	 * @param {int} id_menu
+	 * @param {string} name
+	 * @param {int} price
+	 * @param {string} appetizer
+	 * @param {string} mainCourse
+	 * @param {string} dessert
+	 */
+	function buildModalMenu(id_menu, name, price, appetizer, mainCourse, dessert) {
+		let stringAppetizer ='';
+		for (const row of var_AppetizerList) {
+      stringAppetizer += '<option value="'+row.id_appetizer+'">'+row.name+'</option>';
+    }
+		let stringMainCourse='';
+		for (const row of var_MainCourseList) {
+      stringMainCourse += '<option value="'+row.id_main_course+'">'+row.name+'</option>';
+    }
+		let stringDessert='';
+		for (const row of var_DessertList) {
+      stringDessert += '<option value="'+row.id_dessert+'">'+row.name+'</option>';
+    }
+		return `<div class="modal-content">
+				<h4>${(id_menu) ? 'Modification' : 'Création'} Menus</h4>
+				<div class="row">
+					<form class="col s12" id="formModalMenu">
+						<div class="row">
+
+							<div class="input-field col s6">
+								<input id="modalName" name="modalName"
+								value="${name || ''}" type="text" class="validate">
+								<label for="modalName" class="${(name) ? 'active' : ''}">Nom</label>
+							</div>
+
+							<div class="input-field col s6">
+								<input id="modalPrice" name="modalPrice"
+								value="${price || ''}" type="number" class="validate">
+								<label for="modalPrice" class="${(price) ? 'active' : ''}">Prix</label>
+							</div>
+
+						</div>
+						<div class="row">
+
+							<div class="input-field col s3">
+								<select id="modalAppetizer" name="modalAppetizer" value="${appetizer || ''}">
+									${stringAppetizer}
+								</select>
+								<label>Entrée</label>
+							</div>
+							
+							<div class="input-field col s3">
+								<select id="modalMainCourse" name="modalMainCourse" value="${mainCourse || ''}">
+									${stringMainCourse}
+								</select>
+								<label>Plat Principal</label>
+							</div>
+							
+							<div class="input-field col s3">
+								<select id="modalDessert" name="modalDessert" value="${dessert || ''}">
+									${stringDessert}
+								</select>
+								<label>Dessert</label>
+							</div>
+						
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" id="${(id_menu) ? `buttonModifyMenu${id_menu}` : 'buttonNewMenu$'}"
+				data-id="${id_menu || ''}" class="waves-effect waves-blue btn-small blue">${(id_menu) ? 'Modifier' : 'Ajouter'}</button>
+			</div>
+		`;
+	}
