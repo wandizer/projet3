@@ -1,0 +1,48 @@
+#slide-out {
+  background-color: rgb(255, 255, 255);
+}
+
+#profile-img {
+  margin: auto;
+  width: 50%;
+  height: auto;
+}
+
+#role {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.divider {
+  background-color: black;
+}
+
+.waves-effect.waves-blue .waves-ripple {
+  background-color: rgba(2, 119, 189, 0.65);
+}
+
+#img-container {
+  width: 100%;
+  bottom: 10%;
+  position: absolute;
+}
+
+#slide-out #logo {
+  display: block;
+  width: 80%;
+  margin: auto;
+}
+
+#btn-menu {
+  background: #0277BD;
+  display: block;
+  width: fit-content;
+  margin: 10px;
+  border-radius: 3px;
+}
+
+#btn-menu i {
+  color: white;
+  display: block;
+}

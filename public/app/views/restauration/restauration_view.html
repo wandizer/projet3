@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Directeur du restaurant</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../../styles/css/style.css">
+  <link rel="stylesheet" href="../../../styles/css/sidenav2.css">
+  <link rel="stylesheet" href="../../../styles/css/views/CHANGE_HERE.css">
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+</head>
+<body>
+	<div class="viewport">
+    <div class="erpion-sidenav"></div>
+
+		<main>
+			<div class="content">
+				<!-- -------------- Plats du jour -------------- -->
+				<div class="erpion-subsection">
+					<div class="erpion-subsection__title">Plat du jour :</div>
+				</div>
+
+				<div class="row">
+					<div class="col s9">
+							<div class="erpion-card erpion-card__sm">
+								<div class="row">
+									<div class="col s3">
+										<img src="../../../assets/img/kitchen/plat.png">
+										<h6>Menu:<div id="menu"></div></h6>
+									</div>
+									<div class="col s3">
+										<h6>Entrée:<div id="appetizer"></div></h6>
+										<p id="ingredientsAppetizer"></p>
+									</div>
+									<div class="col s3">
+										<h6>Plat Principal:<div id="maincourse"></div></h6>
+										<p id="ingredientsMaincourse"></p>
+									</div>
+									<div class="col s3">
+										<h6>Dessert:<div id="dessert"></div></h6>
+										<p id="ingredientsDessert"></p>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col s3">
+				    	<div class="erpion-card erpion-card__sm">
+							<h6>Prix:<div id="price"></div></h6>
+							<!-- Get TVA -->
+							<p><span>TVA : </span>20%</p>
+							<!-- Get Heures -->
+							<p><span>Horaires : </span>12h00-23h00</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<!-- ------------- Ca de la semaine ------------ -->
+					<div class="col s6" id="stats">
+						<div class="erpion-card erpion-card__sm">
+							<h4>CA de la semaine</h4>
+							<div class="row">
+								<!-- Get Image -->
+								<div class="col s6">Courbe</div>
+								<div class="col s6">
+									<!-- Get Chiffres d'affaires -->
+									<p><span class="bold">CA : </span>+5003€</p>
+									<!-- Get Flux -->
+									<p><span class="bold">Flux : </span>0.5€</p>
+									<!-- Get Numero de personnes entrées -->
+									<p><span class="bold">Entrées : </span>103</p>
+									<!-- Get Moyenne prix par personne -->
+									<p><span class="bold">Prix moyen : </span>30€ Pa</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+				<!-- ------------ Tables et Couverts ----------- -->
+				<div class="col s6 row">
+					<div class="col s12">
+						<div class="erpion-card erpion-card__sm">
+							<div class="row">
+								<div class="col s6">
+									<!-- Heures du Repas -->
+									<h4>Midi</h4>
+									<div>
+										<!-- Get Disponibles -->
+										<p>Couverts Disponibles</p>
+										<p id="couvertsNonReserves"></p>
+										<!-- Get Réservés -->
+										<p>Couverts Réservés</p>
+										<p id="couvertsReserves"></p>
+									</div>
+								</div>
+								<div class="col s6">
+									<a href="#" class="waves-effect waves-blue btn-small btn-tile">Gérer</a>
+									<!-- Heures du Repas -->
+									<h4>Soir</h4>
+									<div>
+										<!-- Get Disponibles -->
+										<p>Couverts Disponibles</p>
+										<p id="couvertsNonReservesNuit"></p>
+										<!-- Get Réservés -->
+										<p>Couverts Réservés</p>
+										<p id="couvertsReservesNuit"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- ------------------ Stock ------------------ -->
+				<div class="erpion-subsection">
+          <div class="erpion-subsection__title">Stock :<label id="stock"></label></div>
+        </div>
+        <div class="erpion-card erpion-card__xxl">
+          <div class="erpion-rows" id="stockList">
+            <div class="nothing-found">
+              <i class="material-icons">warning</i><p>Rien trouvé</p>
+            </div>
+          </div>
+        </div>
+
+			</div>
+
+
+
+			</div>
+
+		</main>
+	</div>
+<script type="module"> require('../../controllers/restauration_controller.js');</script>
+</body>
+</html>

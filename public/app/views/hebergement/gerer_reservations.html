@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gérer Réservations</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../../plugins/air-datepicker/css/datepicker.min.css">
+  <link rel="stylesheet" href="../../../styles/css/style.css">
+  <link rel="stylesheet" href="../../../styles/css/hebergement/gerer_reservations.css">
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+  <script type="text/javascript" src="../../../plugins/air-datepicker/js/datepicker.min.js"></script>
+  <script type="text/javascript" src="../../../plugins/air-datepicker/js/i18n/datepicker.fr.js"></script>
+</head>
+<body>
+<div class="viewport">
+  <!-- BEGIN SIDENAV -->
+  <div class="erpion-sidenav"></div>
+  <!-- END SIDENAV-->
+
+  <!-- BEGIN MAIN -->
+  <main>
+    <div class="content">
+      <div class="page-title">
+        <div><strong>Date</strong><div id="currentDate">Aujourd'hui</div></div>
+      </div>
+      <div class="left-container">
+
+        <!-- Chambres libres -->
+        <div class="erpion-subsection">
+          <div class="erpion-subsection__title">Chambres libres <label id="amountFreeRooms"></label></div>
+        </div>
+        <div class="erpion-card erpion-card__lg">
+          <div class="erpion-rows" id="freeRooms">
+            <div class="nothing-found">
+              <i class="material-icons">warning</i><p>Rien trouvé</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chambres occupées -->
+        <div class="erpion-subsection">
+          <div class="erpion-subsection__title">Chambres occupées<label id="amountOccupiedRooms"></label></div>
+        </div>
+        <div class="erpion-card erpion-card__lg">
+          <div class="erpion-rows" id="occupiedRooms">
+            <div class="nothing-found">
+              <i class="material-icons">warning</i><p>Rien trouvé</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+        <div class="subcontainer">
+          <div class="datepicker-here"></div>
+          <form action="#">
+            <p>
+              <label>
+                <input id="optionOneDay" name="group1" type="radio" checked>
+                <span>Un seul jour</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input id="optionOnePeriod" name="group1" type="radio">
+                <span>Une période</span>
+              </label>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- END MAIN -->
+
+  <!-- BEGIN MODAL -->
+  <div id="modalReservation" class="modal modal-reservation"></div>
+  <!-- END MODAL -->
+</div>
+
+<!-- CRUD MANAGER BUTTON -->
+<a href="../connexion/login_view.html" class="waves-effect waves-light btn"
+   style="position: fixed; bottom: 10px; right: 10px;">
+  <i class="small material-icons left">reply</i>Back to login
+</a>
+<script type="module"> require('../../controllers/hebergement_controller.js');</script>
+</body>
+</html>

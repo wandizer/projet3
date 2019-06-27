@@ -1,45 +1,126 @@
-# electron-quick-start
+#Documentation technique
+ 
+ Ce document est un document technique dans laquelle nous expliquons toutes les procédures à
+ suivre pour avoir un environnement de développement fonctionnel et de production en tant que
+ *.exe*.
+ 
+ Pour ce projet, nous utilisons [Electron](https://electronjs.org/) pour exporter un tous les
+ éléments développés en application exécutable pour *Windows*, *Mac* et *Linux*.
 
-**Clone and run for a quick way to see Electron in action.**
+ 
+## 1. Installer l'environnement de DEV :
+ Comme ce projet est un prototype, nous utilisons une base de données locale `hotel.db` en
+ SQLite3. Et pour avoir un environement fonctionnelle en tant de développeur, il faut exécuter
+ quelques commandes sur la ligne de comandes/terminal avant de lancer le projet:
+ 
+ ```bash
+ # Installer les modules nécessaires à compilation de SQLite avec C++
+ npm install windows-build-tools --vs2015
+ 
+ # Installer toutes les autres dépendances
+ npm install
+ 
+ # Run the app
+ npm start
+ ```
+ 
+ Nous avons donc une application fonctionnelle et prête à être exécutée. Nous pouvons aussi si
+ besoin vérifier si le code correspond à la charte de codage en utilisant le linter **ESLINT** :
+ 
+ ````bash
+  # Lancer le linter
+  npm run lint
+ ````
+ 
+ Nous avons aussi en place **NODE-SASS** qui nous permet de compiler le code *.SCSS* en *.CSS*.
+ Pour le compiler il suffit juste de exécuter la commande suivante :
+ 
+ ```bash
+  # Compiler le code SCSS en CSS
+  npm run build-css
+ ``` 
 
-This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start) within the Electron documentation.
-
-**Use this app along with the [Electron API Demos](https://electronjs.org/#get-started) app for API code examples to help you get started.**
-
-A basic Electron application needs just these files:
-
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
-
-You can learn more about each of these components within the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start).
-
-## To Use
-
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+## 2. Générer l'exécutable en PROD:
+Pour génerer les exécutables à partir du code réalisé, nous utilisons **electron-packager** et
+**electron-rebuild** pour construire avec toutes les modules nécessaires :
 
 ```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies
-npm install
-# Run the app
-npm start
+  # Génerer les executables en Windows Linux et Mac
+  npm run package-rebuild
+  
+  # Générer la documentation technique
+  npm run esdoc
 ```
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+Une fois cela fait, nous avons tous les exécutables dans le dossier **build/"OS"**.
 
-## Resources for Learning Electron
+## 3. Architecture/structure du projet :
 
-- [electronjs.org/docs](https://electronjs.org/docs) - all of Electron's documentation
-- [electronjs.org/community#boilerplates](https://electronjs.org/community#boilerplates) - sample starter apps created by the community
-- [electron/electron-quick-start](https://github.com/electron/electron-quick-start) - a very basic starter Electron app
-- [electron/simple-samples](https://github.com/electron/simple-samples) - small applications with ideas for taking them further
-- [electron/electron-api-demos](https://github.com/electron/electron-api-demos) - an Electron app that teaches you how to use Electron
-- [hokein/electron-sample-apps](https://github.com/hokein/electron-sample-apps) - small demo apps for the various Electron APIs
+```
+  .
+  |---build/                          --> Où on trouve tous les .exe 
+  |     |---win/
+  |     |     |- (...)
+  |     |---mac/
+  |     |     |- (...)
+  |     |---linux/
+  |           |- (...)
+  |
+  |---node_modules/                   --> Toutes les dépendances
+  |
+  |---public/
+  |     |---app/
+  |     |     |---controllers/        --> Controlleurs
+  |     |     |     |- (...)
+  |     |     |---models/             --> Modèles
+  |     |     |     |- (...)
+  |     |     |---views/              --> Vues
+  |     |           |- (...)
+  |     |
+  |     |---assets/                   --> Images et icones
+  |     |     |---icons/
+  |     |     |     |- (...)
+  |     |     |---img/
+  |     |           |- (...)
+  |     |
+  |     |---constants/                --> Variables globales
+  |     |     |- (...)
+  |     |
+  |     |---database/                 --> Tout ce qui concerne la BDD
+  |     |     |- (...)
+  |     |
+  |     |---docs/                     --> La documentation technique
+  |     |     |- (...)
+  |     |
+  |     |---plugins/                  --> Les plugins du projet
+  |     |     |- (...)
+  |     |
+  |     |---styles/                   --> Tous les fichiers style
+  |     |     |---css/
+  |     |     |     |- (...)
+  |     |     |---fonts/
+  |     |     |     |- (...)
+  |     |     |---sass/
+  |     |           |- (...)
+  |     |
+  |     |---utils/                    --> Les fonctions globales
+  |     |      |- (...)
+  |     |     
+  |     |---main.js                   --> Point d'entrée de l'application
+  |
+  |---(tous les fichiers de configuration)
+```
 
-## License
+## 4. Outils utilisés :
 
-[CC0 1.0 (Public Domain)](LICENSE.md)
+- [Electron](https://electronjs.org/)
+- [Materialize](https://materializecss.com/)
+- [Material Icons](https://material.io/tools/icons/)
+- [Jquery](https://www.npmjs.com/package/jquery)
+- [DataTables](https://datatables.net/)
+- [ChartJS](https://www.chartjs.org/)
+- [FullCalendarJS](https://fullcalendar.io/)
+- [Air-DatepickerJS](http://t1m0n.name/air-datepicker/docs/)
+- [Node-Sass](https://github.com/sass/node-sass)
+- [Node-SQLite3](https://www.npmjs.com/package/sqlite3)
+- [ESLint](https://www.npmjs.com/package/eslint)

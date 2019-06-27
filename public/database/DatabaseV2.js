@@ -1,5 +1,9 @@
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+
+const dbPath = path.resolve(__dirname, 'hotel.db');
 const schema = require('./schema.js');
+const data = require('./data.js');
 
 // const data = require('./data.js');
 
@@ -9,12 +13,10 @@ const schema = require('./schema.js');
 class DatabaseV2 {
   /**
    * @constructor
-   * @param databaseFilename - optional
    */
-  constructor(databaseFilename) {
+  constructor() {
     this.db = null;
-    if (databaseFilename) this.startConnection(databaseFilename);
-    else this.startConnection();
+    this.startConnection();
     // this.createSchema();
     // this.insertData();
   }
@@ -22,15 +24,13 @@ class DatabaseV2 {
   /**
    * Connects to the database
    */
-  startConnection(databaseFilename) {
+  startConnection() {
+    // `./public/database/${(!databaseFilename) ? 'hotel' : databaseFilename}.db`,
     // connecting to a disk file database
-    this.db = new sqlite3.Database(
-      `./public/database/${(!databaseFilename) ? 'hotel' : databaseFilename}.db`,
-      (err) => {
-        if (err) console.error(err.message);
-        else console.log('Connected to the in-memory SQlite database.');
-      },
-    );
+    this.db = new sqlite3.Database(dbPath, (err) => {
+      if (err) console.error(err.message);
+      else console.log('Connected to the in-memory SQlite database.');
+    });
   }
 
   /**
@@ -65,12 +65,39 @@ class DatabaseV2 {
   }
 
   /**
+   * Inserts a new line inside a table and returns this.lastId in callback
+   * @param $query
+   * @param $params
+   * @param callback
+   */
+  insertQuery($query, $params, callback) {
+    // We execute the query
+    this.db.run($query, $params, function (err) {
+      if (err) {
+        console.log('An error ocurred performing the query.', err, $query);
+        return;
+      }
+      console.log(`A row has been inserted with rowid ${this.lastID}`);
+      callback(this.lastID);
+    });
+  }
+
+  /**
+   * Shows all the tables in the current database
+   * @param {Function} callback
+   */
+  showAllTables(callback) {
+    this.executeQuery('SELECT name FROM sqlite_master WHERE type = ?;', 'table', callback);
+  }
+
+  /**
    * Equivalent to an INSERT INTO
    * @param {string} tableName
-   * @param {Array} args
-   * @param params
+   * @param {Array} args - Corresponds to the column names
+   * @param params - Corresponds to the values
+   * @param {Function} callback
    */
-  write(tableName, args, params) {
+  write(tableName, args, params, callback) {
     let stringArgs = '';
     let stringParams = '';
 
@@ -88,9 +115,80 @@ class DatabaseV2 {
     }
 
     const sql = `INSERT INTO ${tableName} ${stringArgs} VALUES${stringParams};`;
-    this.executeQuery(sql, params);
+    this.insertQuery(sql, params, (lastID) => {
+      const transData = {};
+      for (let i = 0; i < args.length; i += 1) {
+        transData[args[i]] = params[i];
+      }
+      console.log(transData);
+      switch (tableName) {
+        case 'Room_Reservation': {
+          this.write(
+            'Transactions',
+            ['type', 'amount', 'date', 'payed', 'id_client', 'id_room_reservation'],
+            [tableName, transData.payment_amount, transData.date_reservation, false, transData.id_client, lastID],
+            callback,
+          );
+          break;
+        }
+        default: {
+          callback;
+          break;
+        }
+      }
+    });
+    // this.executeQuery(sql, params, (result) => {
+    //
+    //   callback();
+    // });
   }
 
+  /** Equivalent to an UPDATE
+   * @param {string} table - corresponds to the table name
+   * @param {Array} args - corresponds to the column names
+   * @param argsParams - corresponds to the new values
+   * @param condition - corresponds to the condition column
+   * @param conditionParams - corresponds to the condition value
+   * @param {Function} callback
+   */
+  rewrite(table, args, argsParams, condition, conditionParams, callback) {
+    if ((condition !== null && condition !== undefined)
+      && (conditionParams !== null && conditionParams !== undefined)
+      && (argsParams !== null && argsParams !== undefined)
+      && (args !== null && args !== undefined)
+      && (table !== null && table !== undefined)
+      && (args.length === argsParams.length)
+    ) {
+      let stringArgs = '';
+      for (let i = 0, l = args.length; i < l; i += 1) {
+        stringArgs += `${args[i]} = ?`;
+        if (i < (l - 1)) {
+          stringArgs += ' , ';
+        }
+      }
+      // console.log(stringArgs);
+      const sql = `UPDATE ${table} SET ${stringArgs} where ${condition}=${conditionParams};`;
+      this.executeQuery(sql, argsParams, callback);
+    } else {
+      console.log('An error ocurred performing the update query.');
+    }
+  }
+
+  /**
+   * Equivalent to DELETE in SQL. In this case deletes a row on a table
+   * @param table
+   * @param conditionColumn
+   * @param conditionValue
+   * @param callback
+   */
+  deleteRow(table, conditionColumn, conditionValue, callback) {
+    const sql = `DELETE FROM ${table} WHERE ${conditionColumn} = ?`;
+    this.executeQuery(sql, conditionValue, callback);
+  }
+
+  /**
+   * Creates the schema of the database (empty)
+   */
   createSchema() {
     this.db.serialize(() => {
       Object.keys(schema).forEach((key) => {
@@ -99,152 +197,15 @@ class DatabaseV2 {
     });
   }
 
-  static servicesInserts() {
-    const querys = [];
-    const arg = [
-      'Admin',
-      'Gestionnaires',
-      'Cuisine',
-      'Salle',
-      'Réception',
-      'Etages',
-      'Maintenance',
-      'Direction',
-      'Loisirs'];
-    for (let i = 0; i < arg.length; i += 1) {
-      querys.push(`INSERT INTO service(name) VALUES ('${arg[i]}')`);
-    }
-    return querys;
-  }
-
-  static rolesInserts() {
-    const querys = [];
-    querys.push('INSERT INTO role(name,id_service) VALUES ("Directeur de l’hôtel",1)');
-    let arg = ['Directeur du restaurant',
-      'Directeur d’hébergement',
-      'Chef de réception',
-      'Gouvernante générale',
-      'Chef de maintenance',
-      'Spa manager'];
-    for (let i = 0; i < arg.length; i += 1) {
-      querys.push(`INSERT INTO role(name,id_service) VALUES ('${arg[i]}',2);`);
-    }
-    arg = ['chef de cuisine',
-      'seconde de cuisine',
-      'chef de partie',
-      'pâtissier',
-      'boulanger',
-      'cuisinier',
-      'commis de cuisine',
-      'pizzaïolo',
-      'crêpier',
-      'écailler',
-      'plongeur',
-      'chef econome',
-      'économes'];
-    for (let i = 0; i < arg.length; i += 1) {
-      querys.push(`INSERT INTO role(name,id_service) VALUES ('${arg[i]}',3)`);
-    }
-    arg = ['responsable de salle',
-      'maître d’hôtel',
-      'chef de range',
-      'serveur',
-      'commis de salle',
-      'chef sommelier',
-      'sommelier',
-      'barman',
-      'garçon de café'];
-    for (let i = 0; i < arg.length; i += 1) {
-      querys.push(`INSERT INTO role(name,id_service) VALUES ('${arg[i]}',4)`);
-    }
-    arg = ['chef de réception',
-      'réceptionniste',
-      'night auditor',
-      'veilleur de nuit',
-      'concierge',
-      'voiturier',
-      'portier',
-      'bagagiste',
-      'groom',
-      'room service'];
-    for (let i = 0; i < arg.length; i += 1) {
-      querys.push(`INSERT INTO role(name,id_service) VALUES ('${arg[i]}',5)`);
-    }
-    arg = ['Gouvernante Générale',
-      'gouvernante',
-      'femme de chambre',
-      'lingère'];
-    for (let i = 0; i < arg.length; i += 1) {
-      querys.push(`INSERT INTO role(name,id_service) VALUES ('${arg[i]}',6)`);
-    }
-    arg = ['chef de maintenance',
-      'techniciens de maintenance'];
-    for (let i = 0; i < arg.length; i += 1) {
-      querys.push(`INSERT INTO role(name,id_service) VALUES ('${arg[i]}',7)`);
-    }
-    arg = ['directeur d’hôtel',
-      'directeur du restaurant',
-      'directeur de l’hébergement'];
-    for (let i = 0; i < arg.length; i += 1) {
-      querys.push(`INSERT INTO role(name,id_service) VALUES ('${arg[i]}',8)`);
-    }
-    querys.push('INSERT INTO role(name,id_service) VALUES (\'Spa Manager\',9)');
-    return querys;
-  }
-
-
-  static employeInserts() {
-    const querys = [];
-    for (let i = 0; i < 9; i += 1) {
-      querys.push(`INSERT INTO employe(name,surname,birthday,salary,id_role) VALUES ('testNam${i}','testSur${i}','2019-04-01','1000','${i}')`);
-    }
-    return querys;
-  }
-
-  static userInserts() {
-    const querys = [];
-    for (let i = 0; i < 9; i += 1) {
-      querys.push(`INSERT INTO user(email,username,password,id_employe) VALUES ('testEmail${i}@yopmail.com','test${i}','123','${i}')`);
-    }
-    return querys;
-  }
-
-  static roomInserts() {
-    const querys = [];
-    for (let i = 0; i < 20; i += 1) {
-      querys.push(`INSERT INTO room(number,floor,price,type) VALUES ('A${i}','1','100','Single')`);
-    }
-    for (let i = 0; i < 20; i += 1) {
-      querys.push(`INSERT INTO room(number,floor,price,type) VALUES ('B${i}','2','200','Double')`);
-    }
-    for (let i = 0; i < 20; i += 1) {
-      querys.push(`INSERT INTO room(number,floor,price,type) VALUES ('C${i}','3','300','Suite')`);
-    }
-    return querys;
-  }
-
-
-  static insertData() {
-    const servicesInserts = this.servicesInserts();
-    const rolesInserts = this.rolesInserts();
-    const employeInserts = this.employeInserts();
-    const userInserts = this.userInserts();
-    const roomInserts = this.roomInserts();
+  /**
+   * Inserts the initial data as example into the database
+   */
+  insertData() {
     this.db.serialize(() => {
-      servicesInserts.forEach((sql) => {
-        this.executeQuery(sql);
-      });
-      rolesInserts.forEach((sql) => {
-        this.executeQuery(sql);
-      });
-      employeInserts.forEach((sql) => {
-        this.executeQuery(sql);
-      });
-      userInserts.forEach((sql) => {
-        this.executeQuery(sql);
-      });
-      roomInserts.forEach((sql) => {
-        this.executeQuery(sql);
+      Object.keys(data).forEach(key => {
+        Object.values(data[key]).forEach(value => {
+          this.executeQuery(value);
+        });
       });
     });
   }

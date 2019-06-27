@@ -1,0 +1,385 @@
+@import url("../fonts/fonts.css");
+.erpion-sidenav {
+  background: rgba(255, 255, 255, 0.8);
+  min-width: 300px;
+  max-width: 300px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  margin-left: -250px;
+  padding-right: 50px;
+  transition: all 0.5s ease-out;
+  -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+  .erpion-sidenav:hover {
+    margin-left: 0;
+    padding-right: 0;
+    transition: all 0.5s ease-out; }
+  @media (min-width: 1300px) {
+    .erpion-sidenav {
+      margin-left: 0;
+      padding-right: 0; } }
+  .erpion-sidenav__menu {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    display: block;
+    top: 10px;
+    left: 0;
+    z-index: 3; }
+    .erpion-sidenav__menu i {
+      margin-top: 5px;
+      margin-left: 5px;
+      font-size: 40px; }
+    @media (min-width: 1300px) {
+      .erpion-sidenav__menu {
+        width: 15px;
+        top: 150px;
+        left: 300px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 0 10px 10px 0; }
+        .erpion-sidenav__menu i {
+          margin-left: -25px; } }
+  .erpion-sidenav__profile {
+    position: inherit;
+    height: 300px; }
+    .erpion-sidenav__profile-fond {
+      height: 150px;
+      width: 100%;
+      border-bottom: 1px solid gray; }
+      .erpion-sidenav__profile-fond img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; }
+    .erpion-sidenav__profile-avatar {
+      width: 150px;
+      height: 150px;
+      margin: -100px auto; }
+      .erpion-sidenav__profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        background: #f0f0f0;
+        -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-sidenav__profile-info {
+      display: flex;
+      flex-flow: row wrap;
+      width: 100%;
+      margin-top: 110px;
+      text-align: center; }
+      .erpion-sidenav__profile-info-nom {
+        height: 30px;
+        flex-basis: 50%;
+        font-weight: bold; }
+      .erpion-sidenav__profile-info-prenom {
+        height: 30px;
+        flex-basis: 50%;
+        font-weight: bold; }
+      .erpion-sidenav__profile-info-role {
+        height: 30px;
+        flex-basis: 100%; }
+      .erpion-sidenav__profile-info a {
+        flex-basis: 80%;
+        margin: auto; }
+  .erpion-sidenav__divider {
+    margin-top: 20px;
+    width: 100%;
+    height: 5px;
+    border-bottom: 1px solid gray; }
+  .erpion-sidenav__onglets {
+    margin-top: 20px;
+    margin-bottom: 100px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column nowrap; }
+    .erpion-sidenav__onglets-onglet {
+      width: 80%;
+      height: auto;
+      font-size: 20px;
+      color: white;
+      background: #0f9d58;
+      margin: 10px 0;
+      padding: 5px;
+      border-radius: 0 5px 5px 0; }
+      .erpion-sidenav__onglets-onglet:hover {
+        -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-sidenav__onglets-onglet--active {
+      width: 100%;
+      height: auto;
+      font-size: 20px;
+      color: #0f9d58;
+      background: white;
+      margin: 10px 0;
+      padding: 5px;
+      border-radius: 0;
+      border: 1px solid; }
+      .erpion-sidenav__onglets-onglet--active:hover {
+        -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+      .erpion-sidenav__onglets-onglet--active i {
+        font-size: 20px;
+        padding-top: 5px;
+        margin-right: 10px;
+        vertical-align: baseline; }
+  .erpion-sidenav__logo {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    text-align: center; }
+    .erpion-sidenav__logo img {
+      width: 50%;
+      height: 100%;
+      object-fit: contain; }
+
+.erpion-card {
+  height: 200px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  margin: 5px 2px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly; }
+  .erpion-card-canvas {
+    padding: 0;
+    background: white; }
+    .erpion-card-canvas canvas {
+      height: 100%;
+      width: 100%; }
+  .erpion-card__xxl {
+    flex-basis: 100%; }
+  .erpion-card__lg {
+    flex-basis: 75%; }
+  .erpion-card__md {
+    flex-basis: 49%; }
+  .erpion-card__sm {
+    flex-basis: 36%; }
+  .erpion-card__xs {
+    flex-basis: 24%; }
+
+.erpion-container {
+  width: 100%;
+  max-height: calc(100vh - 30px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+
+.erpion-rows {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; }
+  .erpion-rows__row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    width: 100%;
+    height: 50px;
+    padding: 5px 10px;
+    margin: 5px;
+    -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-rows__row-element {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+    .erpion-rows__row i {
+      font-size: 40px; }
+    .erpion-rows__row button i {
+      font-size: 16px; }
+
+.erpion-section {
+  width: 100%; }
+
+.erpion-subsection {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-top: 10px; }
+  .erpion-subsection__title {
+    line-height: 40px;
+    vertical-align: bottom;
+    font-weight: bold;
+    padding-left: 5px; }
+
+.erpion-chiffres {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between; }
+  .erpion-chiffres div {
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px; }
+    .erpion-chiffres div i, .erpion-chiffres div span {
+      margin-left: 5px;
+      margin-right: 5px; }
+  .erpion-chiffres__title {
+    flex-basis: 100%;
+    font-size: 14px; }
+  .erpion-chiffres__long-cell {
+    flex-basis: 100%;
+    border: 1px solid #e6e6e6;
+    background: rgba(255, 255, 255, 0.8); }
+  .erpion-chiffres__small-cell {
+    flex-basis: 45%;
+    border: 1px solid #e6e6e6;
+    background: rgba(255, 255, 255, 0.8); }
+  .erpion-chiffres .trending-up {
+    color: #0f9d58; }
+  .erpion-chiffres .trending-down {
+    color: #8b1014; }
+
+.erpion-voyages {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-flow: column nowrap; }
+  .erpion-voyages .erpion-voyage {
+    width: 100%;
+    height: 230px;
+    min-height: 230px;
+    display: flex;
+    flex-flow: row nowrap; }
+    .erpion-voyages .erpion-voyage__photo {
+      flex-basis: 25%;
+      height: 100%;
+      object-fit: cover;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-voyages .erpion-voyage__content {
+      flex-basis: 75%;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between; }
+      .erpion-voyages .erpion-voyage__content-header {
+        width: 100%;
+        padding: 5px;
+        background: #f0f0f0;
+        display: flex;
+        flex-flow: row wrap; }
+        .erpion-voyages .erpion-voyage__content-header__title {
+          font-size: 16px;
+          font-weight: bold;
+          margin-right: 20px; }
+        .erpion-voyages .erpion-voyage__content-header__date {
+          color: gray;
+          margin-right: 20px; }
+        .erpion-voyages .erpion-voyage__content-header__agence {
+          color: #00b0ff; }
+      .erpion-voyages .erpion-voyage__content-body {
+        width: 100%;
+        padding: 5px;
+        overflow-y: auto; }
+      .erpion-voyages .erpion-voyage__content-footer {
+        width: 100%;
+        height: auto;
+        padding: 5px;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        background: #f0f0f0; }
+        .erpion-voyages .erpion-voyage__content-footer__price {
+          color: red; }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden; }
+
+body {
+  min-height: 80%;
+  background: url("../../assets/img/background.jpg") no-repeat;
+  background-size: cover;
+  font-family: 'Raleway', sans-serif; }
+
+.viewport {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap; }
+
+main {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; }
+
+.content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 1000px;
+  margin: 5px auto;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7); }
+
+.green-dot {
+  width: 10px;
+  height: 10px;
+  background: green;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%; }
+
+.yellow-dot {
+  width: 10px;
+  height: 10px;
+  background: yellow;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%; }
+
+.red-dot {
+  width: 10px;
+  height: 10px;
+  background: red;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%; }
+
+.nothing-found {
+  background: #cecbce;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .nothing-found p {
+    margin-left: 10px; }
+
+.rating {
+  font-size: 35px; }

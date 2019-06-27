@@ -1,0 +1,47 @@
+main {
+  margin: 3% 10%;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.8);
+}
+
+.card {
+  padding: 5px;
+}
+
+h4, h5, h6, p {
+  text-align: justify;
+  margin: 0;
+}
+
+.btn-tile {
+  float: right;
+  background: #0277BD
+}
+
+.card img {
+  border-radius: 5px;
+  width: 100%;
+  padding:0;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.descri {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.row-stock {
+  margin: auto;
+  width: 90%;
+  text-align: center;
+}
+
+h4 {
+  font-size: 2em;
+}

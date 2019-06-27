@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Directeur d'hébergement</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../../plugins/chart.js/Chart.min.css">
+  <link rel="stylesheet" href="../../../styles/css/style.css">
+  <link rel="stylesheet" href="../../../styles/css/hebergement/dashboard_hebergement.css">
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+</head>
+<body>
+
+<div class="viewport">
+  <!-- BEGIN SIDENAV -->
+  <div class="erpion-sidenav"></div>
+  <!-- END SIDENAV-->
+
+  <!-- BEGIN MAIN -->
+  <main>
+    <div class="content">
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Statistiques :</div>
+      </div>
+      <div class="erpion-card erpion-card-canvas erpion-card__sm">
+        <canvas id="doughnutChart"></canvas>
+      </div>
+      <div class="erpion-card erpion-card-canvas erpion-card__sm">
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="erpion-card erpion-card__xs erpion-chiffres">
+        <div class="erpion-chiffres__title">Chiffres (Semaine)</div>
+        <div class="erpion-chiffres__long-cell" >
+          <span id="chiffresAffaires">----</span>€
+        </div>
+        <div class="erpion-chiffres__small-cell">
+          <span id="profit">----</span> €
+        </div>
+        <div class="erpion-chiffres__small-cell">
+          <span id="curveIncome"><i class="material-icons trending-up">trending_up</i></span>
+        </div>
+        <div class="erpion-chiffres__small-cell">
+          <span id="occupiedRoomsPercent">--</span>%<i class="material-icons">hotel</i>
+        </div>
+        <div class="erpion-chiffres__small-cell">
+          <span id="totalAmountRooms">--</span><i class="material-icons">hotel</i></div>
+      </div>
+
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Reservations :</div>
+        <a class="btn" href="./gerer_reservations.html">Gérer</a>
+      </div>
+      <div class="erpion-card erpion-card__xxl">
+        <div class="erpion-rows">
+          <div class="erpion-rows__row">
+            <i class="material-icons">hotel</i>
+            <div class="erpion-rows__row-element">
+              <div class="green-dot"></div>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">Type:</label>
+              <span class="chambre-type">Simple</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">État:</label>
+              <span class="chambre-status">
+                <span id="occupiedSimple">--</span>/<span id="totalSimple">--</span>
+              </span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-details">
+                <i class="material-icons">more_vert</i>
+              </span>
+            </div>
+          </div>
+          <div class="erpion-rows__row">
+            <i class="material-icons">hotel</i>
+            <div class="erpion-rows__row-element">
+              <div class="green-dot"></div>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">Type:</label>
+              <span class="chambre-type">Double</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">État:</label>
+              <span class="chambre-status">
+                <span id="occupiedDouble">--</span>/<span id="totalDouble">--</span>
+              </span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-details">
+                <i class="material-icons">more_vert</i>
+              </span>
+            </div>
+          </div>
+          <div class="erpion-rows__row">
+            <i class="material-icons">hotel</i>
+            <div class="erpion-rows__row-element">
+              <div class="green-dot"></div>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">Type:</label>
+              <span class="chambre-type">Suite</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">État:</label>
+              <span class="chambre-status">
+                <span id="occupiedSuite">--</span>/<span id="totalSuite">--</span>
+              </span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <span class="chambre-details">
+                <i class="material-icons">more_vert</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Voyages :</div>
+        <a class="btn" href="./gerer_voyages.html">Gérer</a>
+      </div>
+      <div class="erpion-container erpion-voyages"></div>
+
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Notoriété :</div>
+        <a class="btn" href="./gerer_notoriete.html">Gérer</a>
+      </div>
+      <div class="erpion-container">
+
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <div class="rating" id="roomNotation"></div>
+              <label class="active">Chambres (moyenne)</label>
+            </div>
+            <div class="input-field col s6">
+              <div class="rating" id="servicesNotation"></div>
+              <label class="active">Services (moyenne)</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <div class="rating" id="restaurantNotation"></div>
+              <label class="active">Restaurant (moyenne)</label>
+            </div>
+            <div class="input-field col s6">
+              <div class="rating" id="eventsNotation"></div>
+              <label class="active">Evévenements (moyenne)</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <!-- END MAIN -->
+</div>
+<!-- CRUD MANAGER BUTTON -->
+<a href="../connexion/login_view.html" class="waves-effect waves-light btn"
+   style="position: fixed; bottom: 10px; right: 10px;">
+  <i class="small material-icons left">reply</i>Back to login
+</a>
+<script type="module"> require('../../controllers/hebergement_controller.js');</script>
+</body>
+</html>
+

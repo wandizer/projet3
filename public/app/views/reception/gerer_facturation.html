@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>ERPion</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="../../../plugins/datatables/datatables.min.css"/>
+  <link rel="stylesheet" href="../../../styles/css/style.css">
+  <link rel="stylesheet" href="../../../styles/css/reception/gerer_facturation.css">
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+<!--  <script type="text/javascript" src="../../../plugins/datatables/datatables.min.js"></script>-->
+</head>
+<body>
+<div class="viewport">
+  <!-- BEGIN SIDENAV -->
+  <div class="erpion-sidenav"></div>
+  <!-- END SIDENAV-->
+
+  <!-- BEGIN MAIN -->
+  <main>
+    <div class="content">
+      <!-- TABLE -->
+      <div class="container" style="margin-top: 20px;">
+        <div class="row">
+          <table id="edit-table" class="compact display nowrap" width="100%"></table>
+        </div>
+      </div>
+
+      <!-- MODAL -->
+      <!-- Modal Structure -->
+      <div id="modalEdit" class="modal">
+        <div class="modal-content" id="modal-content-edit"></div>
+        <div class="modal-footer" id="modal-footer-edit"></div>
+      </div>
+    </div>
+  </main>
+  <!-- END MAIN -->
+</div>
+<script type="module"> require('../../controllers/reception_controller.js');</script>
+</body>
+</html>

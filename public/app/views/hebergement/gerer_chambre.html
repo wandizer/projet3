@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gérer Réservations</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel='stylesheet' href='../../../plugins/fullcalendar.js/core/main.min.css'>
+  <link rel='stylesheet' href='../../../plugins/fullcalendar.js/daygrid/main.min.css'>
+  <link rel='stylesheet' href='../../../plugins/fullcalendar.js/timegrid/main.min.css'>
+  <link rel="stylesheet" href="../../../styles/css/style.css">
+  <link rel="stylesheet" href="../../../styles/css/hebergement/gerer_chambre.css">
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="../../../plugins/materialize/js/materialize.min.js"></script>
+  <script type="text/javascript" src='../../../plugins/fullcalendar.js/core/main.min.js'></script>
+  <script type="text/javascript" src='../../../plugins/fullcalendar.js/daygrid/main.min.js'></script>
+  <script type="text/javascript" src='../../../plugins/fullcalendar.js/interaction/main.min.js'></script>
+  <script type="text/javascript" src='../../../plugins/fullcalendar.js/timegrid/main.min.js'></script>
+</head>
+<body>
+<div class="viewport">
+  <!-- BEGIN SIDENAV -->
+  <div class="erpion-sidenav"></div>
+  <!-- END SIDENAV-->
+
+  <!-- BEGIN MAIN -->
+  <main>
+    <div class="content">
+      <div id="calendar"></div>
+      <div class="erpion-card erpion-card__xxl">
+        <div class="erpion-room-details">
+          <img src="../../../assets/img/room.jpg" alt="room_image">
+          <div class="erpion-room-details__description">
+            <div class="row"><label>Room nº </label><span id="room-description-number"></span></div>
+            <div class="row"><label>Type : </label><span id="room-description-type"></span></div>
+            <div class="row"><label>Étage : </label><span id="room-description-floor"></span></div>
+            <div class="row"><label>Price : </label><span id="room-description-price"></span>€</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- END MAIN -->
+</div>
+<!-- CRUD MANAGER BUTTON -->
+<a href="../connexion/login_view.html" class="waves-effect waves-light btn"
+   style="position: fixed; bottom: 10px; right: 10px;">
+  <i class="small material-icons left">reply</i>Back to login
+</a>
+<script type="module"> require('../../controllers/hebergement_controller.js');</script>
+</body>
+</html>

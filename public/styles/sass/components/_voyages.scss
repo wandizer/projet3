@@ -1,0 +1,81 @@
+.erpion-voyages {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+
+  .erpion-voyage {
+    width: 100%;
+    height: 230px;
+    min-height: 230px;
+    display: flex;
+    flex-flow: row nowrap;
+
+    &__photo {
+      flex-basis: 25%;
+      height: 100%;
+      object-fit: cover;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    }
+
+    &__content {
+      flex-basis: 75%;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+
+      &-header {
+        width: 100%;
+        padding: 5px;
+        background: rgb(240, 240, 240);
+        display: flex;
+        flex-flow: row wrap;
+
+        &__title {
+          font-size: 16px;
+          font-weight: bold;
+          margin-right: 20px;
+        }
+
+        &__date {
+          color: gray;
+          margin-right: 20px;
+        }
+
+        &__agence {
+          color: #00b0ff;
+        }
+      }
+
+      &-body {
+        width: 100%;
+        padding: 5px;
+        overflow-y: auto;
+      }
+
+      &-footer {
+        width: 100%;
+        height: auto;
+        padding: 5px;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        background: rgb(240, 240, 240);
+
+        &__price {
+          color: red;
+        }
+
+        &__rating {
+
+        }
+
+        &__duration {
+
+        }
+      }
+    }
+  }
+}

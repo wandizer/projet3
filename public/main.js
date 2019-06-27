@@ -1,5 +1,12 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron');
+const $  = require('jquery');
+// const Database = require('./database/DatabaseV2');
+
+// We create the schema
+// const db = new Database();
+// db.createSchema();
+// db.insertData();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -8,7 +15,7 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1024,
+    width: 1368,
     height: 768,
     webPreferences: {
       nodeIntegration: true,
@@ -16,10 +23,11 @@ function createWindow() {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile('public/app/connexion/views/login_view.html');
+  mainWindow.loadFile('public/app/views/connexion/login_view.html');
+  // mainWindow.loadFile('public/app/crud/views/general_view.html');
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
