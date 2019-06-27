@@ -14,6 +14,15 @@ class Transactions {
   }
 
   /**
+   * Returns all the transactions
+   * @param {function} callback
+   */
+  getAllTransactions(callback) {
+    const $query = 'SELECT * FROM Transactions';
+    database.executeQuery($query, [], callback);
+  }
+
+  /**
    * Function that returns a list of formatted dates according to the date given and the distance
    * @param date
    * @param distanceInDays

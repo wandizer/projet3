@@ -1,11 +1,13 @@
 window.$ = window.jQuery = require('../../plugins/jquery/jquery-3.3.1.min.js');
 require('../../plugins/chart.js/Chart.bundle.min.js');
+require('../../plugins/datatables/datatables.min.js')(window, $);
 require('../../plugins/materialize/js/materialize.min.js');
 require('../../plugins/air-datepicker/js/datepicker.min.js');
 require('../../plugins/air-datepicker/js/i18n/datepicker.fr');
 require('../../plugins/rater.js/rater.min.js');
 
 
+const Database = require('../../database/DatabaseV2.js');
 const Constants = require('../../constants/constants.js');
 const Utils = require('../../utils/Utils.js');
 const Sidenav = require('../../utils/Sidenav.js');
@@ -26,6 +28,7 @@ const storedEmploye = Utils.getStoredEmploye();
 const storedUser = Utils.getStoredUser();
 const storedService = Utils.getStoredService();
 const viewName = Utils.getViewName(window.location.href);
+const db = new Database();
 
 document.addEventListener('DOMContentLoaded', () => {
   Sidenav.drawSidenav(storedRole.name, viewName, storedEmploye.name, storedEmploye.surname);
@@ -103,6 +106,22 @@ window.addEventListener('load', () => {
   let reserveRoom = () => {
   };
   let saveNotoriete = () => {
+  };
+  let reloadCurrentPage = () => {
+  };
+  let updateLine = () => {
+  };
+  let deleteLine = () => {
+  };
+  let createLine = () => {
+  };
+  let openEditModal = () => {
+  };
+  let openDeleteModal = () => {
+  };
+  let drawDataTable = () => {
+  };
+  let fetchALlTransactions = () => {
   };
 
   // -----------------------------------------------------------------------------------------
@@ -713,6 +732,281 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_facturation': {
+      /**
+       * Reload the current page
+       * @callback
+       */
+      reloadCurrentPage = () => {
+        window.location.assign('./gerer_facturation.html');
+      };
+
+      /**
+       * Updates the current line and reloads the current page
+       * @callback
+       * @param e - Calling element
+       */
+      updateLine = (e) => {
+        const cellPKColumnName = e.target.dataset.cle;
+        const cellPKId = e.target.dataset.id;
+        const modalContent = document.body.querySelector('#modal-content-edit');
+        const allColumns = [];
+        const allNewValues = [];
+        modalContent.querySelectorAll('input').forEach(input => {
+          allColumns.push(input.dataset.column);
+          allNewValues.push(input.value);
+        });
+        db.rewrite('Transactions', allColumns, allNewValues, cellPKColumnName, cellPKId, reloadCurrentPage);
+      };
+
+      /**
+       * Deletes the current line and reloads the current page
+       * @callback
+       * @param e - Calling element
+       */
+      deleteLine = (e) => {
+        const cellPKColumnName = e.target.dataset.cle;
+        const cellPKId = e.target.dataset.id;
+        db.deleteRow('Transactions', cellPKColumnName, cellPKId, reloadCurrentPage);
+      };
+
+      /**
+       * Creates a new line in database and reloads the current page
+       * @callback
+       */
+      createLine = () => {
+        const rowWithNewValues = document.body.querySelector('.dataTables_scrollFoot tfoot tr');
+        const columnNames = [];
+        const newValues = [];
+        rowWithNewValues.querySelectorAll('input').forEach((input) => {
+          columnNames.push(input.dataset.column);
+          newValues.push(input.dataset.value);
+        });
+        db.write('Transactions', columnNames, newValues, reloadCurrentPage);
+      };
+
+      /**
+       * Toggles the Edit Modal
+       * @callback
+       * @param e
+       */
+      openEditModal = (e) => {
+        const cellPKColumnName = e.target.dataset.cle;
+        const cellPKId = e.target.dataset.id;
+
+        const modalContent = document.body.querySelector('#modal-content-edit');
+        modalContent.innerHTML = ''; // we empty the modal-content
+        const modalFooter = document.body.querySelector('#modal-footer-edit');
+        modalFooter.innerHTML = ''; // we empty the modal-footer
+        const selectedRow = document.body.querySelector(`tr[data-id='${cellPKId}']`);
+        const thead = document.body.querySelector('thead tr');
+        const keys = [];
+        const values = [];
+
+        // we retrieve the column names
+        thead.childNodes.forEach((th) => {
+          if (th.className !== 'sorting_disabled') {
+            const label = document.createElement('label');
+            label.innerHTML = th.innerHTML;
+            keys.push(th.innerHTML);
+          }
+        });
+
+        // we retrieve the current data
+        selectedRow.childNodes.forEach((td) => {
+          if (td.className !== 'edit-cell' && td.className !== 'del-cell') {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = td.innerHTML;
+            values.push(td.innerHTML);
+          }
+        });
+
+        // we add all the labels and inputs inside modal-content
+        values.forEach((value, index) => {
+          const row = document.createElement('div');
+          row.className = 'row';
+          row.innerHTML = `<div class="row">
+            <div class="inline col s12">
+              <label>${keys[index]}</label>
+              <input placeholder="Enter text here ..."
+              data-column="${keys[index]}" 
+              type="text" class="validate" value="${value}">
+            </div>`;
+          modalContent.appendChild(row);
+        });
+
+        const buttonAgree = document.createElement('a');
+        buttonAgree.href = '#!';
+        buttonAgree.className = 'modal-close waves-effect waves-green btn red';
+        buttonAgree.innerHTML = 'Modify';
+        buttonAgree.dataset.cle = cellPKColumnName;
+        buttonAgree.dataset.id = cellPKId;
+        buttonAgree.addEventListener('click', updateLine);
+        modalFooter.appendChild(buttonAgree);
+
+        // we open the modal
+        $(document).ready(() => {
+          $('.modal').modal();
+          $('.modal').modal('open');
+        });
+      };
+
+      /**
+       * Toggles the Delete Modal
+       * @callback
+       * @param e
+       */
+      openDeleteModal = (e) => {
+        const cellPKColumnName = e.target.dataset.cle;
+        const cellPKId = e.target.dataset.id;
+
+        const modalContent = document.body.querySelector('#modal-content-edit');
+        modalContent.innerHTML = 'You sure you want to delete this line ?'; // we empty the modal-content
+
+        const modalFooter = document.body.querySelector('#modal-footer-edit');
+        modalFooter.innerHTML = ''; // we empty the modal-footer
+
+        const buttonAgree = document.createElement('a');
+        buttonAgree.href = '#!';
+        buttonAgree.className = 'modal-close waves-effect waves-green btn red';
+        buttonAgree.innerHTML = 'Delete';
+        buttonAgree.dataset.cle = cellPKColumnName;
+        buttonAgree.dataset.id = cellPKId;
+        buttonAgree.addEventListener('click', deleteLine);
+        modalFooter.appendChild(buttonAgree);
+
+        // we open the modal
+        $(document).ready(() => {
+          $('.modal').modal();
+          $('.modal').modal('open');
+        });
+      };
+
+      /**
+       * Draws the dataTable with the data fetched form the database
+       * @callback
+       * @param result
+       */
+      drawDataTable = (result) => {
+        const table = document.body.querySelector('#edit-table');
+
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+        const tfoot = document.createElement('tfoot');
+        let theadDefined = false;
+
+        result.forEach((row) => {
+          // THEAD
+          if (!theadDefined) {
+            const theadRow = document.createElement('tr');
+            const tfootRow = document.createElement('tr');
+
+            // add delete and modify buttons
+            const thVideEdit = document.createElement('th');
+            theadRow.appendChild(thVideEdit);
+            const thVideDel = document.createElement('th');
+            theadRow.appendChild(thVideDel);
+
+            const thVide = document.createElement('th');
+            tfootRow.appendChild(thVide);
+            const thNew = document.createElement('th');
+            thNew.innerHTML = `
+              <div class="btn green">
+                <i class="material-icons">add</i>
+              </div>`;
+            thNew.addEventListener('click', createLine);
+            tfootRow.appendChild(thNew);
+
+            // add all the columns headers
+            Object.keys(row).forEach((columnName) => {
+              const th = document.createElement('th');
+              th.innerHTML = columnName;
+              theadRow.appendChild(th);
+
+              const td2 = document.createElement('td');
+              td2.innerHTML = `<input type="text" 
+                placeholder="${columnName}"
+                data-column="${columnName}"
+                onkeyup="this.dataset.value = this.value"
+                class="validate">`;
+              tfootRow.appendChild(td2);
+            });
+
+            thead.appendChild(theadRow);
+            tfoot.appendChild(tfootRow);
+            theadDefined = true;
+          }
+
+          // TBODY
+          const tr = document.createElement('tr');
+          tr.dataset.id = Object.values(row)[0];
+          // Edit button
+          const tdEdit = document.createElement('td');
+          tdEdit.innerHTML = `
+            <div class="btn" data-id="${Object.values(row)[0]}" 
+              data-cle="${Object.keys(row)[0]}">
+              <i class="material-icons" 
+              data-id="${Object.values(row)[0]}" 
+              data-cle="${Object.keys(row)[0]}">edit</i>
+            </div>`;
+          tdEdit.className = 'edit-cell';
+          tdEdit.dataset.id = Object.values(row)[0];
+          tdEdit.dataset.cle = Object.keys(row)[0];
+          tdEdit.addEventListener('click', openEditModal);
+          tr.appendChild(tdEdit);
+
+          // Del button
+          const tdDel = document.createElement('td');
+          tdDel.innerHTML = `
+            <div class="btn red" data-id="${Object.values(row)[0]}" 
+              data-cle="${Object.keys(row)[0]}">
+              <i class="material-icons" 
+              data-id="${Object.values(row)[0]}" 
+              data-cle="${Object.keys(row)[0]}">delete</i>
+            </div>`;
+          tdDel.className = 'del-cell';
+          tdDel.dataset.id = Object.values(row)[0];
+          tdDel.dataset.cle = Object.keys(row)[0];
+          tdDel.addEventListener('click', openDeleteModal);
+          tr.appendChild(tdDel);
+
+          // All the values
+          Object.values(row).forEach((cell) => {
+            const td = document.createElement('td');
+            td.innerHTML = cell;
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        table.appendChild(tfoot);
+
+        // we draw the datatable
+        $(document).ready(() => {
+          $('#edit-table').DataTable({
+            stateSave: true,
+            scrollX: true,
+            order: [[2, 'asc']],
+            columnDefs: [{
+              targets: [0, 1],
+              orderable: false,
+            }],
+            dom: '<"toolbar">frtip',
+            initComplete: () => {},
+          });
+          $('div.toolbar').html(`<b>Table: ${'Transactions'}</b>`);
+        });
+      };
+
+      /**
+       * Returns all the transactions
+       * @function
+       */
+      fetchALlTransactions = () => {
+        transactions.getAllTransactions(drawDataTable);
+      };
       break;
     }
     case 'gerer_services_divers': {
@@ -829,6 +1123,7 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_facturation': {
+      fetchALlTransactions();
       break;
     }
     case 'gerer_services_divers': {
