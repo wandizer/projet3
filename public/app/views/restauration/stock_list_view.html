@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Menu - Création</title>
+  <title>Stock - Création</title>
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
   <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
@@ -37,52 +37,39 @@
 				<a class="erpion-sidenav__onglets-onglet--active" href="restauration_view.html">
 					<i class="material-icons">play_arrow</i>Mon dashboard
 				</a>
-				<a class="erpion-sidenav__onglets-onglet" href="stock_list_view.html">Gérer le stock</a>
+				<a href="menu_list_view.html" class="erpion-sidenav__onglets-onglet">Gérer les ménus</a>
 				<a class="erpion-sidenav__onglets-onglet" href="reservation_restaurant_view.html">Gérer les commandes</a>
 			</div>
 			<div class="erpion-sidenav__logo">
 				<img src="../../../assets/img/erpion_logo.png">
-			</div>
+			</div>s
 		</div>
-
-
+		
+		
 		<main>
 			<div class="content">
-
+				
 				<!-- -------------- Liste de Menus -------------- -->
 				<!-- Chambres libres -->
-
+				
         <div class="erpion-subsection">
-          <div class="erpion-subsection__title">Liste des Menus :<label id="menu"></label></div>
+          <div class="erpion-subsection__title">Stock :<label id="menu"></label></div>
 					<button type="button" class="btn-small green">
 								<i class="material-icons">control_point</i>
 					</button>
         </div>
-        <div class="erpion-card erpion-card__xxl" style="height: 350px">
-          <div class="erpion-rows" id="menuList">
+        <div class="erpion-container">
+          <div class="erpion-rows" id="stockList">
             <div class="nothing-found">
               <i class="material-icons">warning</i><p>Rien trouvé</p>
             </div>
           </div>
         </div>
-
-				 <div class="erpion-subsection">
-          <div class="erpion-subsection__title">Menus du jour :<label id="dayMenu"></label></div>
-					<button type="button" class="btn-small green">
-								<i class="material-icons">control_point</i>
-					</button>
-        </div>
-        <div class="erpion-card erpion-card__xxl" style="height: 350px">
-          <div class="erpion-rows" id="dayMenuList">
-            <div class="nothing-found">
-              <i class="material-icons">warning</i><p>Rien trouvé</p>
-            </div>
-          </div>
-        </div>
-
+ 
+				
 			</div>
 		</main>
 	</div>
-	<script type="module"> require('../../controllers/menu_list_controller.js');</script>
+	<script type="module"> require('../../controllers/stock_list_controller.js');</script>
 </body>
 </html>

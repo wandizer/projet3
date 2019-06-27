@@ -42,6 +42,16 @@ class Meal_Reservation {
     database.executeQuery(sql, date, callback);
   }
 	
+		/* 
+   * Get reservation
+   * @param id_menu
+   * @param callback
+   */
+  static findById(id_day_menu, callback) {
+    const sql = `SELECT * FROM ${tableName} WHERE id_day_menu = ?;`;
+    database.executeQuery(sql, id_day_menu, callback);
+  }
+	
 }
 
 module.exports = Meal_Reservation;

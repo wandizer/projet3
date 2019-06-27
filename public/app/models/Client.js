@@ -23,6 +23,16 @@ class Client {
     database.executeQuery($query, [idClient], callback);
   }
 
+		/*
+   * Get Stock food
+   * @param idClient
+   * @param callback
+   */
+  static findById(idClient, callback) {
+    const sql = `SELECT * FROM Client WHERE id_client = ?;`;
+    database.executeQuery(sql, idClient, callback);
+  }
+
   /**
    * Returns a specific client by email
    * @param {string} email - unique
