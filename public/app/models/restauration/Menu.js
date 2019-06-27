@@ -49,6 +49,15 @@ class Menu {
     database.executeQuery(sql, id_menu, callback);
   }
 	
+	/* 
+   * Find all types
+	 * @param callback
+   */
+  static findAll(callback) {
+    const sql = `SELECT * FROM ${tableName};`;
+    database.executeQuery(sql,{},callback);
+  }
+	
 }
 
 module.exports = Menu;

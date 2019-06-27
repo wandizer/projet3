@@ -52,7 +52,7 @@ class Dessert {
     database.executeQuery(sql, id_menu, callback);
   }
 	
-	/* 
+/* 
    * Find all types
 	 * @param callback
    */
