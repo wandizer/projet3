@@ -97,6 +97,7 @@
     margin-top: 20px;
     margin-bottom: 100px;
     height: 100%;
+    overflow-y: auto;
     display: flex;
     flex-flow: column nowrap; }
     .erpion-sidenav__onglets-onglet {
@@ -174,6 +175,7 @@
   width: 100%;
   max-height: calc(100vh - 30px);
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 5px;
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
@@ -222,6 +224,90 @@
     vertical-align: bottom;
     font-weight: bold;
     padding-left: 5px; }
+
+.erpion-chiffres {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between; }
+  .erpion-chiffres div {
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px; }
+    .erpion-chiffres div i, .erpion-chiffres div span {
+      margin-left: 5px;
+      margin-right: 5px; }
+  .erpion-chiffres__title {
+    flex-basis: 100%;
+    font-size: 14px; }
+  .erpion-chiffres__long-cell {
+    flex-basis: 100%;
+    border: 1px solid #e6e6e6;
+    background: rgba(255, 255, 255, 0.8); }
+  .erpion-chiffres__small-cell {
+    flex-basis: 45%;
+    border: 1px solid #e6e6e6;
+    background: rgba(255, 255, 255, 0.8); }
+  .erpion-chiffres .trending-up {
+    color: #0f9d58; }
+  .erpion-chiffres .trending-down {
+    color: #8b1014; }
+
+.erpion-voyages {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-flow: column nowrap; }
+  .erpion-voyages .erpion-voyage {
+    width: 100%;
+    height: 230px;
+    min-height: 230px;
+    display: flex;
+    flex-flow: row nowrap; }
+    .erpion-voyages .erpion-voyage__photo {
+      flex-basis: 25%;
+      height: 100%;
+      object-fit: cover;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+    .erpion-voyages .erpion-voyage__content {
+      flex-basis: 75%;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between; }
+      .erpion-voyages .erpion-voyage__content-header {
+        width: 100%;
+        padding: 5px;
+        background: #f0f0f0;
+        display: flex;
+        flex-flow: row wrap; }
+        .erpion-voyages .erpion-voyage__content-header__title {
+          font-size: 16px;
+          font-weight: bold;
+          margin-right: 20px; }
+        .erpion-voyages .erpion-voyage__content-header__date {
+          color: gray;
+          margin-right: 20px; }
+        .erpion-voyages .erpion-voyage__content-header__agence {
+          color: #00b0ff; }
+      .erpion-voyages .erpion-voyage__content-body {
+        width: 100%;
+        padding: 5px;
+        overflow-y: auto; }
+      .erpion-voyages .erpion-voyage__content-footer {
+        width: 100%;
+        height: auto;
+        padding: 5px;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        background: #f0f0f0; }
+        .erpion-voyages .erpion-voyage__content-footer__price {
+          color: red; }
 
 * {
   box-sizing: border-box;
@@ -292,3 +378,6 @@ main {
   justify-content: center; }
   .nothing-found p {
     margin-left: 10px; }
+
+.rating {
+  font-size: 35px; }

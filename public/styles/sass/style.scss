@@ -8,6 +8,8 @@
 @import "components/container";
 @import "components/rows";
 @import "components/sections";
+@import "components/chiffres";
+@import "components/voyages";
 
 * {
   box-sizing: border-box;
@@ -84,4 +86,8 @@ main {
   p {
     margin-left: 10px;
   }
+}
+
+.rating {
+  font-size: 35px;
 }

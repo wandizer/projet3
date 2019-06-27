@@ -31,21 +31,44 @@
       <div class="erpion-card erpion-card-canvas erpion-card__sm">
         <canvas id="lineChart"></canvas>
       </div>
-      <div class="erpion-card erpion-card__xs"></div>
+      <div class="erpion-card erpion-card__xs erpion-chiffres">
+        <div class="erpion-chiffres__title">Chiffres (Semaine)</div>
+        <div class="erpion-chiffres__long-cell" >
+          <span id="chiffresAffaires">----</span>€
+        </div>
+        <div class="erpion-chiffres__small-cell">
+          <span id="profit">----</span> €
+        </div>
+        <div class="erpion-chiffres__small-cell">
+          <span id="curveIncome"><i class="material-icons trending-up">trending_up</i></span>
+        </div>
+        <div class="erpion-chiffres__small-cell">
+          <span id="occupiedRoomsPercent">--</span>%<i class="material-icons">hotel</i>
+        </div>
+        <div class="erpion-chiffres__small-cell">
+          <span id="totalAmountRooms">--</span><i class="material-icons">hotel</i></div>
+      </div>
 
       <div class="erpion-subsection">
         <div class="erpion-subsection__title">Reservations :</div>
-        <button type="button" class="btn">Gérer</button>
+        <a class="btn" href="./gerer_reservations.html">Gérer</a>
       </div>
       <div class="erpion-card erpion-card__xxl">
         <div class="erpion-rows">
           <div class="erpion-rows__row">
             <i class="material-icons">hotel</i>
             <div class="erpion-rows__row-element">
+              <div class="green-dot"></div>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">Type:</label>
               <span class="chambre-type">Simple</span>
             </div>
             <div class="erpion-rows__row-element">
-              <span class="chambre-status">10/20</span>
+              <label style="margin-right: 5px">État:</label>
+              <span class="chambre-status">
+                <span id="occupiedSimple">--</span>/<span id="totalSimple">--</span>
+              </span>
             </div>
             <div class="erpion-rows__row-element">
               <span class="chambre-details">
@@ -56,10 +79,17 @@
           <div class="erpion-rows__row">
             <i class="material-icons">hotel</i>
             <div class="erpion-rows__row-element">
-              <span>Double</span>
+              <div class="green-dot"></div>
             </div>
             <div class="erpion-rows__row-element">
-              <span class="chambre-status">05/20</span>
+              <label style="margin-right: 5px">Type:</label>
+              <span class="chambre-type">Double</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">État:</label>
+              <span class="chambre-status">
+                <span id="occupiedDouble">--</span>/<span id="totalDouble">--</span>
+              </span>
             </div>
             <div class="erpion-rows__row-element">
               <span class="chambre-details">
@@ -70,10 +100,17 @@
           <div class="erpion-rows__row">
             <i class="material-icons">hotel</i>
             <div class="erpion-rows__row-element">
-              <span>Suite</span>
+              <div class="green-dot"></div>
             </div>
             <div class="erpion-rows__row-element">
-              <span class="chambre-status">02/10</span>
+              <label style="margin-right: 5px">Type:</label>
+              <span class="chambre-type">Suite</span>
+            </div>
+            <div class="erpion-rows__row-element">
+              <label style="margin-right: 5px">État:</label>
+              <span class="chambre-status">
+                <span id="occupiedSuite">--</span>/<span id="totalSuite">--</span>
+              </span>
             </div>
             <div class="erpion-rows__row-element">
               <span class="chambre-details">
@@ -86,13 +123,13 @@
 
       <div class="erpion-subsection">
         <div class="erpion-subsection__title">Voyages :</div>
-        <button type="button" class="btn">Gérer</button>
+        <a class="btn" href="./gerer_voyages.html">Gérer</a>
       </div>
-      <div class="erpion-card erpion-card__xxl"></div>
+      <div class="erpion-container erpion-voyages"></div>
 
       <div class="erpion-subsection">
         <div class="erpion-subsection__title">Notoriété :</div>
-        <button type="button" class="btn">Gérer</button>
+        <a class="btn" href="./gerer_notoriete.html">Gérer</a>
       </div>
       <div class="erpion-card erpion-card__xxl"></div>
     </div>
