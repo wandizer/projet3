@@ -1,11 +1,6 @@
 const Database = require('../../database/DatabaseV2.js');
 
 const database = new Database();
-const dateProblem = `
-SELECT * FROM Room_Reservation
-WHERE strftime('%d/%m/%Y', datetime(1281353727/1000, 'unixepoch')) BETWEEN
-    strftime('%d/%m/%Y', datetime(date_arrival/1000, 'unixepoch')) AND
-    strftime('%d/%m/%Y', datetime(date_depart/1000, 'unixepoch'));`;
 
 /**
  * @class Notoriete
@@ -60,6 +55,46 @@ class Notoriete {
       [rating_room, rating_services, rating_restaurant, rating_events, comments, id_client],
       callback,
     );
+  }
+
+  /**
+   * Retrieves the average notations for the room rating
+   * @function
+   * @param callback
+   */
+  getAvgRatingRoom(callback) {
+    const $query = 'SELECT AVG(rating_room) AS "avgRoom" FROM Notoriete';
+    database.executeQuery($query, [], callback);
+  }
+
+  /**
+   * Retrieves the average notations for the services rating
+   * @function
+   * @param callback
+   */
+  getAvgRatingServices(callback) {
+    const $query = 'SELECT AVG(rating_services) AS "avgServices" FROM Notoriete';
+    database.executeQuery($query, [], callback);
+  }
+
+  /**
+   * Retrieves the average notations for the restaurant rating
+   * @function
+   * @param callback
+   */
+  getAvgRatingRestaurant(callback) {
+    const $query = 'SELECT AVG(rating_restaurant) AS "avgRestaurant" FROM Notoriete';
+    database.executeQuery($query, [], callback);
+  }
+
+  /**
+   * Retrieves the average notations for the events rating
+   * @function
+   * @param callback
+   */
+  getAvgRatingEvents(callback) {
+    const $query = 'SELECT AVG(rating_events) AS "avgEvents" FROM Notoriete';
+    database.executeQuery($query, [], callback);
   }
 }
 

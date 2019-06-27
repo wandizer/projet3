@@ -78,6 +78,8 @@ window.addEventListener('load', () => {
   };
   let fetchAmountOfRoomTypeFilled = () => {
   };
+  let fetchAvgNotoriete = () => {
+  };
   let drawDatepicker = () => {
   };
   let clearReservationPage = () => {
@@ -284,7 +286,6 @@ window.addEventListener('load', () => {
        */
       drawListVoyages = () => {
         voyages.getAllVoyages((trips) => {
-          console.log(trips);
           $('.erpion-voyages').html('');
           trips.forEach(trip => {
             let duration = trip.duration.split('d').join(' jours ');
@@ -308,6 +309,45 @@ window.addEventListener('load', () => {
               </div>
             </div>
             `);
+          });
+        });
+      };
+
+      /**
+       * Retrieves the average notations from the clients
+       * @function
+       */
+      fetchAvgNotoriete = () => {
+        notoriete.getAvgRatingRoom((result) => {
+          $('#roomNotation').rate({
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: result[0].avgRoom,
+            readonly: true,
+          });
+        });
+        notoriete.getAvgRatingServices((result) => {
+          $('#servicesNotation').rate({
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: result[0].avgServices,
+            readonly: true,
+          });
+        });
+        notoriete.getAvgRatingRestaurant((result) => {
+          $('#restaurantNotation').rate({
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: result[0].avgRestaurant,
+            readonly: true,
+          })
+        });
+        notoriete.getAvgRatingEvents((result) => {
+          $('#eventsNotation').rate({
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: result[0].avgEvents,
+            readonly: true,
           });
         });
       };
@@ -1104,6 +1144,7 @@ window.addEventListener('load', () => {
       fetchWeeklyValues();
       fetchAmountOfRoomTypeFilled();
       drawListVoyages();
+      fetchAvgNotoriete();
       break;
     }
     case 'gerer_reservations': {
