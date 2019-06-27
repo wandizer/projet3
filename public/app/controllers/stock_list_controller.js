@@ -1,23 +1,21 @@
 window.$ = window.jQuery = require('../../plugins/jquery/jquery-3.3.1.min.js');
 
-document.addEventListener('DOMContentLoaded', function() {
-	var elems = document.querySelectorAll('.sidenav');
-	var instances = M.Sidenav.init(elems, {});
+const Utils = require('../../utils/Utils.js');
+const Sidenav = require('../../utils/Sidenav.js');
+
+// Session Storage
+const storedRole = Utils.getStoredRole();
+const storedEmploye = Utils.getStoredEmploye();
+const storedUser = Utils.getStoredUser();
+const storedService = Utils.getStoredService();
+const viewName = Utils.getViewName(window.location.href);
+
+document.addEventListener('DOMContentLoaded', () => {
+  Sidenav.drawSidenav(storedRole.name, viewName, storedEmploye.name, storedEmploye.surname);
+  if (storedRole.permission_level > 2) {
+    document.getElementById('stats').style.display = 'none';
+  }
 });
-		
-//SET USER INFO
-if(sessionStorage.getItem("employe")!= null){
-	var employe = JSON.parse(sessionStorage.getItem("employe"));
-	document.getElementById("name").innerHTML = employe.name;
-	document.getElementById("surname").innerHTML = employe.surname;
-}
-if(sessionStorage.getItem("role")!= null){
-	var role = JSON.parse(sessionStorage.getItem("role"));
-	document.getElementById("role").innerHTML = role.name;
-	if(role.permission_level > 2){
-		document.getElementById("stats").style.display = 'none';
-	}
-}
 
 const Food_Item = require('../models/restauration/Food_Item.js');
 
@@ -31,32 +29,31 @@ const defaultEmptyContent = `
 </div>`;
 
 
-let var_FoodItems={};
+const var_FoodItems = {};
 
-//START
+// START
 Food_Item.findAll(getFoodItems);
 
 
-
-function getFoodItems(result){
-	if (Array.isArray(result) && result[0] != undefined) {
-		$cardStock.html('');
-		for (var row of result) {
-			var_FoodItems[row.id_food_item]=row;
-			Stock.findById(row.id_food_item, appendFoodItems);
-		}	
-				console.log(result);
-	} else {
-		console.log("Menu Inexistant");
-		//Bouton Pour créer un nouveau menu
-	}
+function getFoodItems(result) {
+  if (Array.isArray(result) && result[0] != undefined) {
+    $cardStock.html('');
+    for (const row of result) {
+      var_FoodItems[row.id_food_item] = row;
+      Stock.findById(row.id_food_item, appendFoodItems);
+    }
+    console.log(result);
+  } else {
+    console.log('Menu Inexistant');
+    // Bouton Pour créer un nouveau menu
+  }
 }
 
-function appendFoodItems(result){
-	if (result.length) {
-		result.forEach((result) => {
-			$cardStock.append(
-				`<div class="erpion-rows__row">
+function appendFoodItems(result) {
+  if (result.length) {
+    result.forEach((result) => {
+      $cardStock.append(
+        `<div class="erpion-rows__row">
 					<i class="material-icons">restaurant</i>
 					<div class="erpion-rows__row-element">
 						<div class="green-dot"></div>
@@ -90,11 +87,10 @@ function appendFoodItems(result){
 					<i class="material-icons">delete</i>
 					</button>
 				</div>`,
-			);
-			//$(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
-		});
-	} else {
-		$cardStock.html(defaultEmptyContent);
-	}
+      );
+      // $(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
+    });
+  } else {
+    $cardStock.html(defaultEmptyContent);
+  }
 }
-

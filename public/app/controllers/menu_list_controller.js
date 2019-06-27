@@ -1,87 +1,91 @@
 
-	window.$ = window.jQuery = require('../../plugins/jquery/jquery-3.3.1.min.js');
+window.$ = window.jQuery = require('../../plugins/jquery/jquery-3.3.1.min.js');
 
-	//SET USER INFO
-	if(sessionStorage.getItem("employe")!= null){
-		var employe = JSON.parse(sessionStorage.getItem("employe"));
-		document.getElementById("name").innerHTML = employe.name;
-		document.getElementById("surname").innerHTML = employe.surname;
-	}
-	if(sessionStorage.getItem("role")!= null){
-		var role = JSON.parse(sessionStorage.getItem("role"));
-		document.getElementById("role").innerHTML = role.name;
-		if(role.permission_level > 2){
-			document.getElementById("stats").style.display = 'none';
-		}
-	}
+const Utils = require('../../utils/Utils.js');
+const Sidenav = require('../../utils/Sidenav.js');
 
-	//SET MENU VARS
-	const Day_Menu = require('../models/restauration/Day_Menu.js');
-	const Menu = require('../models/restauration/Menu.js');
-	const Appetizers = require('../models/restauration/Appetizer.js');
-	const Main_Course = require('../models/restauration/Main_Course.js');
-	const Dessert = require('../models/restauration/Dessert.js');
-	const $cardMenu = $('#menuList');
-	const $cardDayMenu = $('#dayMenuList');
+// Session Storage
+const storedRole = Utils.getStoredRole();
+const storedEmploye = Utils.getStoredEmploye();
+const storedUser = Utils.getStoredUser();
+const storedService = Utils.getStoredService();
+const viewName = Utils.getViewName(window.location.href);
 
-	//MENU ARRAYS
-	let var_DayMenus;
-	let day_menus_list;
-	let menus_list;
+document.addEventListener('DOMContentLoaded', () => {
+  Sidenav.drawSidenav(storedRole.name, viewName, storedEmploye.name, storedEmploye.surname);
+  if (storedRole.permission_level > 2) {
+    document.getElementById('stats').style.display = 'none';
+  }
+});
 
-	let var_AppetizerList = {};
-	let var_MainCourseList = {};
-	let var_DessertList = {};
-	let var_MenusList = {};
-	let var_DayMenusList = {};
+// SET MENU VARS
+const Day_Menu = require('../models/restauration/Day_Menu.js');
+const Menu = require('../models/restauration/Menu.js');
+const Appetizers = require('../models/restauration/Appetizer.js');
+const Main_Course = require('../models/restauration/Main_Course.js');
+const Dessert = require('../models/restauration/Dessert.js');
 
-	Appetizers.findAll(getAppetizers);
+const $cardMenu = $('#menuList');
+const $cardDayMenu = $('#dayMenuList');
 
-	const defaultEmptyContent = `
+// MENU ARRAYS
+let var_DayMenus;
+let day_menus_list;
+let menus_list;
+
+const var_AppetizerList = {};
+const var_MainCourseList = {};
+const var_DessertList = {};
+const var_MenusList = {};
+const var_DayMenusList = {};
+
+Appetizers.findAll(getAppetizers);
+
+const defaultEmptyContent = `
 	<div class="nothing-found">
 		<i class="material-icons">warning</i><p>Rien trouvé</p>
 	</div>`;
 
-	function getAppetizers(result){
-		if (Array.isArray(result) && result[0] != undefined) {
-			for (var row of result) {
-				var_AppetizerList[row.id_appetizer]=row;
-			}	
-			Main_Course.findAll(getMainCourse);
-			//Bouton Pour créer un nouveau menu
-		}
-	}
+function getAppetizers(result) {
+  if (Array.isArray(result) && result[0] != undefined) {
+    for (const row of result) {
+      var_AppetizerList[row.id_appetizer] = row;
+    }
+    Main_Course.findAll(getMainCourse);
+    // Bouton Pour créer un nouveau menu
+  }
+}
 
-	function getMainCourse(result){
-		if (Array.isArray(result) && result[0] != undefined) {
-			for (var row of result) {
-				var_MainCourseList[row.id_main_course]=row;
-			}	
-			Dessert.findAll(getDessert);
-			//Bouton Pour créer un nouveau menu
-		}
-	}		
+function getMainCourse(result) {
+  if (Array.isArray(result) && result[0] != undefined) {
+    for (const row of result) {
+      var_MainCourseList[row.id_main_course] = row;
+    }
+    Dessert.findAll(getDessert);
+    // Bouton Pour créer un nouveau menu
+  }
+}
 
-	function getDessert(result){
-		if (Array.isArray(result) && result[0] != undefined) {
-			for (var row of result) {
-				var_DessertList[row.id_dessert]=row;
-			}
-			Menu.findAll(getMenus);
-			//Bouton Pour créer un nouveau menu
-		}
-	}
+function getDessert(result) {
+  if (Array.isArray(result) && result[0] != undefined) {
+    for (const row of result) {
+      var_DessertList[row.id_dessert] = row;
+    }
+    Menu.findAll(getMenus);
+    // Bouton Pour créer un nouveau menu
+  }
+}
 
-	function getMenus(result){
-		if (Array.isArray(result) && result[0] != undefined) {
-			$cardMenu.html('');
-			for (var row of result) {
-				var_MenusList[row.id_menu]=row;
-			}
-			Day_Menu.findAll(getDayMenus);
-			result.forEach((result) => {
-			$cardMenu.append(
-				`<div class="erpion-rows__row" style="font-size:10pt;">
+function getMenus(result) {
+  if (Array.isArray(result) && result[0] != undefined) {
+    $cardMenu.html('');
+    for (const row of result) {
+      var_MenusList[row.id_menu] = row;
+    }
+    Day_Menu.findAll(getDayMenus);
+    result.forEach((result) => {
+      $cardMenu.append(
+        `<div class="erpion-rows__row" style="font-size:10pt;">
 
 					<i class="material-icons">restaurant</i>
 
@@ -128,26 +132,27 @@
 							<i class="material-icons">delete</i>
 						</button>
 					</div>
-				</div>`,);
-				//$(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
-			});			
-		} else {
-			$cardMenu.html(defaultEmptyContent);
-			console.log("Menu Inexistant");
-			//Bouton Pour créer un nouveau menu
-		}
-	}
+				</div>`,
+      );
+      // $(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
+    });
+  } else {
+    $cardMenu.html(defaultEmptyContent);
+    console.log('Menu Inexistant');
+    // Bouton Pour créer un nouveau menu
+  }
+}
 
 
-	function getDayMenus(result){
-		if (Array.isArray(result) && result[0] != undefined) {
-			$cardDayMenu.html('');
-			for (var row of result) {
-				var_DayMenusList[row.id_menu]=row;
-			}
-			result.forEach((result) => {
-					$cardDayMenu.append(
-						`<div class="erpion-rows__row" style="font-size:10pt;">
+function getDayMenus(result) {
+  if (Array.isArray(result) && result[0] != undefined) {
+    $cardDayMenu.html('');
+    for (const row of result) {
+      var_DayMenusList[row.id_menu] = row;
+    }
+    result.forEach((result) => {
+      $cardDayMenu.append(
+        `<div class="erpion-rows__row" style="font-size:10pt;">
 
 							<i class="material-icons">restaurant</i>
 
@@ -203,12 +208,12 @@
 							</div>
 
 						</div>`,
-					);
-					//$(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
-				});
-		} else {
-			$cardDayMenu.html(defaultEmptyContent);
-			console.log("Menu Inexistant");
-			//Bouton Pour créer un nouveau menu
-		}
-	}
+      );
+      // $(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
+    });
+  } else {
+    $cardDayMenu.html(defaultEmptyContent);
+    console.log('Menu Inexistant');
+    // Bouton Pour créer un nouveau menu
+  }
+}
