@@ -38,8 +38,8 @@ function storeService(result) {
     window.location.assign('../restauration/restauration_view.html');
   } else if (result[0].name === 'Hebergement') {
     window.location.assign('../hebergement/dashboard_hebergement.html');
-  } else if (result[0].name === 'Réception') {
-    window.location.assign('../reception/reception_view.html');
+  } else if (result[0].name === 'Reception') {
+    window.location.assign('../reception/dashboard_reception.html');
   } else if (result[0].name === 'Maintenance') {
     window.location.assign('../maintenance/maintenance_view.html');
   } else if (result[0].name === 'Spa') {

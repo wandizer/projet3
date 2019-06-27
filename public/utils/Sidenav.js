@@ -1,42 +1,71 @@
 const Sidenav = {
   onglets: [
-    { role: 'Directeur de l\'hotel', items: [
-      { label: 'Mon dashboard', url: '../direction/dashboard_direction.html', viewName: 'dashboard_direction' },
-      { label: 'Gérer réservations', url: '../hebergement/gerer_reservations.html', viewName: 'gerer_reservations' },
-      { label: 'Gérer personnel', url: '../direction/gerer_personnel.html', viewName: 'gerer_personnel' },
-      { label: 'Dashboard D.R', url: '../restauration/restauration_view.html', viewName: 'restauration_view' },
-      { label: 'Dashboard D.H', url: '../hebergement/dashboard_hebergement.html', viewName: 'dashboard_hebergement' },
-      { label: 'Dashboard C.R', url: '../reception/dashboard_reception.html', viewName: 'dashboard_reception' },
-      { label: 'Dashboard G.G', url: '../nettoyage/dashboard_gouvernante.html', viewName: 'dashboard_gouvernante' },
-      { label: 'Dashboard C.M', url: '../maintenance/dashboard_maintenance.html', viewName: 'dashboard_maintenance' },
-      { label: 'Dashboard S.M', url: '../spa/dashboard_spa.html', viewName: 'dashboard_spa' },
-    ]},
-    { role: 'Directeur du restaurant', items: [
-      { label: '', url: '..//.html'},
-    ]},
-    { role: 'Directeur d\'hebergement', items: [
-      { label: 'Mon dashboard', url: '../hebergement/dashboard_hebergement.html', viewName: 'dashboard_hebergement' },
-      { label: 'Gérer réservations', url: '../hebergement/gerer_reservations.html', viewName: 'gerer_reservations' },
-      { label: 'Gérer centrales de réservation', url: '../hebergement/gerer_centrales_reservation.html', viewName: 'gerer_centrales_reservation' },
-      { label: 'Liste des chambres', url: '../hebergement/liste_chambres.html', viewName: 'liste_chambres' },
-      { label: 'Gérer voyages', url: '../hebergement/gerer_voyages.html', viewName: 'gerer_voyages' },
-      { label: 'Gérer notoriété', url: '../hebergement/gerer_notoriete.html', viewName: 'gerer_notoriete' },
-    ]},
-    { role: 'Chef de reception', items: [
-      { label: '', url: '..//.html', viewName: '' },
-    ]},
-    { role: 'Gouvernante generale', items: [
-      { label: '', url: '..//.html', viewName: '' },
-    ]},
-    { role: 'Chef de maintenance', items: [
-      { label: '', url: '..//.html', viewName: '' },
-    ]},
-    { role: 'Spa manager', items: [
-      { label: '', url: '..//.html', viewName: '' },
-    ]},
-    { role: '', items: [
-      { label: '', url: '..//.html', viewName: '' },
-    ]},
+    {
+      role: 'Directeur de l\'hotel',
+      items: [
+        { label: 'Mon dashboard', url: '../direction/dashboard_direction.html', viewName: 'dashboard_direction' },
+        { label: 'Gérer réservations', url: '../hebergement/gerer_reservations.html', viewName: 'gerer_reservations' },
+        { label: 'Gérer personnel', url: '../direction/gerer_personnel.html', viewName: 'gerer_personnel' },
+        { label: 'Dashboard D.R', url: '../restauration/restauration_view.html', viewName: 'restauration_view' },
+        { label: 'Dashboard D.H', url: '../hebergement/dashboard_hebergement.html', viewName: 'dashboard_hebergement' },
+        { label: 'Dashboard C.R', url: '../reception/dashboard_reception.html', viewName: 'dashboard_reception' },
+        { label: 'Dashboard G.G', url: '../nettoyage/dashboard_gouvernante.html', viewName: 'dashboard_gouvernante' },
+        { label: 'Dashboard C.M', url: '../maintenance/dashboard_maintenance.html', viewName: 'dashboard_maintenance' },
+        { label: 'Dashboard S.M', url: '../spa/dashboard_spa.html', viewName: 'dashboard_spa' },
+      ],
+    },
+    {
+      role: 'Directeur du restaurant',
+      items: [
+        { label: '', url: '..//.html', viewName: '' },
+      ],
+    },
+    {
+      role: 'Directeur d\'hebergement',
+      items: [
+        { label: 'Mon dashboard', url: '../hebergement/dashboard_hebergement.html', viewName: 'dashboard_hebergement' },
+        { label: 'Gérer réservations', url: '../hebergement/gerer_reservations.html', viewName: 'gerer_reservations' },
+        { label: 'Gérer centrales de réservation', url: '../hebergement/gerer_centrales_reservation.html', viewName: 'gerer_centrales_reservation' },
+        { label: 'Liste des chambres', url: '../hebergement/liste_chambres.html', viewName: 'liste_chambres' },
+        { label: 'Gérer voyages', url: '../hebergement/gerer_voyages.html', viewName: 'gerer_voyages' },
+        { label: 'Gérer notoriété', url: '../hebergement/gerer_notoriete.html', viewName: 'gerer_notoriete' },
+      ],
+    },
+    {
+      role: 'Chef de reception',
+      items: [
+        { label: 'Mon dashboard', url: '../reception/dashboard_reception.html', viewName: 'dashboard_reception' },
+        { label: 'Gérer réservations', url: '../hebergement/gerer_reservations.html', viewName: 'gerer_reservations' },
+        { label: 'Gérer notoriété', url: '../hebergement/gerer_notoriete.html', viewName: 'gerer_notoriete' },
+        { label: 'Encaisser client', url: '../reception/encaisser_client.html', viewName: 'encaisser_client' },
+        { label: 'Gérer facturation', url: '../reception/gerer_facturation.html', viewName: 'gerer_facturation' },
+        { label: 'Gérer services divers', url: '../reception/gerer_services_divers.html', viewName: 'gerer_services_divers' },
+      ],
+    },
+    {
+      role: 'Gouvernante generale',
+      items: [
+        { label: '', url: '..//.html', viewName: '' },
+      ],
+    },
+    {
+      role: 'Chef de maintenance',
+      items: [
+        { label: '', url: '..//.html', viewName: '' },
+      ],
+    },
+    {
+      role: 'Spa manager',
+      items: [
+        { label: '', url: '..//.html', viewName: '' },
+      ],
+    },
+    {
+      role: '',
+      items: [
+        { label: '', url: '..//.html', viewName: '' },
+      ],
+    },
   ],
 
   /**
