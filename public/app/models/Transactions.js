@@ -14,12 +14,87 @@ class Transactions {
   }
 
   /**
+   * Pay all the current client transactions
+   * @param idClient
+   * @param callback
+   */
+  payAllTransactionsByIdClient(idClient, callback) {
+    database.rewrite(
+      'Transactions',
+      ['payed'],
+      [true],
+      'id_client',
+      idClient,
+      callback,
+    );
+  }
+
+  /**
+   * Pay a single transaction by transaction id
+   * @param idTransaction
+   * @param callback
+   */
+  payTransactionById(idTransaction, callback) {
+    database.rewrite(
+      'Transactions',
+      ['payed'],
+      [true],
+      'id_transaction',
+      idTransaction,
+      callback,
+    );
+  }
+
+  /**
    * Returns all the transactions
    * @param {function} callback
    */
   getAllTransactions(callback) {
     const $query = 'SELECT * FROM Transactions';
     database.executeQuery($query, [], callback);
+  }
+
+  /**
+   * Returns the client transactions by email
+   * @function
+   * @param email
+   * @param callback
+   */
+  getTransactionsByEmail(email, callback) {
+    const $query = 'SELECT id_client FROM Client WHERE email = ?';
+    database.executeQuery($query, [email], (result) => {
+      const $query2 = 'SELECT * FROM Transactions WHERE id_client = ?';
+      database.executeQuery($query2, [result[0].id_client], callback);
+    });
+  }
+
+  /**
+   * Returns the client transactions by phone number
+   * @function
+   * @param number
+   * @param callback
+   */
+  getTransactionsByNumber(number, callback) {
+    const $query = 'SELECT id_client FROM Client WHERE number = ?';
+    database.executeQuery($query, [number], (result) => {
+      const $query2 = 'SELECT * FROM Transactions WHERE id_client = ?';
+      database.executeQuery($query2, [result[0].id_client], callback);
+    });
+  }
+
+  /**
+   * Returns the client transactions by phone number and email
+   * @function
+   * @param email
+   * @param number
+   * @param callback
+   */
+  getTransactionsByEmailAndNumber(email, number, callback) {
+    const $query = 'SELECT id_client FROM Client WHERE email = ? AND number = ?';
+    database.executeQuery($query, [email, number], (result) => {
+      const $query2 = 'SELECT * FROM Transactions WHERE id_client = ?';
+      database.executeQuery($query2, [result[0].id_client], callback);
+    });
   }
 
   /**
