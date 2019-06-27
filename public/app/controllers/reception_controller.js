@@ -39,6 +39,8 @@ window.addEventListener('load', () => {
   // ####################################    VARIABLES    ######################################## //
   // ############################################################################################# //
 
+  let searchEmail;
+  let searchNumber;
   let doughnutChart;
   let lineChart;
   let datepicker;
@@ -122,6 +124,16 @@ window.addEventListener('load', () => {
   let drawDataTable = () => {
   };
   let fetchALlTransactions = () => {
+  };
+  let payTransaction = () => {
+  };
+  let payAllTransactions = () => {
+  };
+  let drawClientTransactionTable = () => {
+  };
+  let fetchClientTransactions = () => {
+  };
+  let searchClientTransactions = () => {
   };
 
   // -----------------------------------------------------------------------------------------
@@ -299,7 +311,8 @@ window.addEventListener('load', () => {
           demandData.prioDemandeMaintenance,
           demandData.deadlineDemandeMaintenance,
           false,
-          () => {},
+          () => {
+          },
         );
       };
 
@@ -315,7 +328,8 @@ window.addEventListener('load', () => {
           demandData.prioDemandeNettoyage,
           demandData.deadlineDemandeNettoyage,
           false,
-          () => {},
+          () => {
+          },
         );
       };
 
@@ -729,6 +743,115 @@ window.addEventListener('load', () => {
       break;
     }
     case 'encaisser_client': {
+
+      /**
+       * Allows us to pay a single transaction on behalf of the client
+       * @function
+       * @param e
+       */
+      payTransaction = (e) => {
+        const id_transaction = e.target.dataset.id;
+        transactions.payTransactionById(id_transaction, () => {
+          window.location.replace('../reception/encaisser_client.html');
+        });
+      };
+
+      /**
+       * Allows us to pay all transactions on behalf of the client
+       * @function
+       * @param e
+       */
+      payAllTransactions = (e) => {
+        const id_client = e.target.dataset.id;
+        transactions.payAllTransactionsByIdClient(id_client, () => {
+          window.location.replace('../reception/encaisser_client.html');
+        });
+      };
+
+      /**
+       * Responsible for drawing the client transactions in a table
+       * @function
+       * @param results
+       */
+      drawClientTransactionTable = (results) => {
+        const $table = $('#clientFacturationList');
+        let rowId;
+
+        // THEAD
+        let html = `<thead><tr><th id="selectAll">
+          <button type="button" id="toutPayer" data-id="${results[0].id_client}" 
+          class="btn btn-small red">Tout payer</button></th>`;
+        Object.keys(results[0]).forEach(header => {
+          html += `<th>${header}</th>`;
+        });
+        html += '</tr></thead>';
+
+        // TBODY
+        html += '<tbody>';
+        results.forEach(row => {
+          rowId = row.id_transaction;
+          html += `<tr data-id="${rowId}"><td><button type="button"
+            data-id="${rowId}" class="payerTransaction btn btn-small">Payer</button></td>`;
+          Object.values(row).forEach(cell => {
+            html += `<td>${cell}</td>`;
+          });
+          html += '</tr>';
+        });
+        html += '</tbody>';
+
+        $table.html('');
+        $table.append(html);
+
+        $table.DataTable({
+          stateSave: true,
+          scrollX: true,
+          order: [[3, 'asc']],
+          columnDefs: [{
+            targets: [0, 1],
+            orderable: false,
+          }],
+          initComplete: () => {
+          },
+        });
+
+        $('#toutPayer').on('click', payAllTransactions);
+
+        $('.payerTransaction').each(function () {
+          const button = this;
+          button.addEventListener('click', payTransaction);
+        });
+      };
+
+      /**
+       * Fetches the client transactions
+       * @function
+       * @param email
+       * @param number
+       */
+      fetchClientTransactions = (email, number) => {
+        if (email !== '' && number !== '') {
+          transactions.getTransactionsByEmailAndNumber(email, number, drawClientTransactionTable);
+        } else if (email !== '') {
+          transactions.getTransactionsByEmail(email, drawClientTransactionTable);
+        } else if (number !== '') {
+          transactions.getTransactionsByNumber(number, drawClientTransactionTable);
+        }
+      };
+
+      /**
+       * Searches the transactions according to email or number supllied
+       * @function
+       */
+      searchClientTransactions = () => {
+        const formData = $('form#searchFormTransactions').serializeArray();
+        const searchData = [];
+        $.each(formData, (i, field) => {
+          searchData[field.name] = field.value;
+        });
+        searchEmail = searchData.email;
+        searchNumber = searchData.number;
+        fetchClientTransactions(searchData.email, searchData.number);
+      };
       break;
     }
     case 'gerer_facturation': {
@@ -994,7 +1117,8 @@ window.addEventListener('load', () => {
               orderable: false,
             }],
             dom: '<"toolbar">frtip',
-            initComplete: () => {},
+            initComplete: () => {
+            },
           });
           $('div.toolbar').html(`<b>Table: ${'Transactions'}</b>`);
         });
@@ -1069,6 +1193,7 @@ window.addEventListener('load', () => {
       break;
     }
     case 'encaisser_client': {
+      $('#searchButton').on('click', searchClientTransactions);
       break;
     }
     case 'gerer_facturation': {

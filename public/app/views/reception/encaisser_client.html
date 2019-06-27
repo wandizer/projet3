@@ -6,6 +6,7 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="../../../plugins/material-design-icons/iconfont/material-icons.css">
   <link rel="stylesheet" href="../../../plugins/materialize/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="../../../plugins/datatables/datatables.min.css"/>
   <link rel="stylesheet" href="../../../styles/css/style.css">
   <link rel="stylesheet" href="../../../styles/css/reception/encaisser_client.css">
   <!-- Compiled and minified JavaScript -->
@@ -21,6 +22,32 @@
   <main>
     <div class="content">
 
+      <div class="row erpion-card__xxl white">
+        <form class="col s12" id="searchFormTransactions">
+          <div class="row">
+            <div class="input-field col s5">
+              <i class="material-icons prefix">email</i>
+              <input id="searchByEmail" name="email" type="email" class="validate">
+              <label for="searchByEmail">Email</label>
+            </div>
+            <div class="input-field col s5">
+              <i class="material-icons prefix">phone</i>
+              <input id="searchByNumber" name="number" type="tel" class="validate">
+              <label for="searchByNumber">Telephone</label>
+            </div>
+            <div class="input-field col s2">
+              <button type="button" class="btn-large" id="searchButton">
+                <i class="material-icons">search</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="erpion-container">
+        <table id="clientFacturationList">
+        </table>
+      </div>
     </div>
   </main>
   <!-- END MAIN -->
