@@ -17,6 +17,8 @@ const CentralesReservation = require('../models/CentralesReservation');
 const Voyages = require('../models/Voyage');
 const Transactions = require('../models/Transactions');
 const Notoriete = require('../models/Notoriete');
+const Cleaning = require('../models/Cleaning');
+const Maintenance = require('../models/Maintenance');
 
 // Session Storage
 const storedRole = Utils.getStoredRole();
@@ -50,6 +52,8 @@ window.addEventListener('load', () => {
   const voyages = new Voyages();
   const transactions = new Transactions();
   const notoriete = new Notoriete();
+  const cleaning = new Cleaning();
+  const maintenance = new Maintenance();
 
   const defaultEmptyContent = `
     <div class="nothing-found">
@@ -78,7 +82,9 @@ window.addEventListener('load', () => {
   };
   let fetchAmountOfRoomTypeFilled = () => {
   };
-  let fetchAvgNotoriete = () => {
+  let registerNewMaintenanceDemand = () => {
+  };
+  let registerNewNettoyageDemand = () => {
   };
   let drawDatepicker = () => {
   };
@@ -96,31 +102,13 @@ window.addEventListener('load', () => {
   };
   let reserveRoom = () => {
   };
-  let drawRoomsList = () => {
-  };
-  let buildModalCentraleReservation = () => {
-  };
-  let modifierCentraleReservation = () => {
-  };
-  let openModalModificationCentrale = () => {
-  };
-  let deleteCentraleReservation = () => {
-  };
-  let openModalDeleteCentrale = () => {
-  };
-  let addCentraleReservation = () => {
-  };
-  let drawCentralsOfReservation = () => {
-  };
-  let drawListVoyages = () => {
-  };
   let saveNotoriete = () => {
   };
 
   // -----------------------------------------------------------------------------------------
 
   switch (viewName) {
-    case 'dashboard_hebergement': {
+    case 'dashboard_reception': {
       /**
        * Draws a line chart with the data given
        * @function
@@ -280,77 +268,38 @@ window.addEventListener('load', () => {
         });
       };
 
-      /**
-       * Draws the list of all voyages/trips
-       * @function
-       */
-      drawListVoyages = () => {
-        voyages.getAllVoyages((trips) => {
-          $('.erpion-voyages').html('');
-          trips.forEach(trip => {
-            let duration = trip.duration.split('d').join(' jours ');
-            duration = duration.split('m').join(' mois');
-            duration = duration.split('y').join(' années ');
-            $('.erpion-voyages').append(`
-            <div class="erpion-voyage erpion-card erpion-card__xxl">
-              <img class="erpion-voyage__photo" src="../../../assets/img/voyages/${trip.photo}">
-              <div class="erpion-voyage__content">
-                <div class="erpion-voyage__content-header">
-                  <div class="erpion-voyage__content-header__title">${trip.title}</div>
-                  <div class="erpion-voyage__content-header__date">${trip.starting_date}</div>
-                  <div class="erpion-voyage__content-header__agence">${trip.nom}</div>
-                </div>
-                <div class="erpion-voyage__content-body">${trip.description}</div>
-                <div class="erpion-voyage__content-footer">
-                  <div class="erpion-voyage__content-footer__price">${trip.price}€</div>
-                  <div class="erpion-voyage__content-footer__rating">${Rating.getRatingStars(trip.rating)}</div>
-                  <div class="erpion-voyage__content-footer__duration">${duration}</div>
-                </div>
-              </div>
-            </div>
-            `);
-          });
+      registerNewMaintenanceDemand = () => {
+        const formData = $('form#formDemandeMaintenance').serializeArray();
+        const demandData = [];
+        $.each(formData, (i, field) => {
+          demandData[field.name] = field.value;
         });
+        maintenance.write(
+          demandData.titreDemandeMaintenance,
+          demandData.descDemandeMaintenance,
+          demandData.prioDemandeMaintenance,
+          demandData.deadlineDemandeMaintenance,
+          false,
+          () => {},
+        );
       };
 
-      /**
-       * Retrieves the average notations from the clients
-       * @function
-       */
-      fetchAvgNotoriete = () => {
-        notoriete.getAvgRatingRoom((result) => {
-          $('#roomNotation').rate({
-            max_value: 5,
-            step_size: 0.5,
-            initial_value: result[0].avgRoom,
-            readonly: true,
-          });
+      registerNewNettoyageDemand = () => {
+        const formData = $('form#formDemandeNettoyage').serializeArray();
+        const demandData = [];
+        $.each(formData, (i, field) => {
+          demandData[field.name] = field.value;
         });
-        notoriete.getAvgRatingServices((result) => {
-          $('#servicesNotation').rate({
-            max_value: 5,
-            step_size: 0.5,
-            initial_value: result[0].avgServices,
-            readonly: true,
-          });
-        });
-        notoriete.getAvgRatingRestaurant((result) => {
-          $('#restaurantNotation').rate({
-            max_value: 5,
-            step_size: 0.5,
-            initial_value: result[0].avgRestaurant,
-            readonly: true,
-          })
-        });
-        notoriete.getAvgRatingEvents((result) => {
-          $('#eventsNotation').rate({
-            max_value: 5,
-            step_size: 0.5,
-            initial_value: result[0].avgEvents,
-            readonly: true,
-          });
-        });
+        cleaning.write(
+          demandData.titreDemandeNettoyage,
+          demandData.descDemandeNettoyage,
+          demandData.prioDemandeNettoyage,
+          demandData.deadlineDemandeNettoyage,
+          false,
+          () => {},
+        );
       };
+
       break;
     }
     case 'gerer_reservations': {
@@ -731,42 +680,6 @@ window.addEventListener('load', () => {
       };
       break;
     }
-    case 'gerer_voyages': {
-      /**
-       * Draws the list of all voyages/trips
-       * @function
-       */
-      drawListVoyages = () => {
-        voyages.getAllVoyages((trips) => {
-          console.log(trips);
-          $('.erpion-voyages').html('');
-          trips.forEach(trip => {
-            let duration = trip.duration.split('d').join(' jours ');
-            duration = duration.split('m').join(' mois');
-            duration = duration.split('y').join(' années ');
-            $('.erpion-voyages').append(`
-            <div class="erpion-voyage erpion-card erpion-card__xxl">
-              <img class="erpion-voyage__photo" src="../../../assets/img/voyages/${trip.photo}">
-              <div class="erpion-voyage__content">
-                <div class="erpion-voyage__content-header">
-                  <div class="erpion-voyage__content-header__title">${trip.title}</div>
-                  <div class="erpion-voyage__content-header__date">${trip.starting_date}</div>
-                  <div class="erpion-voyage__content-header__agence">${trip.nom}</div>
-                </div>
-                <div class="erpion-voyage__content-body">${trip.description}</div>
-                <div class="erpion-voyage__content-footer">
-                  <div class="erpion-voyage__content-footer__price">${trip.price}€</div>
-                  <div class="erpion-voyage__content-footer__rating">${Rating.getRatingStars(trip.rating)}</div>
-                  <div class="erpion-voyage__content-footer__duration">${duration}</div>
-                </div>
-              </div>
-            </div>
-            `);
-          });
-        });
-      };
-      break;
-    }
     case 'gerer_notoriete': {
       /**
        * Saves the comments from the client
@@ -796,276 +709,13 @@ window.addEventListener('load', () => {
       };
       break;
     }
-    case 'liste_chambres': {
-      /**
-       * Responsible for drawing the rooms' list
-       * @function
-       */
-      drawRoomsList = () => {
-        const $roomsListElement = $('#roomsList');
-        hebergement.getAllFreeRooms((freeRooms) => {
-          $roomsListElement.html('');
-          freeRooms.forEach((room) => {
-            $roomsListElement.append(
-              `<div class="erpion-rows__row">
-                <i class="material-icons">hotel</i>
-                <div class="erpion-rows__row-element">
-                  <div class="green-dot"></div>
-                </div>
-                <div class="erpion-rows__row-element">
-                  <label style="margin-right: 5px">Nº</label>
-                  <span>${room.number}</span>
-                </div>
-                <div class="erpion-rows__row-element">
-                  <label style="margin-right: 5px">Etage:</label>
-                  <span>${room.floor}</span>
-                </div>
-                <div class="erpion-rows__row-element">
-                  <label style="margin-right: 5px">Type:</label>
-                  <span class="chambre-type">${room.type}</span>
-                </div>
-                <div class="erpion-rows__row-element">
-                  <label style="margin-right: 5px">Prix:</label>
-                  <span class="chambre-details">${room.price} €</span>
-                </div>
-                <a class="btn-small blue" href="./gerer_chambre.html?id_room=${room.id_room}">
-                  Plus de détails</a>
-              </div>`,
-            );
-          });
-          hebergement.getAllOccupiedRooms((occupiedRooms) => {
-            occupiedRooms.forEach((room) => {
-              $roomsListElement.append(
-                `<div class="erpion-rows__row">
-                  <i class="material-icons">hotel</i>
-                  <div class="erpion-rows__row-element">
-                    <div class="red-dot"></div>
-                  </div>
-                  <div class="erpion-rows__row-element">
-                    <label style="margin-right: 5px">Nº</label>
-                    <span>${room.number}</span>
-                  </div>
-                  <div class="erpion-rows__row-element">
-                    <label style="margin-right: 5px">Etage:</label>
-                    <span>${room.floor}</span>
-                  </div>
-                  <div class="erpion-rows__row-element">
-                    <label style="margin-right: 5px">Type:</label>
-                    <span class="chambre-type">${room.type}</span>
-                  </div>
-                  <div class="erpion-rows__row-element">
-                    <label style="margin-right: 5px">Prix:</label>
-                    <span class="chambre-details">${room.price} €</span>
-                  </div>
-                  <a class="btn-small blue" href="./gerer_chambre.html?id_room=${room.id_room}">
-                    Plus de détails</a>
-                </div>`,
-              );
-            });
-          });
-        });
-      };
+    case 'encaisser_client': {
       break;
     }
-    case 'gerer_centrales_reservation': {
-      /**
-       * Default template for modification or creation of centrals of reservation
-       * @function
-       * @param {int} idCentrale
-       * @param {string} nomCentrale
-       * @param {string} websiteCentrale
-       * @param {string} statusCentrale
-       * @param {string} logoCentrale
-       */
-      buildModalCentraleReservation = (idCentrale, nomCentrale, websiteCentrale, statusCentrale, logoCentrale) => `
-          <div class="modal-content">
-            <h4>${(idCentrale) ? 'Modification' : 'Création'} centrale de réservation</h4>
-            <div class="row">
-              <form class="col s12" id="formModalCentraleReservation">
-                <div class="row">
-                  <div class="input-field col s6">
-                    <input id="modalNomCentrale" name="modalNomCentrale"
-                    value="${nomCentrale || ''}" type="text" class="validate">
-                    <label for="modalNomCentrale" class="${(nomCentrale) ? 'active' : ''}">Nom</label>
-                  </div>
-                  <div class="input-field col s6">
-                    <input id="modalWebsiteCentrale" name="modalWebsiteCentrale"
-                    value="${websiteCentrale || ''}" type="text" class="validate">
-                    <label for="modalWebsiteCentrale" class="${(websiteCentrale) ? 'active' : ''}">Website</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s6">
-                    <input id="modalLogoCentrale" name="modalLogoCentrale"
-                    value="${logoCentrale || ''}" type="text" class="validate">
-                    <label for="modalLogoCentrale" class="${(logoCentrale) ? 'active' : ''}">Logo</label>
-                  </div>
-                  <div class="input-field col s6">
-                    <input id="modalStatusCentrale" name="modalStatusCentrale"
-                    value="${statusCentrale || ''}" type="text" class="validate">
-                    <label for="modalStatusCentrale" class="${(statusCentrale) ? 'active' : ''}">Status</label>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="${(idCentrale) ? `buttonModifyCentrale${idCentrale}` : 'buttonNewCentrale'}"
-            data-id="${idCentrale || ''}" class="waves-effect waves-blue btn-small blue">${(idCentrale) ? 'Modifier' : 'Ajouter'}</button>
-          </div>
-        `;
-
-      /**
-       * Responsible for modifying the current central of reservation by reading the modal form
-       * @function
-       * @param e
-       */
-      modifierCentraleReservation = (e) => {
-        const idCentrale = e.target.dataset.id;
-        const $modalCentraleReservation = $('#modalCentraleReservation');
-        const formData = $('form#formModalCentraleReservation').serializeArray();
-        const centraleData = [];
-        $.each(formData, (i, field) => {
-          centraleData[field.name] = field.value;
-        });
-        centralesReservation.rewrite(
-          idCentrale,
-          centraleData.modalNomCentrale,
-          centraleData.modalWebsiteCentrale,
-          centraleData.modalStatusCentrale,
-          centraleData.modalLogoCentrale,
-          () => {
-            drawCentralsOfReservation();
-            $modalCentraleReservation.modal('close');
-          },
-        );
-      };
-
-      /**
-       * Opens the modal with modification form inside of it
-       * @function
-       * @param e - Event
-       */
-      openModalModificationCentrale = (e) => {
-        const idCentrale = e.target.dataset.id;
-        const $modalCentraleReservation = $('#modalCentraleReservation');
-        centralesReservation.getCentraleReservationById(idCentrale, (centrale) => {
-          const modalHTML = buildModalCentraleReservation(
-            centrale[0].id_centrales_reservation,
-            centrale[0].nom,
-            centrale[0].website,
-            centrale[0].status,
-            centrale[0].logo,
-          );
-          $modalCentraleReservation.html('');
-          $modalCentraleReservation.append(modalHTML);
-          $(`#buttonModifyCentrale${idCentrale}`).on('click', modifierCentraleReservation);
-          $modalCentraleReservation.modal('open');
-        });
-      };
-
-      /**
-       * Responsible for deleting the central of reservation after confirmation
-       * @function
-       * @param e - Event
-       */
-      deleteCentraleReservation = (e) => {
-        const idCentrale = e.target.dataset.id;
-        const $modalCentraleReservation = $('#modalCentraleReservation');
-        centralesReservation.deleteRow(idCentrale, () => {
-          drawCentralsOfReservation();
-          $modalCentraleReservation.modal('close');
-        });
-      };
-
-      /**
-       * Opens the modal with delete content inside
-       * @function
-       * @param e - Event
-       */
-      openModalDeleteCentrale = (e) => {
-        const idCentrale = e.target.dataset.id;
-        const $modalCentraleReservation = $('#modalCentraleReservation');
-        $modalCentraleReservation.html(`
-          <div class="modal-content">
-            <div class="row"><p>Voulez-vous vraiment supprimer cette centrale de réservation ?</p></div>
-            <div class="row"><label>(Cette action est irreversible!)</label></div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn-small modal-close">Annuler</button>
-            <button type="button" class="btn-small red" 
-            data-id="${idCentrale}" id="buttonConfirmDeleteCentral${idCentrale}">Confirmer</button>
-          </div>
-        `);
-        $(`#buttonConfirmDeleteCentral${idCentrale}`).on('click', deleteCentraleReservation);
-        $modalCentraleReservation.modal('open');
-      };
-
-      /**
-       * Adds a new central of reservation
-       * @function
-       */
-      addCentraleReservation = () => {
-        const formData = $('form#formAjouter').serializeArray();
-        const centraleData = [];
-        $.each(formData, (i, field) => {
-          centraleData[field.name] = field.value;
-        });
-        console.log(centraleData);
-        centralesReservation.write(
-          centraleData.newNomCentral,
-          centraleData.newWebsiteCentral,
-          centraleData.newStatusCentral,
-          centraleData.newLogoCentral,
-          () => {
-            drawCentralsOfReservation();
-          },
-        );
-      };
-
-      /**
-       * Draws the list of all centrals of Reservation
-       * @function
-       */
-      drawCentralsOfReservation = () => {
-        centralesReservation.getAllCentralesReservation((centrales) => {
-          const $listeCentralesElement = $('#listCentralesReservation');
-          $listeCentralesElement.html('');
-          centrales.forEach((centrale) => {
-            $listeCentralesElement.append(`
-            <div class="erpion-rows__row">
-              <div class="erpion-rows__row-element">
-                <img src="../../../assets/img/centrales_reservation/${centrale.logo}"
-                     alt="${centrale.logo}" class="logo-centrale-reservation">
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Nom:</label>
-                <span>${centrale.nom}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Site:</label>
-                <span>${centrale.website}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <label style="margin-right: 5px">Status:</label>
-                <span class="${(centrale.status === 'Disponible') ? 'green-text' : 'red-text'}">${centrale.status}</span>
-              </div>
-              <div class="erpion-rows__row-element">
-                <button type="button" class="btn-small blue"
-                          id="buttonModifierCentrale${centrale.id_centrales_reservation}" 
-                          data-id="${centrale.id_centrales_reservation}"
-                          style="margin-right: 10px">Modifier</button>
-                <button type="button" class="btn-small red"
-                        id="buttonSupprimerCentrale${centrale.id_centrales_reservation}"
-                        data-id="${centrale.id_centrales_reservation}">Supprimer</button>
-              </div>
-            </div>
-            `);
-            $(`#buttonModifierCentrale${centrale.id_centrales_reservation}`).on('click', openModalModificationCentrale);
-            $(`#buttonSupprimerCentrale${centrale.id_centrales_reservation}`).on('click', openModalDeleteCentrale);
-          });
-        });
-      };
+    case 'gerer_facturation': {
+      break;
+    }
+    case 'gerer_services_divers': {
       break;
     }
     default: {
@@ -1078,7 +728,18 @@ window.addEventListener('load', () => {
   // ############################################################################################# //
 
   switch (viewName) {
-    case 'dashboard_hebergement': {
+    case 'dashboard_reception': {
+      $('#boutonReserverChambre').on('click', () => {
+        window.location.replace('../hebergement/gerer_reservations.html');
+      });
+      $('#boutonEncaisserClient').on('click', () => {
+        window.location.replace('../reception/encaisser_client.html');
+      });
+      $('#boutonGestionFacturation').on('click', () => {
+        window.location.replace('../reception/gerer_facturation.html');
+      });
+      $('#boutonNewDemandeMaintenance').on('click', registerNewMaintenanceDemand);
+      $('#boutonNewDemandeNettoyage').on('click', registerNewNettoyageDemand);
       break;
     }
     case 'gerer_reservations': {
@@ -1097,9 +758,6 @@ window.addEventListener('load', () => {
     case 'gerer_chambre': {
       break;
     }
-    case 'gerer_voyages': {
-      break;
-    }
     case 'gerer_notoriete': {
       $('.rating').on('change', (ev, data) => {
         const column = ev.target.dataset.column;
@@ -1116,13 +774,13 @@ window.addEventListener('load', () => {
       $('#boutonSaveCommentaire').on('click', saveNotoriete);
       break;
     }
-    case 'liste_chambres': {
+    case 'encaisser_client': {
       break;
     }
-    case 'gerer_centrales_reservation': {
-      $('#boutonAjouterCentrale').on('click', () => {
-        addCentraleReservation();
-      });
+    case 'gerer_facturation': {
+      break;
+    }
+    case 'gerer_services_divers': {
       break;
     }
     default: {
@@ -1135,16 +793,15 @@ window.addEventListener('load', () => {
   // #######################################    MAIN    ########################################## //
   // ############################################################################################# //
 
-  console.log(`@ROUTE : /hebergement/${viewName}.html`);
+  console.log(`@ROUTE : /reception/${viewName}.html`);
   // ACTION MANAGER
   switch (viewName) {
-    case 'dashboard_hebergement': {
+    case 'dashboard_reception': {
       fetchReservationsLastSevenDays();
       fetchAmountAvailableRooms();
       fetchWeeklyValues();
       fetchAmountOfRoomTypeFilled();
-      drawListVoyages();
-      fetchAvgNotoriete();
+      $(document).ready(() => $('select').formSelect());
       break;
     }
     case 'gerer_reservations': {
@@ -1160,10 +817,6 @@ window.addEventListener('load', () => {
       fetchRoomReservations(params.id_room);
       break;
     }
-    case 'gerer_voyages': {
-      drawListVoyages();
-      break;
-    }
     case 'gerer_notoriete': {
       $('.rating').rate({
         max_value: 5,
@@ -1172,13 +825,13 @@ window.addEventListener('load', () => {
       });
       break;
     }
-    case 'liste_chambres': {
-      drawRoomsList();
+    case 'encaisser_client': {
       break;
     }
-    case 'gerer_centrales_reservation': {
-      drawCentralsOfReservation();
-      $(document).ready(() => $('#modalCentraleReservation').modal());
+    case 'gerer_facturation': {
+      break;
+    }
+    case 'gerer_services_divers': {
       break;
     }
     default: {

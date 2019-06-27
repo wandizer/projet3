@@ -190,7 +190,7 @@
   overflow-x: hidden; }
   .erpion-rows__row {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: center;
     justify-content: space-between;
     background: white;
@@ -209,6 +209,8 @@
       justify-content: center; }
     .erpion-rows__row i {
       font-size: 40px; }
+    .erpion-rows__row button i {
+      font-size: 16px; }
 
 .erpion-section {
   width: 100%; }

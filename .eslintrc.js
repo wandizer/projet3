@@ -7,7 +7,7 @@ module.exports = {
   },
   'rules': {
     // max line length redefine
-    'max-len': ['error', { 'code': 140 }],
+    'max-len': ['error', { 'code': 200 }],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
