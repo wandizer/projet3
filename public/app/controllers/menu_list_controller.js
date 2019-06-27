@@ -47,6 +47,25 @@ const defaultEmptyContent = `
 		<i class="material-icons">warning</i><p>Rien trouvé</p>
 	</div>`;
 
+
+$('#createModalMenu').on('click', function (e) {
+	let $buildModalMenu = $('#buildModalMenu');
+	$buildModalMenu.html('');
+	$buildModalMenu.append(buildModalMenu());
+	$('select').formSelect();
+	$(`#buttonCreateMenu`).on('click', function (e) {
+		let formData = $('form#formModalMenu').serializeArray();
+		console.log(formData);
+		Menu.write(formData[0].value, formData[1].value, formData[2].value, formData[3].value, formData[4].value);
+		//location.reload();
+	});
+	$buildModalMenu.modal('open');
+});
+
+
+
+
+
 function getAppetizers(result) {
   if (Array.isArray(result) && result[0] != undefined) {
     for (const row of result) {
@@ -107,12 +126,12 @@ function getMenus(result) {
 
 					<div class="erpion-rows__row-element">
 						<label style="margin-right: 5px">Plat Principal:</label>
-						<span class="chambre-type">${var_MainCourseList[result.id_appetizer].name}</span>
+						<span class="chambre-type">${var_MainCourseList[result.id_main_course].name}</span>
 					</div>
 
 					<div class="erpion-rows__row-element">
 						<label style="margin-right: 5px">Dessert:</label>
-						<span class="chambre-type">${var_DessertList[result.id_appetizer].name}</span>
+						<span class="chambre-type">${var_DessertList[result.id_dessert].name}</span>
 					</div>
 
 					<div class="erpion-rows__row-element">
@@ -122,14 +141,14 @@ function getMenus(result) {
 
 					<div class="erpion-rows__row-element">
 						<button type="button" class="btn-small blue" 
-							id="buildModalMenu${result.id_menu}" 
+							id="updateModalMenu${result.id_menu}" 
 							data-id="${result.id_menu}"
 							data-price="${result.id_menu}">
 							<i class="material-icons">create</i>
 						</button>
 
 						<button type="button" class="btn-small red" 
-							id="deleteModalMenu${result.id_menu}" 
+							id="deleteModalMenu" 
 							data-id="${result.id_menu}"
 							data-price="${result.id_menu}">
 							<i class="material-icons">delete</i>
@@ -137,12 +156,32 @@ function getMenus(result) {
 					</div>
 				</div>`
       );
-      $(`#buildModalMenu${result.id_menu}`).on('click', function (e) {
-				const idMenu = e.target.dataset.id;
-				const $buildModalMenu = $('#buildModalMenu');
-				$buildModalMenu.html(buildModalMenu);
+      $(`#updateModalMenu${result.id_menu}`).on('click', function (e) {
+				let $buildModalMenu = $('#buildModalMenu');
+				$buildModalMenu.html('');
+				$buildModalMenu.append(buildModalMenu(result.id_menu,result.name,result.price,var_AppetizerList[result.id_appetizer].name, var_MainCourseList[result.id_main_course].name,  var_DessertList[result.id_dessert].name));
+				$('select').formSelect();
+				$(`#buttonUpdateMenu${result.id_menu}`).on('click', function (e) {
+					let formData = $(`form#formModalMenu${result.id_menu}`).serializeArray();
+					console.log(formData);
+					Menu.rewrite(result.id_menu, formData[0].value, formData[1].value, formData[2].value, formData[3].value, formData[4].value);
+					location.reload();
+				});
 				$buildModalMenu.modal('open');
 			});
+			
+			$('#deleteModalMenu').on('click', function (e) {
+				const id_menu = e.target.dataset.id;
+				let $deleteModal = $('#deleteModal');
+				$deleteModal.html('');
+				$deleteModal.append(deleteModalMenu());
+				$(`#buttonDeleteMenu`).on('click', function (e) {
+					Menu.deleteRow(id_menu,'');
+					//location.reload();
+				});
+				$deleteModal.modal('open');
+			});
+			
     });
   } else {
     $cardMenu.html(defaultEmptyContent);
@@ -150,6 +189,20 @@ function getMenus(result) {
     // Bouton Pour créer un nouveau menu
   }
 }
+
+
+	function deleteModalMenu(id_menu) {
+		return `  <div class="modal-content">
+            <div class="row"><p>Voulez-vous vraiment supprimer ce menu ?</p></div>
+            <div class="row"><label>(Cette action est irreversible!)</label></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-small modal-close">Annuler</button>
+            <button type="button" class="btn-small red" 
+            data-id="${id_menu}" id="buttonDeleteMenu">Confirmer</button>
+          </div>
+		`;
+	}
 
 
 function getDayMenus(result) {
@@ -219,7 +272,6 @@ function getDayMenus(result) {
 								</button>
 
 							</div>
-
 						</div>`
       );
       // $(`#buttonReserver${result.id_menu}`).on('click', drawModalReservation);
@@ -228,6 +280,7 @@ function getDayMenus(result) {
     $cardDayMenu.html(defaultEmptyContent);
     // Bouton Pour créer un nouveau menu
   }
+}	
 	
 	$(document).ready(() => $('#buildModalMenu').modal());
 	
@@ -243,21 +296,36 @@ function getDayMenus(result) {
 	 */
 	function buildModalMenu(id_menu, name, price, appetizer, mainCourse, dessert) {
 		let stringAppetizer ='';
-		for (const row of var_AppetizerList) {
-      stringAppetizer += '<option value="'+row.id_appetizer+'">'+row.name+'</option>';
-    }
-		let stringMainCourse='';
-		for (const row of var_MainCourseList) {
-      stringMainCourse += '<option value="'+row.id_main_course+'">'+row.name+'</option>';
-    }
-		let stringDessert='';
-		for (const row of var_DessertList) {
-      stringDessert += '<option value="'+row.id_dessert+'">'+row.name+'</option>';
-    }
+		Object.values(var_AppetizerList).forEach(function (row){
+			if(appetizer!=undefined && row.name == appetizer ){
+				stringAppetizer += '<option value="'+row.id_appetizer+'" selected >'+row.name+'</option>';	
+			}else{
+				stringAppetizer += '<option value="'+row.id_appetizer+'">'+row.name+'</option>';
+			}
+		});
+		
+		let stringMainCourse ='';
+		Object.values(var_MainCourseList).forEach(function (row){
+			if(mainCourse!=undefined && row.name == mainCourse ){
+				stringMainCourse += '<option value="'+row.id_main_course+'" selected >'+row.name+'</option>';	
+			}else{
+				stringMainCourse += '<option value="'+row.id_main_course+'">'+row.name+'</option>';
+			}
+		}); 
+		
+		let stringDessert ='';
+		Object.values(var_DessertList).forEach(function (row){
+			if(dessert!=undefined && row.name == dessert ){
+				stringDessert += '<option value="'+row.id_dessert+'" selected >'+row.name+'</option>';	
+			}else{
+				stringDessert += '<option value="'+row.id_dessert+'">'+row.name+'</option>';	 
+			}
+		}); 
+	
 		return `<div class="modal-content">
-				<h4>${(id_menu) ? 'Modification' : 'Création'} Menus</h4>
+				<h4>Modification Menus ${id_menu || ''}</h4>
 				<div class="row">
-					<form class="col s12" id="formModalMenu">
+					<form class="col s12" id="formModalMenu${id_menu || ''}">
 						<div class="row">
 
 							<div class="input-field col s6">
@@ -276,21 +344,21 @@ function getDayMenus(result) {
 						<div class="row">
 
 							<div class="input-field col s3">
-								<select id="modalAppetizer" name="modalAppetizer" value="${appetizer || ''}">
+								<select id="modalAppetizer" name="modalAppetizer">
 									${stringAppetizer}
 								</select>
 								<label>Entrée</label>
 							</div>
 							
 							<div class="input-field col s3">
-								<select id="modalMainCourse" name="modalMainCourse" value="${mainCourse || ''}">
+								<select id="modalMainCourse" name="modalMainCourse">
 									${stringMainCourse}
 								</select>
 								<label>Plat Principal</label>
 							</div>
 							
 							<div class="input-field col s3">
-								<select id="modalDessert" name="modalDessert" value="${dessert || ''}">
+								<select id="modalDessert" name="modalDessert">
 									${stringDessert}
 								</select>
 								<label>Dessert</label>
@@ -302,8 +370,9 @@ function getDayMenus(result) {
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" id="${(id_menu) ? `buttonModifyMenu${id_menu}` : 'buttonNewMenu$'}"
-				data-id="${id_menu || ''}" class="waves-effect waves-blue btn-small blue">${(id_menu) ? 'Modifier' : 'Ajouter'}</button>
+				<button type="button" id="${(id_menu) ? `buttonUpdateMenu${id_menu}`	 : 'buttonCreateMenu'}"
+				data-id="{id_menu}" class="waves-effect waves-blue btn-small blue">${(id_menu) ? 'Modifier' : 'Créer'}</button>
 			</div>
 		`;
 	}
+

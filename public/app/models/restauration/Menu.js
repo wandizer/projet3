@@ -28,15 +28,30 @@ class Menu {
   /**
    * Equivalent to INSERT INTO for table Menu
    */
-  static write() {
-    database.write(tableName, ['name','price','id_appetizer','id_main_course', 'id_dessert'], [this.name,this.price,this.id_appetizer,this.id_main_course,this.id_dessert]);
+  static write(name,price,id_appetizer,id_main_course,id_dessert) {
+    database.write(tableName, ['name','price','id_appetizer','id_main_course', 'id_dessert'], [name,price,id_appetizer,id_main_course,id_dessert]);
+  } 
+
+  /**
+   * Equivalent to DELETE FROM TABLE
+   * @function
+   * @param idCentrale
+   * @param {function} callback
+   */
+  deleteRow(id_menu, callback) {
+    database.deleteRow(
+      'Menu',
+      'id_menu',
+      id_menu,
+      callback,
+    );
   }
 
   /**
    * Equivalent to UPDATE for table Menu
    */
-  static rewrite() {
-    database.rewrite(tableName, ['name','price','id_appetizer','id_main_course', 'id_dessert'], [this.name,this.price,this.id_appetizer,this.id_main_course,this.id_dessert], 'id_menu', this.id);
+  static rewrite(id,name,price,id_appetizer,id_main_course,id_dessert) {
+    database.rewrite(tableName, ['name','price','id_appetizer','id_main_course', 'id_dessert'], [name,price,id_appetizer,id_main_course,id_dessert], 'id_menu', id);
   }
 
 	/* 
