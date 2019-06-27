@@ -3,7 +3,10 @@ require('../../plugins/chart.js/Chart.bundle.min.js');
 require('../../plugins/materialize/js/materialize.min.js');
 require('../../plugins/air-datepicker/js/datepicker.min.js');
 require('../../plugins/air-datepicker/js/i18n/datepicker.fr');
+require('../../plugins/rater.js/rater.min.js');
 
+
+const Constants = require('../../constants/constants.js');
 const Utils = require('../../utils/Utils.js');
 const Sidenav = require('../../utils/Sidenav.js');
 const Rating = require('../../utils/Rating.js');
@@ -11,6 +14,9 @@ const Hebergement = require('../models/Hebergement');
 const Chambre = require('../models/Chambre');
 const Client = require('../models/Client');
 const CentralesReservation = require('../models/CentralesReservation');
+const Voyages = require('../models/Voyage');
+const Transactions = require('../models/Transactions');
+const Notoriete = require('../models/Notoriete');
 
 // Session Storage
 const storedRole = Utils.getStoredRole();
@@ -41,6 +47,9 @@ window.addEventListener('load', () => {
   const chambre = new Chambre();
   const client = new Client();
   const centralesReservation = new CentralesReservation();
+  const voyages = new Voyages();
+  const transactions = new Transactions();
+  const notoriete = new Notoriete();
 
   const defaultEmptyContent = `
     <div class="nothing-found">
@@ -57,7 +66,17 @@ window.addEventListener('load', () => {
   };
   let drawOccupiedRooms = () => {
   };
-  let drawStatisticsCharts = () => {
+  let drawLineChart = () => {
+  };
+  let drawDoughnutChart = () => {
+  };
+  let fetchAmountAvailableRooms = () => {
+  };
+  let fetchReservationsLastSevenDays = () => {
+  };
+  let fetchWeeklyValues = () => {
+  };
+  let fetchAmountOfRoomTypeFilled = () => {
   };
   let drawDatepicker = () => {
   };
@@ -91,62 +110,205 @@ window.addEventListener('load', () => {
   };
   let drawCentralsOfReservation = () => {
   };
+  let drawListVoyages = () => {
+  };
+  let saveNotoriete = () => {
+  };
 
   // -----------------------------------------------------------------------------------------
 
   switch (viewName) {
     case 'dashboard_hebergement': {
       /**
-       * Draws all the charts necessary for the statistics on the dashboard
+       * Draws a line chart with the data given
        * @function
+       * @param {string} title
+       * @param labels - ['', '', '', ...]
+       * @param data - [1, 2, 3, ...]
+       * @param {string} tooltipLabel
        */
-      drawStatisticsCharts = () => {
-        const elDoughnutChart = document.getElementById('doughnutChart');
-        doughnutChart = new Chart(elDoughnutChart, {
-          type: 'doughnut',
-          data: {
-            labels: ['Occupés', 'Libres'],
-            datasets: [{
-              label: 'Chambres',
-              data: [47, 13],
-              backgroundColor: [
-                'rgb(75,176,167)',
-                'rgba(255, 206, 86, 1)',
-              ],
-              borderWidth: 2,
-            }],
-          },
-          options: {
-            title: { display: true, text: 'Chambres :' },
-            legend: { display: true, position: 'right' },
-            maintainAspectRatio: true,
-            spanGaps: false,
-            plugins: { filler: { propagate: false } },
-            scales: { yAxes: [{ display: false, ticks: { beginAtZero: true } }], xAxes: [{ display: false }] },
-          },
-        });
+      drawLineChart = (title, labels, data, tooltipLabel) => {
         const elLineChart = document.getElementById('lineChart').getContext('2d');
         lineChart = new Chart(elLineChart, {
           type: 'line',
           data: {
-            labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+            labels,
             datasets: [{
-              label: 'Nº de clients',
-              data: [12, 15, 10, 9, 10, 7, 10],
+              label: tooltipLabel,
+              data,
               backgroundColor: '#26a69a',
               borderColor: '#ffffff',
               borderWidth: 0,
             }],
           },
           options: {
-            title: { display: true, text: 'Activité de la semaine :' },
-            legend: { display: false },
+            title: {display: true, text: title},
+            legend: {display: false},
             maintainAspectRatio: false,
             spanGaps: false,
-            elements: { line: { tension: 0.4 }, point: { radius: 2, hitRadius: 8, hoverRadius: 8 } },
-            plugins: { filler: { propagate: false } },
-            scales: { yAxes: [{ display: false, ticks: { beginAtZero: true } }], xAxes: [{ display: false }] },
+            elements: {line: {tension: 0.4}, point: {radius: 2, hitRadius: 8, hoverRadius: 8}},
+            plugins: {filler: {propagate: false}},
+            scales: {yAxes: [{display: false, ticks: {beginAtZero: true}}], xAxes: [{display: false}]},
           },
+        });
+      };
+
+      /**
+       * Draws a doughnut chart with the data given
+       * @function
+       * @param {string} title
+       * @param labels - ['', '', '', ...]
+       * @param data - [1, 2, 3, ...]
+       * @param {string} tooltipLabel
+       */
+      drawDoughnutChart = (title, labels, data, tooltipLabel) => {
+        const elDoughnutChart = document.getElementById('doughnutChart');
+        doughnutChart = new Chart(elDoughnutChart, {
+          type: 'doughnut',
+          data: {
+            labels,
+            datasets: [{
+              label: tooltipLabel, data, backgroundColor: ['rgb(75,176,167)', 'rgba(255, 206, 86, 1)'], borderWidth: 2,
+            }],
+          },
+          options: {
+            title: {display: true, text: title},
+            legend: {display: true, position: 'right'},
+            maintainAspectRatio: true,
+            spanGaps: false,
+            plugins: {filler: {propagate: false}},
+            scales: {yAxes: [{display: false, ticks: {beginAtZero: true}}], xAxes: [{display: false}]},
+          },
+        });
+      };
+
+      /**
+       * Retrieves the amount of reservations for the last seven days
+       * @function
+       */
+      fetchReservationsLastSevenDays = () => {
+        // We create an object with the last seven dates and initialized at 0
+        const objectLastSevenDays = [];
+        let lastSenveDays = hebergement.getFormattedPeriod(new Date(), 7);
+        lastSenveDays = lastSenveDays.split('\'').join('');
+        lastSenveDays = lastSenveDays.split(',');
+        for (let i = 0; i < lastSenveDays.length; i += 1) {
+          objectLastSevenDays.push({label: lastSenveDays[i], data: 0});
+        }
+        // We retrieve the number of reservations from the last 7 days
+        hebergement.getLastSevenDaysReservations((results) => {
+          const labels = [];
+          const data = [];
+          results.forEach(row => {
+            const index = objectLastSevenDays.map(e => e.label).indexOf(row.label);
+            objectLastSevenDays[index] = row;
+          });
+          for (let line of objectLastSevenDays) {
+            labels.push(line.label);
+            data.push(line.data);
+          }
+          drawLineChart('Nb réservations derniers 7 jours', labels, data, 'reservations');
+        });
+      };
+
+      /**
+       * Retrieves the amount of available rooms in the hotel
+       * @function
+       */
+      fetchAmountAvailableRooms = () => {
+        hebergement.getCountOccupiedRooms((result) => {
+          const qtyOccupiedRooms = result[0].nbOccupiedRooms;
+          const qtyFreeRooms = Constants.totalRooms - result[0].nbOccupiedRooms;
+          drawDoughnutChart('Disponibilité chambres', ['Occupés', 'Libres'], [qtyOccupiedRooms, qtyFreeRooms], 'chambres');
+        });
+      };
+
+      /**
+       * Retrieves the values (income, turnover)
+       * @function
+       */
+      fetchWeeklyValues = () => {
+        transactions.getLastWeekIncome('Room_Reservation', (lastWeekIncome) => {
+          transactions.getWeekIncome('Room_Reservation', (weekIncome) => {
+            const turnover = weekIncome[0].income;
+            const profit = turnover - lastWeekIncome[0].income;
+            const $profit = $('#profit');
+            $('#chiffresAffaires').html(turnover);
+            $profit.html(profit);
+            if (profit > 0) {
+              $profit.html(`+ ${profit}`);
+              $profit.attr('class', 'trending-up');
+              $('#curveIncome').html('<i class="material-icons trending-up">trending_up</i>');
+            } else {
+              $profit.html(`- ${profit}`);
+              $profit.attr('class', 'trending-down');
+              $('#curveIncome').html('<i class="material-icons trending-down">trending_down</i>');
+            }
+            hebergement.getCountOccupiedRooms((qtyOccupiedRooms) => {
+              const percentageOccupiedRooms = (qtyOccupiedRooms[0].nbOccupiedRooms * 100) / Constants.totalRooms;
+              $('#occupiedRoomsPercent').html(percentageOccupiedRooms);
+              $('#totalAmountRooms').html(Constants.totalRooms);
+            });
+          });
+        });
+      };
+
+      /**
+       * Retrieves the filled values of each room type and the amount of room type in the hotel
+       * @function
+       */
+      fetchAmountOfRoomTypeFilled = () => {
+        hebergement.getCountTotalRoomsByType('simple', (totalSimple) => {
+          $('#totalSimple').html(totalSimple[0].nbRooms);
+          hebergement.getCountSimpleOccupiedRooms((occupiedSimple) => {
+            $('#occupiedSimple').html(occupiedSimple[0].nbOccupiedSimpleRooms);
+          });
+        });
+        hebergement.getCountTotalRoomsByType('double', (totalDouble) => {
+          $('#totalDouble').html(totalDouble[0].nbRooms);
+          hebergement.getCountDoubleOccupiedRooms((occupiedDouble) => {
+            $('#occupiedDouble').html(occupiedDouble[0].nbOccupiedDoubleRooms);
+          });
+        });
+        hebergement.getCountTotalRoomsByType('suite', (totalSuite) => {
+          $('#totalSuite').html(totalSuite[0].nbRooms);
+          hebergement.getCountSuiteOccupiedRooms((occupiedSuite) => {
+            $('#occupiedSuite').html(occupiedSuite[0].nbOccupiedSuiteRooms);
+          });
+        });
+      };
+
+      /**
+       * Draws the list of all voyages/trips
+       * @function
+       */
+      drawListVoyages = () => {
+        voyages.getAllVoyages((trips) => {
+          console.log(trips);
+          $('.erpion-voyages').html('');
+          trips.forEach(trip => {
+            let duration = trip.duration.split('d').join(' jours ');
+            duration = duration.split('m').join(' mois');
+            duration = duration.split('y').join(' années ');
+            $('.erpion-voyages').append(`
+            <div class="erpion-voyage erpion-card erpion-card__xxl">
+              <img class="erpion-voyage__photo" src="../../../assets/img/voyages/${trip.photo}">
+              <div class="erpion-voyage__content">
+                <div class="erpion-voyage__content-header">
+                  <div class="erpion-voyage__content-header__title">${trip.title}</div>
+                  <div class="erpion-voyage__content-header__date">${trip.starting_date}</div>
+                  <div class="erpion-voyage__content-header__agence">${trip.nom}</div>
+                </div>
+                <div class="erpion-voyage__content-body">${trip.description}</div>
+                <div class="erpion-voyage__content-footer">
+                  <div class="erpion-voyage__content-footer__price">${trip.price}€</div>
+                  <div class="erpion-voyage__content-footer__rating">${Rating.getRatingStars(trip.rating)}</div>
+                  <div class="erpion-voyage__content-footer__duration">${duration}</div>
+                </div>
+              </div>
+            </div>
+            `);
+          });
         });
       };
       break;
@@ -171,6 +333,7 @@ window.addEventListener('load', () => {
       reserveRoom = (e) => {
         const $button = $(e.target);
         const id_room = $button.data('id-room');
+        const price = $button.data('price');
         const dateDebut = (isRange) ? globalFormattedDate.split(',')[0] : globalFormattedDate;
         const dateFin = (isRange) ? globalFormattedDate.split(',')[1] : globalFormattedDate;
         const formData = $('form#formReservation').serializeArray();
@@ -186,11 +349,11 @@ window.addEventListener('load', () => {
           client.checkClientExists(clientData.clientEmail, clientData.clientPhone, (clients) => {
             if (clients.length === 1) {
               if (isRange) {
-                hebergement.reserveRoomByPeriod(id_room, clients[0].id_client, dateDebut, dateFin, () => {
+                hebergement.reserveRoomByPeriod(id_room, clients[0].id_client, dateDebut, dateFin, price, () => {
                   window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                 });
               } else {
-                hebergement.reserveRoomByDate(id_room, clients[0].id_client, dateDebut, () => {
+                hebergement.reserveRoomByDate(id_room, clients[0].id_client, dateDebut, price, () => {
                   window.location.replace(`./gerer_chambre.html?id_room=${id_room}`);
                 });
               }
@@ -300,7 +463,7 @@ window.addEventListener('load', () => {
           </div>
           <div class="modal-footer">
             <button type="button" id="modalButtonReserver" data-id-room="${id_room}"
-            class="waves-effect waves-green btn-small green">Réserver</button>
+            data-price="${price}" class="waves-effect waves-green btn-small green">Réserver</button>
           </div>
         `);
         $('#modalButtonReserver').on('click', reserveRoom);
@@ -529,9 +692,68 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_voyages': {
+      /**
+       * Draws the list of all voyages/trips
+       * @function
+       */
+      drawListVoyages = () => {
+        voyages.getAllVoyages((trips) => {
+          console.log(trips);
+          $('.erpion-voyages').html('');
+          trips.forEach(trip => {
+            let duration = trip.duration.split('d').join(' jours ');
+            duration = duration.split('m').join(' mois');
+            duration = duration.split('y').join(' années ');
+            $('.erpion-voyages').append(`
+            <div class="erpion-voyage erpion-card erpion-card__xxl">
+              <img class="erpion-voyage__photo" src="../../../assets/img/voyages/${trip.photo}">
+              <div class="erpion-voyage__content">
+                <div class="erpion-voyage__content-header">
+                  <div class="erpion-voyage__content-header__title">${trip.title}</div>
+                  <div class="erpion-voyage__content-header__date">${trip.starting_date}</div>
+                  <div class="erpion-voyage__content-header__agence">${trip.nom}</div>
+                </div>
+                <div class="erpion-voyage__content-body">${trip.description}</div>
+                <div class="erpion-voyage__content-footer">
+                  <div class="erpion-voyage__content-footer__price">${trip.price}€</div>
+                  <div class="erpion-voyage__content-footer__rating">${Rating.getRatingStars(trip.rating)}</div>
+                  <div class="erpion-voyage__content-footer__duration">${duration}</div>
+                </div>
+              </div>
+            </div>
+            `);
+          });
+        });
+      };
       break;
     }
     case 'gerer_notoriete': {
+      /**
+       * Saves the comments from the client
+       * @function
+       */
+      saveNotoriete = () => {
+        const formData = $('form#formNotoriete').serializeArray();
+        const notorieteData = [];
+        $.each(formData, (i, field) => {
+          notorieteData[field.name] = field.value;
+        });
+        console.log(notorieteData);
+        notoriete.getClientIdByEmailOrPhone(notorieteData.email, notorieteData.number, (result) => {
+          console.log(result[0].id_client);
+          notoriete.write(
+            notoriete.rating_room,
+            notoriete.rating_services,
+            notoriete.rating_restaurant,
+            notoriete.rating_events,
+            notorieteData.comments,
+            result[0].id_client,
+            (lastID) => {
+              console.log(lastID);
+            },
+          );
+        });
+      };
       break;
     }
     case 'liste_chambres': {
@@ -839,6 +1061,19 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_notoriete': {
+      $('.rating').on('change', (ev, data) => {
+        const column = ev.target.dataset.column;
+        if (column === 'room') {
+          notoriete.rating_room = data.to;
+        } else if (column === 'services') {
+          notoriete.rating_services = data.to;
+        } else if (column === 'restaurant') {
+          notoriete.rating_restaurant = data.to;
+        } else if (column === 'events') {
+          notoriete.rating_events = data.to;
+        }
+      });
+      $('#boutonSaveCommentaire').on('click', saveNotoriete);
       break;
     }
     case 'liste_chambres': {
@@ -864,7 +1099,11 @@ window.addEventListener('load', () => {
   // ACTION MANAGER
   switch (viewName) {
     case 'dashboard_hebergement': {
-      drawStatisticsCharts();
+      fetchReservationsLastSevenDays();
+      fetchAmountAvailableRooms();
+      fetchWeeklyValues();
+      fetchAmountOfRoomTypeFilled();
+      drawListVoyages();
       break;
     }
     case 'gerer_reservations': {
@@ -881,13 +1120,15 @@ window.addEventListener('load', () => {
       break;
     }
     case 'gerer_voyages': {
-      $('#rating').append(`${Rating.getRatingStars(3.4)}<br>`);
-      $('#rating').append(`${Rating.getRatingStars(5)}<br>`);
-      $('#rating').append(`${Rating.getRatingStars(4.4)}<br>`);
-      $('#rating').append(`${Rating.getRatingStars(4.6)}<br>`);
+      drawListVoyages();
       break;
     }
     case 'gerer_notoriete': {
+      $('.rating').rate({
+        max_value: 5,
+        step_size: 0.5,
+        initial_value: 0,
+      });
       break;
     }
     case 'liste_chambres': {

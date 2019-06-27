@@ -40,6 +40,40 @@ class Hebergement {
   }
 
   /**
+   * Function that returns a list of formatted dates according to the date given and the distance
+   * @param date
+   * @param distanceInDays
+   * @returns {string}
+   */
+  getFormattedPeriod(date, distanceInDays) {
+    let lastSevenDays = '';
+    for (let i = 0; i < distanceInDays; i += 1) {
+      const currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      currentDate.setDate(currentDate.getDate() - distanceInDays + 1);
+      currentDate.setDate(currentDate.getDate() + i);
+      lastSevenDays += `'${currentDate.toLocaleDateString('fr-FR')}',`;
+    }
+    // We remove the last ','
+    if (lastSevenDays.length > 0) {
+      lastSevenDays = lastSevenDays.substring(0, lastSevenDays.length - 1);
+    }
+    return lastSevenDays;
+  }
+
+  /**
+   * Returns the last seven reservations
+   * @function
+   * @param callback
+   */
+  getLastSevenDaysReservations(callback) {
+    const lastSevenDays = this.getFormattedPeriod(new Date(), 7);
+    // We execute the query
+    const $query = `SELECT date_reservation AS 'label', count(date_reservation) AS 'data' FROM Room_Reservation
+      WHERE date_reservation IN (${lastSevenDays}) GROUP BY date_reservation`;
+    database.executeQuery($query, [], callback);
+  }
+
+  /**
    * Returns all the occupied rooms at the moment
    * @param {function} callback
    */
@@ -164,12 +198,19 @@ class Hebergement {
    * @param idRoom
    * @param idClient
    * @param date - DateArrival = DateDepart
+   * @param payment_amount
    * @param {function} callback
    */
-  reserveRoomByDate(idRoom, idClient, date, callback) {
-    const $query = `INSERT INTO Room_Reservation (date_arrival, date_depart, id_room, id_client, active)
-      VALUES (?, ?, ?, ?, true);`;
-    database.executeQuery($query, [date, date, idRoom, idClient], callback);
+  reserveRoomByDate(idRoom, idClient, date, payment_amount, callback) {
+    // const $query = `INSERT INTO Room_Reservation (date_arrival, date_depart, id_room, id_client, active)
+    //   VALUES (?, ?, ?, ?, true);`;
+    // database.executeQuery($query, [date, date, idRoom, idClient], callback);
+    database.write(
+      'Room_Reservation',
+      ['date_arrival', 'date_depart', 'date_reservation', 'payment_amount', 'id_room', 'id_client', 'active'],
+      [date, date, date, payment_amount, idRoom, idClient, true],
+      callback,
+    );
   }
 
   /**
@@ -178,12 +219,78 @@ class Hebergement {
    * @param idClient
    * @param dateDebut
    * @param dateFin
+   * @param payment_amount
    * @param {function} callback
    */
-  reserveRoomByPeriod(idRoom, idClient, dateDebut, dateFin, callback) {
-    const $query = `INSERT INTO Room_Reservation (date_arrival, date_depart, id_room, id_client, active)
-      VALUES (?, ?, ?, ?, true);`;
-    database.executeQuery($query, [dateDebut, dateFin, idRoom, idClient], callback);
+  reserveRoomByPeriod(idRoom, idClient, dateDebut, dateFin, payment_amount, callback) {
+    // const $query = `INSERT INTO Room_Reservation (date_arrival, date_depart, id_room, id_client, active)
+    //   VALUES (?, ?, ?, ?, true);`;
+    database.write(
+      'Room_Reservation',
+      ['date_arrival', 'date_depart', 'date_reservation', 'price', 'id_room', 'id_client', 'active'],
+      [dateDebut, dateFin, dateDebut, payment_amount, idRoom, idClient, true],
+      callback,
+    );
+    // database.executeQuery($query, [dateDebut, dateFin, idRoom, idClient], callback);
+  }
+
+  /**
+   * Returns the amount of 'type' rooms in the hotel
+   * @function
+   * @param {string} type - 'simple' || 'double' || 'suite'
+   * @param {function} callback
+   */
+  getCountTotalRoomsByType(type, callback) {
+    const $query = `SELECT COUNT(id_room) AS 'nbRooms'
+      FROM Room WHERE type = ?`;
+    database.executeQuery($query, [type], callback);
+  }
+
+  /**
+   * Returns the amount of occupied rooms (active = true)
+   * @function
+   * @param callback
+   */
+  getCountOccupiedRooms(callback) {
+    const $query = `SELECT COUNT(id_room_reservation) AS 'nbOccupiedRooms' 
+      FROM Room_Reservation RR WHERE RR.active IS TRUE;`;
+    database.executeQuery($query, [], callback);
+  }
+
+  /**
+   * Returns the amount of simple occupied rooms
+   * @function
+   * @param callback
+   */
+  getCountSimpleOccupiedRooms(callback) {
+    const $query = `SELECT COUNT(id_room_reservation) AS 'nbOccupiedSimpleRooms'
+      FROM Room_Reservation RR, Room R WHERE RR.id_room = R.id_room
+      AND R.type = 'simple' AND RR.active IS TRUE;`;
+    database.executeQuery($query, [], callback);
+  }
+
+  /**
+   * Returns the amount of double occupied rooms
+   * @function
+   * @param callback
+   */
+  getCountDoubleOccupiedRooms(callback) {
+    const $query = `SELECT COUNT(id_room_reservation) AS 'nbOccupiedDoubleRooms'
+      FROM Room_Reservation RR, Room R WHERE RR.id_room = R.id_room
+      AND R.type = 'double' AND RR.active IS TRUE;`;
+    database.executeQuery($query, [], callback);
+  }
+
+  /**
+   * Returns the amount of suite occupied rooms
+   * @function
+   * @param callback
+   */
+  getCountSuiteOccupiedRooms(callback) {
+    const $query = `SELECT COUNT(id_room_reservation) AS 'nbOccupiedSuiteRooms'
+      FROM Room_Reservation RR, Room R WHERE RR.id_room = R.id_room
+      AND R.type = 'suite' AND RR.active IS TRUE;`;
+    database.executeQuery($query, [], callback);
   }
 }
 

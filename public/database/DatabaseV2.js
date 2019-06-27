@@ -65,6 +65,24 @@ class DatabaseV2 {
   }
 
   /**
+   * Inserts a new line inside a table and returns this.lastId in callback
+   * @param $query
+   * @param $params
+   * @param callback
+   */
+  insertQuery($query, $params, callback) {
+    // We execute the query
+    this.db.run($query, $params, function (err) {
+      if (err) {
+        console.log('An error ocurred performing the query.', err, $query);
+        return;
+      }
+      console.log(`A row has been inserted with rowid ${this.lastID}`);
+      callback(this.lastID);
+    });
+  }
+
+  /**
    * Shows all the tables in the current database
    * @param {Function} callback
    */
@@ -97,7 +115,32 @@ class DatabaseV2 {
     }
 
     const sql = `INSERT INTO ${tableName} ${stringArgs} VALUES${stringParams};`;
-    this.executeQuery(sql, params, callback);
+    this.insertQuery(sql, params, (lastID) => {
+      const transData = {};
+      for (let i = 0; i < args.length; i += 1) {
+        transData[args[i]] = params[i];
+      }
+      console.log(transData);
+      switch (tableName) {
+        case 'Room_Reservation': {
+          this.write(
+            'Transactions',
+            ['type', 'amount', 'date', 'payed', 'id_client', 'id_room_reservation'],
+            [tableName, transData.payment_amount, transData.date_reservation, false, transData.id_client, lastID],
+            callback,
+          );
+          break;
+        }
+        default: {
+          callback;
+          break;
+        }
+      }
+    });
+    // this.executeQuery(sql, params, (result) => {
+    //
+    //   callback();
+    // });
   }
 
   /** Equivalent to an UPDATE

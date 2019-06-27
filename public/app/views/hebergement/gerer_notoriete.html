@@ -19,7 +19,61 @@
 
   <!-- BEGIN MAIN -->
   <main>
-    <div class="content"></div>
+    <div class="content">
+      <div class="erpion-subsection">
+        <div class="erpion-subsection__title">Gérer la notoriété :</div>
+      </div>
+      <div class="erpion-container">
+<!--        <div class="rating"></div>-->
+        <div class="row">
+          <form class="col s12" id="formNotoriete">
+            <div class="row">
+              <div class="input-field col s6">
+                <div class="rating" data-column="room"></div>
+                <label class="active">Chambres</label>
+              </div>
+              <div class="input-field col s6">
+                <div class="rating" data-column="services"></div>
+                <label class="active">Services</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <div class="rating" data-column="restaurant"></div>
+                <label class="active">Restaurant</label>
+              </div>
+              <div class="input-field col s6">
+                <div class="rating" data-column="events"></div>
+                <label class="active">Evévenements</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <i class="material-icons prefix">email</i>
+                <input id="email" name="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="material-icons prefix">phone</i>
+                <input id="number" name="number" type="tel" class="validate">
+                <label for="number">Telephone</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="comments" name="comments" class="materialize-textarea"></textarea>
+                <label for="comments">Commentaires</label>
+              </div>
+            </div>
+          </form>
+          <div class="row">
+            <div class="offset-s10 col s2">
+              <button type="button" id="boutonSaveCommentaire" class="btn right-align">Sauvegarder</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <!-- END MAIN -->
 </div>
