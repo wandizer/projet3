@@ -117,31 +117,31 @@ INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUE
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (19, 'Adrien', 'Delachiecca', NULL, 2500, 19);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (20, 'Thomas', 'Santier', NULL, 2500, 20);
 INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (21, 'Thomas', 'Gautier', NULL, 2500, 21);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (22, 'Jacques', 'Dupont', NULL, 2500, 22);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (23, 'Jacques', 'Dupont', NULL, 2500, 23);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (24, 'Jacques', 'Dupont', NULL, 2500, 24);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (25, 'Jacques', 'Dupont', NULL, 2500, 25);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (26, 'Jacques', 'Dupont', NULL, 2500, 26);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (27, 'Jacques', 'Dupont', NULL, 2500, 27);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (28, 'Jacques', 'Dupont', NULL, 2500, 28);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (29, 'Jacques', 'Dupont', NULL, 2500, 29);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (31, 'Jacques', 'Dupont', NULL, 2500, 31);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (32, 'Jacques', 'Dupont', NULL, 2500, 32);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (33, 'Jacques', 'Dupont', NULL, 2500, 33);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (34, 'Jacques', 'Dupont', NULL, 2500, 34);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (35, 'Jacques', 'Dupont', NULL, 2500, 35);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (36, 'Jacques', 'Dupont', NULL, 2500, 36);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (37, 'Jacques', 'Dupont', NULL, 2500, 37);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (38, 'Jacques', 'Dupont', NULL, 2500, 38);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (39, 'Jacques', 'Dupont', NULL, 2500, 39);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (41, 'Jacques', 'Dupont', NULL, 2500, 41);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (42, 'Jacques', 'Dupont', NULL, 2500, 42);
-INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (43, 'Jacques', 'Dupont', NULL, 2500, 43);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (22, 'Karim', 'Jaube', NULL, 2500, 22);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (23, 'Ilma', 'Toumi', NULL, 2500, 23);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (24, 'Joe', 'Pierlivet', NULL, 2500, 24);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (25, 'Romain', 'Deux', NULL, 2500, 25);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (26, 'Jack', 'Rolling', NULL, 2500, 26);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (27, 'Thomas', 'Aube', NULL, 2500, 27);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (28, 'Thomas', 'Manso', NULL, 2500, 28);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (29, 'Mario', 'Cavarlho', NULL, 2500, 29);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (31, 'Melvin', 'Velluet', NULL, 2500, 31);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (32, 'Julie', 'Moricard', NULL, 2500, 32);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (33, 'Sylvain', 'Pasquier', NULL, 2500, 33);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (34, 'Nelson', 'Martins', NULL, 2500, 34);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (35, 'Kevin', 'Gue', NULL, 2500, 35);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (36, 'Nicolas', 'Dudouit', NULL, 2500, 36);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (37, 'Andre', 'Dos Santos', NULL, 2500, 37);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (38, 'Maxime', 'Boulenaz', NULL, 2500, 38);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (39, 'Axel', 'Even', NULL, 2500, 39);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (41, 'Thomas', 'Manso', NULL, 2500, 41);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (42, 'Vitor', 'De Olivera', NULL, 2500, 42);
+INSERT INTO Employe (id_employe, name, surname, birthday, salary, id_role) VALUES (43, 'Kilian', 'Rigot', NULL, 2500, 43);
 
 -- Table: Food_Item
 DROP TABLE IF EXISTS Food_Item;
 CREATE TABLE Food_Item(id_food_item INTEGER  PRIMARY KEY AUTOINCREMENT,name         Varchar (50) NOT NULL ,id_type_food INTEGER NOT NULL ,CONSTRAINT Food_Item_Type_Food_FK FOREIGN KEY (id_type_food) REFERENCES Type_Food(id_type_food));
-INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (1, 'Polet', 1);
+INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (1, 'Poulet', 1);
 INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (2, 'Boeuf', 1);
 INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (3, 'Dinde', 1);
 INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (4, 'Porc', 1);
@@ -185,20 +185,27 @@ INSERT INTO Food_Item (id_food_item, name, id_type_food) VALUES (40, 'Aubergine'
 -- Table: Loisirs
 DROP TABLE IF EXISTS Loisirs;
 CREATE TABLE Loisirs (id_loisir INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100), description TEXT, price DOUBLE NOT NULL, active BOOLEAN NOT NULL DEFAULT (true));
+INSERT INTO Loisirs (id_loisir, title, description, price, active) VALUES (1, 'Massage', NULL, 105.0, 1);
+INSERT INTO Loisirs (id_loisir, title, description, price, active) VALUES (2, 'Piscine', 'Accès piscine', 83.0, 1);
+INSERT INTO Loisirs (id_loisir, title, description, price, active) VALUES (3, 'Jacuzzi', 'Accès Jacuzzi', 83.0, 1);
 
 -- Table: Loisirs_Reservations
 DROP TABLE IF EXISTS Loisirs_Reservations;
 CREATE TABLE Loisirs_Reservations (id_loisirs_reservations INTEGER PRIMARY KEY AUTOINCREMENT, date_reservation TEXT NOT NULL, date_seance TEXT NOT NULL, id_client INTEGER REFERENCES Client (id_client) NOT NULL, id_loisir INTEGER REFERENCES Loisirs (id_loisir));
+INSERT INTO Loisirs_Reservations (id_loisirs_reservations, date_reservation, date_seance, id_client, id_loisir) VALUES (1, '12/06/2019', '16/06/2019', 1, 1);
+INSERT INTO Loisirs_Reservations (id_loisirs_reservations, date_reservation, date_seance, id_client, id_loisir) VALUES (2, '12/06/2019', '16/06/2019', 1, 2);
+INSERT INTO Loisirs_Reservations (id_loisirs_reservations, date_reservation, date_seance, id_client, id_loisir) VALUES (3, '12/06/2019', '16/06/2019', 3, 3);
+INSERT INTO Loisirs_Reservations (id_loisirs_reservations, date_reservation, date_seance, id_client, id_loisir) VALUES (4, '17/06/2019', '19/06/2019', 7, 2);
 
 -- Table: Main_Course
 DROP TABLE IF EXISTS Main_Course;
-CREATE TABLE Main_Course(id_main_course INTEGER  PRIMARY KEY AUTOINCREMENT,name         Varchar (50) NOT NULL );
-INSERT INTO Main_Course (id_main_course, name) VALUES (1, 'Blanquette de veau facile');
-INSERT INTO Main_Course (id_main_course, name) VALUES (2, 'Filet mignon en croûte');
-INSERT INTO Main_Course (id_main_course, name) VALUES (3, 'Lasagnes à la bolognaise');
-INSERT INTO Main_Course (id_main_course, name) VALUES (4, 'Sauté de veau au chorizo');
-INSERT INTO Main_Course (id_main_course, name) VALUES (5, 'Hachis Parmentier');
-INSERT INTO Main_Course (id_main_course, name) VALUES (6, 'Boeuf Bourguignon rapide');
+CREATE TABLE Main_Course (id_main_course INTEGER PRIMARY KEY AUTOINCREMENT, name Varchar (50) NOT NULL, price DOUBLE);
+INSERT INTO Main_Course (id_main_course, name, price) VALUES (1, 'Filet de boeuf de Gambourt, chanterelles, pommes coulis beamaise', 37.0);
+INSERT INTO Main_Course (id_main_course, name, price) VALUES (2, 'Agneau de lait Axuria roti, legumes sautes, petits pois, ail rose confit', 28.0);
+INSERT INTO Main_Course (id_main_course, name, price) VALUES (3, 'Poulet lait poelee, sauce soja, puree de celeri, legumes fondant', 32.0);
+INSERT INTO Main_Course (id_main_course, name, price) VALUES (4, 'Baracouda sauvage de l''atlantique duo d''asperge au beurre blanc fait maison', 54.0);
+INSERT INTO Main_Course (id_main_course, name, price) VALUES (5, 'Saumon de lait Axuria, legumes sautes, petits pois, ail rose confit', 28.0);
+INSERT INTO Main_Course (id_main_course, name, price) VALUES (6, 'Sardines, sauce soja, puree de celeri, legumes fondants', 32.0);
 
 -- Table: Maintenance
 DROP TABLE IF EXISTS Maintenance;
@@ -248,8 +255,8 @@ INSERT INTO Meal_Reservation (id_meal_reservation, id_client, id_day_menu) VALUE
 -- Table: Menu
 DROP TABLE IF EXISTS Menu;
 CREATE TABLE Menu (id_menu INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR (50) NOT NULL, price DOUBLE (50) NOT NULL, id_appetizer INTEGER (11) NOT NULL, id_main_course INTEGER (11) NOT NULL, id_dessert INTEGER (11) NOT NULL, CONSTRAINT Appetizer_FK FOREIGN KEY (id_appetizer) REFERENCES Appetizers (id_appetizer), CONSTRAINT Main_Course_FK FOREIGN KEY (id_main_course) REFERENCES Main_Course (id_main_course), CONSTRAINT Dessert_FK FOREIGN KEY (id_dessert) REFERENCES Dessert (id_dessert));
-INSERT INTO Menu (id_menu, name, price, id_appetizer, id_main_course, id_dessert) VALUES (1, 'Menu Ouverture', 26.0, 1, 1, 1);
-INSERT INTO Menu (id_menu, name, price, id_appetizer, id_main_course, id_dessert) VALUES (2, 'Menu Printemps', 18.0, 2, 2, 2);
+INSERT INTO Menu (id_menu, name, price, id_appetizer, id_main_course, id_dessert) VALUES (1, 'Menu du Roi', 26.0, 1, 3, 1);
+INSERT INTO Menu (id_menu, name, price, id_appetizer, id_main_course, id_dessert) VALUES (2, 'Menu de la Reine', 18.0, 2, 2, 8);
 INSERT INTO Menu (id_menu, name, price, id_appetizer, id_main_course, id_dessert) VALUES (3, 'Menu Flaubert', 25.0, 3, 3, 3);
 INSERT INTO Menu (id_menu, name, price, id_appetizer, id_main_course, id_dessert) VALUES (4, 'Menu Sublime', 31.0, 4, 4, 4);
 INSERT INTO Menu (id_menu, name, price, id_appetizer, id_main_course, id_dessert) VALUES (5, 'Menu Quintaine', 23.0, 5, 5, 5);
@@ -341,66 +348,66 @@ INSERT INTO Role (id_role, name, id_service, permission_level) VALUES (43, 'Ling
 -- Table: Room
 DROP TABLE IF EXISTS Room;
 CREATE TABLE Room (id_room INTEGER  PRIMARY KEY AUTOINCREMENT,number  INTEGER NOT NULL ,floor   Varchar (50) NOT NULL ,price   INTEGER NOT NULL ,type    Varchar (50) NOT NULL );
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (1, 1, '1', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (2, 2, '1', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (3, 3, '1', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (4, 4, '1', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (5, 5, '1', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (6, 6, '1', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (7, 7, '1', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (8, 8, '1', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (9, 9, '1', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (10, 10, '1', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (11, 11, '2', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (12, 12, '2', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (13, 13, '2', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (14, 14, '2', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (15, 15, '2', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (16, 16, '2', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (17, 17, '2', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (18, 18, '2', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (19, 19, '2', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (20, 20, '2', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (21, 21, '3', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (22, 22, '3', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (23, 23, '3', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (24, 24, '3', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (25, 25, '3', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (26, 26, '3', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (27, 27, '3', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (28, 28, '3', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (29, 29, '3', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (30, 30, '3', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (31, 31, '4', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (32, 32, '4', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (33, 33, '4', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (34, 34, '4', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (35, 35, '4', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (36, 36, '4', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (37, 37, '4', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (38, 38, '4', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (39, 39, '4', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (40, 40, '4', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (41, 41, '5', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (42, 42, '5', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (43, 43, '5', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (44, 44, '5', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (45, 45, '5', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (46, 46, '5', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (47, 47, '5', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (48, 48, '5', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (49, 49, '5', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (50, 50, '5', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (51, 51, '6', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (52, 52, '6', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (53, 53, '6', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (54, 54, '6', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (55, 55, '6', 70, 'simple');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (56, 56, '6', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (57, 57, '6', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (58, 58, '6', 95, 'double');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (59, 59, '6', 160, 'suite');
-INSERT INTO Room (id_room, number, floor, price, type) VALUES (60, 60, '6', 160, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (1, 1, '1', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (2, 2, '1', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (3, 3, '1', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (4, 4, '1', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (5, 5, '1', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (6, 6, '1', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (7, 7, '1', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (8, 8, '1', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (9, 9, '1', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (10, 10, '1', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (11, 11, '2', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (12, 12, '2', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (13, 13, '2', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (14, 14, '2', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (15, 15, '2', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (16, 16, '2', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (17, 17, '2', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (18, 18, '2', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (19, 19, '2', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (20, 20, '2', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (21, 21, '3', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (22, 22, '3', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (23, 23, '3', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (24, 24, '3', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (25, 25, '3', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (26, 26, '3', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (27, 27, '3', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (28, 28, '3', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (29, 29, '3', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (30, 30, '3', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (31, 31, '4', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (32, 32, '4', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (33, 33, '4', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (34, 34, '4', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (35, 35, '4', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (36, 36, '4', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (37, 37, '4', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (38, 38, '4', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (39, 39, '4', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (40, 40, '4', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (41, 41, '5', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (42, 42, '5', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (43, 43, '5', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (44, 44, '5', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (45, 45, '5', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (46, 46, '5', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (47, 47, '5', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (48, 48, '5', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (49, 49, '5', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (50, 50, '5', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (51, 51, '6', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (52, 52, '6', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (53, 53, '6', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (54, 54, '6', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (55, 55, '6', 246, 'simple');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (56, 56, '6', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (57, 57, '6', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (58, 58, '6', 332, 'double');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (59, 59, '6', 446, 'suite');
+INSERT INTO Room (id_room, number, floor, price, type) VALUES (60, 60, '6', 446, 'suite');
 
 -- Table: Room_Reservation
 DROP TABLE IF EXISTS Room_Reservation;
@@ -452,10 +459,13 @@ INSERT INTO Service (id_service, name) VALUES (9, 'Salle');
 -- Table: Services_Externes
 DROP TABLE IF EXISTS Services_Externes;
 CREATE TABLE Services_Externes (id_service_externe INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR (100) NOT NULL, phone VARCHAR (100) NOT NULL, price DOUBLE NOT NULL);
+INSERT INTO Services_Externes (id_service_externe, name, phone, price) VALUES (1, 'Taxi', '', 40.0);
+INSERT INTO Services_Externes (id_service_externe, name, phone, price) VALUES (2, 'Medecin', '', 45.0);
 
 -- Table: Services_Externes_Reservations
 DROP TABLE IF EXISTS Services_Externes_Reservations;
 CREATE TABLE Services_Externes_Reservations (id_service_externe_reservation INTEGER PRIMARY KEY AUTOINCREMENT, date_reservation TEXT NOT NULL, date_seance TEXT, id_client INTEGER REFERENCES Client (id_client), id_service_externe INTEGER REFERENCES Services_Externes (id_service_externe));
+INSERT INTO Services_Externes_Reservations (id_service_externe_reservation, date_reservation, date_seance, id_client, id_service_externe) VALUES (1, '18/06/2019', '19/06/2019', 1, 1);
 
 -- Table: Stock
 DROP TABLE IF EXISTS Stock;
@@ -558,7 +568,7 @@ INSERT INTO User (id_user, email, username, password, id_employe) VALUES (5, 'go
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (6, 'chef.maintenance@erpion.fr', 'chef_maintenance', '1234', 6);
 INSERT INTO User (id_user, email, username, password, id_employe) VALUES (7, 'spa.managert@erpion.fr', 'spa_manager', '1234', 7);
 
--- Table: Voyages
+-- Table : Voyages
 DROP TABLE IF EXISTS Voyages;
 CREATE TABLE Voyages (id_voyage INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR (100) NOT NULL, description TEXT, price DOUBLE, photo VARCHAR (100), rating DOUBLE, starting_date TEXT, duration TEXT, id_agence INTEGER REFERENCES Centrales_Reservation (id_centrales_reservation));
 INSERT INTO Voyages (id_voyage, title, description, price, photo, rating, starting_date, duration, id_agence) VALUES (1, 'Minorque', 'Iamque non umbratis fallaciis res agebatur, sed qua palatium est extra muros, armatis omne circumdedit. ingressusque obscuro iam die, ablatis regiis indumentis Caesarem tunica texit et paludamento communi, eum post haec nihil passurum velut mandato principis iurandi crebritate confirmans et statim inquit exsurge et inopinum carpento privato inpositum ad Histriam duxit prope oppidum Polam, ubi quondam peremptum Constantini filium accepimus Crispum.', 874.0, 'minorque1.jpg', 4.5, '01/07/2019', '8d', 1);
